@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:wght@100..900&display=swap');
+@import "tailwindcss";
+
+@theme{
+
+
+  --font-roboto: "Roboto", sans-serif; 
+  --font-poppins: "Poppins", sans-serif;
+
+  --animate-dots: dots 1s ease-in-out infinite;
+  @keyframes dots {
+    0%, 20% { content: ''; }
+    40% { content: '.'; }
+    60% { content: '..'; }
+    80%, 100% { content: '...'; }
+  }
+
+}
+
+.container{
+
+  @apply mx-auto overflow-hidden p-4  max-w-7xl ;
+
+}
+
+.modal{
+
+  @apply h-dvh w-full z-50 fixed inset-0 flex border-none justify-center items-center bg-black/60 transition-all duration-500;
+  
+}
