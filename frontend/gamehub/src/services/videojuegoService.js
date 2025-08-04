@@ -44,3 +44,8 @@ export const editGame= async (id, game, imagen = null ) => {
 
         return response.data;
 }
+
+export const totalGames = async() =>{
+    const response = await axios.get(`${API_URL}/total-videojuegos`);
+    return response.data;
+}
