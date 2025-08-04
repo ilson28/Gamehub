@@ -5,8 +5,39 @@ import { RiHistoryFill } from "react-icons/ri";
 import { CiSearch } from "react-icons/ci";
 
 import Cards from "../components/Card";
+import { useApiRequest } from "../hooks/useApiRequest";
+import { useEffect, useState } from "react";
+import { getTotalGames } from "../services/videojuegoService";
+import { getTotalActiveTransaccions, getTotalSalesToday } from "../services/transaccionService";
+import { VscLoading } from "react-icons/vsc";
 
 const Home = () => {
+
+    const { sendRequest, loading, error, clearError } = useApiRequest();
+
+    const [totalGames, setTotalGames] = useState(0);
+    const [totalSales, setTotalSales] = useState(0);
+    const [totalRentals, setTotalRentals] = useState(0);
+
+    const fetchData = async () => {
+
+        const totalGamesResponse = await sendRequest(() => getTotalGames());
+        setTotalGames(totalGamesResponse.data);
+
+        const totalSalesResponse = await sendRequest(() => getTotalSalesToday());
+        setTotalSales(totalSalesResponse.data);
+
+        const totalRentalsResponse = await sendRequest(() => getTotalActiveTransaccions());
+        setTotalRentals(totalRentalsResponse.data);
+
+    }
+
+    useEffect(() => {
+
+        fetchData();
+        return () => clearError();
+
+    }, []);
 
     return (
         <div className='container'>
@@ -25,7 +56,16 @@ const Home = () => {
 
                     <div className="flex flex-col ">
                         <span className="text-gray-600">Total juegos</span>
-                        <span className="font-bold text-2xl">6</span>
+
+                        {
+                            loading ? (
+                                <div className="flex justify-center items-center">
+                                    <VscLoading className="animate-spin text-2xl" />
+                                </div>
+                            ) : (
+                                <span className="font-bold text-2xl">{totalGames}</span>
+                            )
+                        }
                     </div>
                 </div>
                 <div className='flex items-center gap-3 shadow-lg bg-white rounded-lg p-6 grow'>
@@ -35,7 +75,17 @@ const Home = () => {
 
                     <div className="flex flex-col ">
                         <span className="text-gray-600">Ventas hoy</span>
-                        <span className="font-bold text-2xl">6</span>
+
+                        {
+                            loading ? (
+                                <div className="flex justify-center items-center">
+                                    <VscLoading className="animate-spin text-2xl" />
+                                </div>
+                            ) : (
+                                <span className="font-bold text-2xl">{totalSales}</span>
+                            )
+                        }
+
                     </div>
                 </div>
                 <div className='flex items-center gap-3 shadow-lg bg-white rounded-lg p-6 grow'>
@@ -45,7 +95,15 @@ const Home = () => {
 
                     <div className="flex flex-col ">
                         <span className="text-gray-600">Alquileres Activos</span>
-                        <span className="font-bold text-2xl">6</span>
+                        {
+                            loading ? (
+                                <div className="flex justify-center items-center">
+                                    <VscLoading className="animate-spin text-2xl" />
+                                </div>
+                            ) : (
+                                <span className="font-bold text-2xl">{totalRentals}</span>
+                            )
+                        }
                     </div>
                 </div>
                 <div className='flex items-center gap-3 shadow-lg bg-white rounded-lg p-6 grow'>

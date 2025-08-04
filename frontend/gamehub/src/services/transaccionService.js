@@ -7,7 +7,7 @@ export const getTotalActiveTransaccions = async () => {
     return response.data;
 }
 
-export const totalSalesToday = async () => {
+export const getTotalSalesToday = async () => {
     const response = await axios.get(`${API_URL}/total-sales-today`);
     return response.data;
 }
