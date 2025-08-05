@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -80,6 +81,28 @@ public class TransaccionController {
                 "Total sales today retrieved successfully",
                 total);
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/type/{tipo}/{fecha}")
+    public ResponseEntity<ApiResponse<?>> findByTipo(@PathVariable String tipo,
+            @PathVariable(required = false) LocalDate fecha) {
+
+        ApiResponse<List<TransaccionDto>> response = new ApiResponse<>("Data retrieved seccessfully",
+                transaccionService.findByTipo(tipo, fecha));
+
+        return ResponseEntity.ok(response);
+
+    }
+
+    @GetMapping("/alquiler/{estado}/{fecha}")
+    public ResponseEntity<ApiResponse<?>> findAlquilerByEstado(@PathVariable String estado,
+            @PathVariable(required = false) LocalDate fecha) {
+
+        ApiResponse<List<TransaccionDto>> response = new ApiResponse<>("Data retrieved seccessfully",
+                transaccionService.findAlquilerByEstado(estado, fecha));
+
+        return ResponseEntity.ok(response);
+
     }
 
     @PostMapping

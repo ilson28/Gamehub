@@ -110,4 +110,20 @@ public class TransaccionServiceImpl implements TransaccionService {
         return this.transaccionRepository.totalSalesToday(LocalDate.now());
     }
 
+    @Override
+    public List<TransaccionDto> findByTipo(String tipo, LocalDate fecha) {
+
+        return transaccionRepository.findByTipo(tipo, fecha).stream()
+                .map(TransaccionMapper.INSTANCE::toTransaccionDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<TransaccionDto> findAlquilerByEstado(String estado, LocalDate fecha) {
+
+        return transaccionRepository.findAlquilerByEstado(estado, fecha).stream()
+                .map(TransaccionMapper.INSTANCE::toTransaccionDto)
+                .collect(Collectors.toList());
+    }
+
 }
