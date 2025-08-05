@@ -1,5 +1,8 @@
 package com.gameHub.app.presentation.dto;
 
+import com.gameHub.app.persistence.entity.VideoJuego;
+
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,6 +22,10 @@ public class Trans_juegoResponseDto {
 
     private double total;
 
+    @NotNull
+    @Positive
     private Integer gameId;
+
+    private VideoJuego videoJuego;
 
 }

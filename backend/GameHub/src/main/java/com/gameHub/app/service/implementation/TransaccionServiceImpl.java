@@ -2,34 +2,37 @@ package com.gameHub.app.service.implementation;
 
 import com.gameHub.app.persistence.entity.Cliente;
 import com.gameHub.app.persistence.entity.Transaccion;
+import com.gameHub.app.persistence.entity.VideoJuego;
 import com.gameHub.app.persistence.repository.ClienteRepository;
 import com.gameHub.app.persistence.repository.TransaccionRepository;
+import com.gameHub.app.persistence.repository.VideoJuegoRepository;
 import com.gameHub.app.presentation.dto.TransaccionRequestDto;
 import com.gameHub.app.service.exception.ResourceNotFoundException;
 import com.gameHub.app.service.interfaces.TransaccionService;
 import com.gameHub.app.util.mapper.ClienteMapper;
 import com.gameHub.app.util.mapper.TransaccionMapper;
 
+import lombok.RequiredArgsConstructor;
+
 import java.time.LocalDate;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class TransaccionServiceImpl implements TransaccionService {
 
-    TransaccionRepository transaccionRepository;
+    public final TransaccionRepository transaccionRepository;
 
-    ClienteRepository clienteRepository;
+    public final ClienteRepository clienteRepository;
 
-    public TransaccionServiceImpl(TransaccionRepository transaccionRepository, ClienteRepository clienteRepository) {
-        this.transaccionRepository = transaccionRepository;
-        this.clienteRepository = clienteRepository;
-    }
+    public final VideoJuegoRepository videoJuegoRepository;
 
     @Transactional(readOnly = true)
     @Override
@@ -74,6 +77,12 @@ public class TransaccionServiceImpl implements TransaccionService {
 
         cliente = clienteOptional.orElseGet(
                 () -> this.clienteRepository.save(ClienteMapper.INSTANCE.toCliente(transaccionDto.getCliente())));
+
+        transaccionDto.getTrans_juegos().stream().forEach(trans -> {
+            trans.setVideoJuego(this.videoJuegoRepository.findById(trans.getGameId())
+                    .orElseThrow(
+                            () -> new ResourceNotFoundException("Videjuego not found with id " + trans.getGameId())));
+        });
 
         Transaccion transaccion = TransaccionMapper.INSTANCE.toTransaccion(transaccionDto);
         transaccion.getTransJuegos().forEach(t -> t.setTransaccion(transaccion));
