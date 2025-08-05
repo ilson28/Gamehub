@@ -3,10 +3,15 @@ package com.gameHub.app.presentation.dto;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.Future;
-import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Builder
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class TransaccionResponseDto {
     private Integer id;
 
