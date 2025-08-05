@@ -27,4 +27,14 @@ public interface TransaccionRepository extends JpaRepository<Transaccion, Intege
     @Query("SELECT COUNT(t) FROM Transaccion t WHERE t.tipo = 'venta' AND t.estado = 'activo' AND t.activo = 1 AND t.fechaTrans = :today")
     Long totalSalesToday(LocalDate today);
 
+    @Query("SELECT t FROM Transaccion t WHERE t.activo = 1 " +
+            "AND t.tipo = :tipo " +
+            "AND (:fecha IS NULL OR t.fechaTrans = :fecha)")
+    List<Transaccion> findByTipo(String tipo, LocalDate fecha);
+
+    @Query("SELECT t FROM Transaccion t WHERE t.activo = 1 AND t.tipo = 'alquiler' " +
+            "AND t.estado = :estado " +
+            "AND (:fecha IS NULL OR t.fechaTrans = :fecha)")
+    List<Transaccion> findAlquilerByEstado(String estado, LocalDate fecha);
+
 }
