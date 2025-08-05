@@ -31,11 +31,6 @@ public class TransaccionRequestDto {
     @NotBlank
     private String estado;
 
-    private double total;
-
-    private LocalDate fechaTrans;
-    private LocalTime hora;
-
     @Future
     private LocalDate fechaDev;
 
@@ -43,6 +38,6 @@ public class TransaccionRequestDto {
     private ClienteDto cliente;
 
     @NotEmpty
-    private List<Trans_juegoResponseDto> trans_juegos;
+    private List<Trans_juegoResponseDto> transJuegos;
 
 }

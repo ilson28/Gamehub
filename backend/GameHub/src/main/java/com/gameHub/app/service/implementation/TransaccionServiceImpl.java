@@ -77,7 +77,7 @@ public class TransaccionServiceImpl implements TransaccionService {
         cliente = clienteOptional.orElseGet(
                 () -> this.clienteRepository.save(ClienteMapper.INSTANCE.toCliente(transaccionDto.getCliente())));
 
-        transaccionDto.getTrans_juegos().stream().forEach(trans -> {
+        transaccionDto.getTransJuegos().stream().forEach(trans -> {
             trans.setVideoJuego(this.videoJuegoRepository.findById(trans.getGameId())
                     .orElseThrow(
                             () -> new ResourceNotFoundException("Videjuego not found with id " + trans.getGameId())));
