@@ -1,7 +1,7 @@
 package com.gameHub.app.presentation.controller;
 
 import com.gameHub.app.persistence.entity.Transaccion;
-import com.gameHub.app.presentation.dto.TransaccionDto;
+import com.gameHub.app.presentation.dto.TransaccionRequestDto;
 import com.gameHub.app.service.exception.ResourceNotFoundException;
 import com.gameHub.app.service.interfaces.ClienteService;
 import com.gameHub.app.service.interfaces.TransaccionService;
@@ -30,7 +30,7 @@ public class TransaccionController {
     }
 
     @GetMapping
-    public ResponseEntity<List<TransaccionDto>> getAll() {
+    public ResponseEntity<List<TransaccionRequestDto>> getAll() {
 
         return ResponseEntity.ok(transaccionService.findAll());
     }
@@ -42,13 +42,13 @@ public class TransaccionController {
     }
 
     @GetMapping("/ordered")
-    public ResponseEntity<List<TransaccionDto>> getAllOrderByIdDesc() {
+    public ResponseEntity<List<TransaccionRequestDto>> getAllOrderByIdDesc() {
 
         return ResponseEntity.ok(transaccionService.findAllOrderByIdDesc());
     }
 
     @GetMapping("/cliente/{id}")
-    public ResponseEntity<List<TransaccionDto>> getByClienteId(@PathVariable Integer id) {
+    public ResponseEntity<List<TransaccionRequestDto>> getByClienteId(@PathVariable Integer id) {
 
         clienteService.findById(id).orElseThrow(() -> new ResourceNotFoundException("Cliente", "Id", id));
 
@@ -56,9 +56,9 @@ public class TransaccionController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TransaccionDto> getById(@PathVariable Integer id) {
+    public ResponseEntity<TransaccionRequestDto> getById(@PathVariable Integer id) {
 
-        TransaccionDto transaccionDto = transaccionService.findById(id).orElseThrow();
+        TransaccionRequestDto transaccionDto = transaccionService.findById(id).orElseThrow();
         return ResponseEntity.ok(transaccionDto);
 
     }
@@ -87,7 +87,7 @@ public class TransaccionController {
     public ResponseEntity<ApiResponse<?>> findByTipo(@PathVariable String tipo,
             @PathVariable(required = false) LocalDate fecha) {
 
-        ApiResponse<List<TransaccionDto>> response = new ApiResponse<>("Data retrieved seccessfully",
+        ApiResponse<List<TransaccionRequestDto>> response = new ApiResponse<>("Data retrieved seccessfully",
                 transaccionService.findByTipo(tipo, fecha));
 
         return ResponseEntity.ok(response);
@@ -98,7 +98,7 @@ public class TransaccionController {
     public ResponseEntity<ApiResponse<?>> findAlquilerByEstado(@PathVariable String estado,
             @PathVariable(required = false) LocalDate fecha) {
 
-        ApiResponse<List<TransaccionDto>> response = new ApiResponse<>("Data retrieved seccessfully",
+        ApiResponse<List<TransaccionRequestDto>> response = new ApiResponse<>("Data retrieved seccessfully",
                 transaccionService.findAlquilerByEstado(estado, fecha));
 
         return ResponseEntity.ok(response);
@@ -106,17 +106,17 @@ public class TransaccionController {
     }
 
     @PostMapping
-    public ResponseEntity<TransaccionDto> create(@RequestBody @Valid TransaccionDto transaccion) {
+    public ResponseEntity<TransaccionRequestDto> create(@RequestBody @Valid TransaccionRequestDto transaccion) {
 
         return new ResponseEntity<>(transaccionService.save(transaccion), HttpStatus.CREATED);
 
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TransaccionDto> update(@PathVariable Integer id,
-            @RequestBody @Valid TransaccionDto transaccionDto) {
+    public ResponseEntity<TransaccionRequestDto> update(@PathVariable Integer id,
+            @RequestBody @Valid TransaccionRequestDto transaccionDto) {
 
-        TransaccionDto transaccion = transaccionService.findById(id).orElseThrow();
+        TransaccionRequestDto transaccion = transaccionService.findById(id).orElseThrow();
 
         transaccionDto.setId(transaccion.getId());
 

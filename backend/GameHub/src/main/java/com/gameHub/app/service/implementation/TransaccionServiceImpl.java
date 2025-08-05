@@ -4,7 +4,7 @@ import com.gameHub.app.persistence.entity.Cliente;
 import com.gameHub.app.persistence.entity.Transaccion;
 import com.gameHub.app.persistence.repository.ClienteRepository;
 import com.gameHub.app.persistence.repository.TransaccionRepository;
-import com.gameHub.app.presentation.dto.TransaccionDto;
+import com.gameHub.app.presentation.dto.TransaccionRequestDto;
 import com.gameHub.app.service.exception.ResourceNotFoundException;
 import com.gameHub.app.service.interfaces.TransaccionService;
 import com.gameHub.app.util.mapper.ClienteMapper;
@@ -33,7 +33,7 @@ public class TransaccionServiceImpl implements TransaccionService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<TransaccionDto> findAll() {
+    public List<TransaccionRequestDto> findAll() {
 
         return transaccionRepository.findAll().stream()
                 .map(TransaccionMapper.INSTANCE::toTransaccionDto)
@@ -42,7 +42,7 @@ public class TransaccionServiceImpl implements TransaccionService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<TransaccionDto> findAllOrderByIdDesc() {
+    public List<TransaccionRequestDto> findAllOrderByIdDesc() {
 
         return transaccionRepository.findByOrderByIdDesc().stream()
                 .map(TransaccionMapper.INSTANCE::toTransaccionDto)
@@ -57,7 +57,7 @@ public class TransaccionServiceImpl implements TransaccionService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<TransaccionDto> findByIdCliente(Integer id) {
+    public List<TransaccionRequestDto> findByIdCliente(Integer id) {
 
         clienteRepository.findById(id);
         return transaccionRepository.findByIdCliente(id).stream()
@@ -67,7 +67,7 @@ public class TransaccionServiceImpl implements TransaccionService {
 
     @Transactional
     @Override
-    public TransaccionDto save(TransaccionDto transaccionDto) {
+    public TransaccionRequestDto save(TransaccionRequestDto transaccionDto) {
 
         Cliente cliente = null;
         Optional<Cliente> clienteOptional = this.clienteRepository.findById(transaccionDto.getCliente().getCedula());
@@ -84,7 +84,7 @@ public class TransaccionServiceImpl implements TransaccionService {
 
     @Transactional(readOnly = true)
     @Override
-    public Optional<TransaccionDto> findById(Integer id) {
+    public Optional<TransaccionRequestDto> findById(Integer id) {
 
         return Optional.ofNullable(TransaccionMapper.INSTANCE
                 .toTransaccionDto(transaccionRepository.findById(id)
@@ -111,7 +111,7 @@ public class TransaccionServiceImpl implements TransaccionService {
     }
 
     @Override
-    public List<TransaccionDto> findByTipo(String tipo, LocalDate fecha) {
+    public List<TransaccionRequestDto> findByTipo(String tipo, LocalDate fecha) {
 
         return transaccionRepository.findByTipo(tipo, fecha).stream()
                 .map(TransaccionMapper.INSTANCE::toTransaccionDto)
@@ -119,7 +119,7 @@ public class TransaccionServiceImpl implements TransaccionService {
     }
 
     @Override
-    public List<TransaccionDto> findAlquilerByEstado(String estado, LocalDate fecha) {
+    public List<TransaccionRequestDto> findAlquilerByEstado(String estado, LocalDate fecha) {
 
         return transaccionRepository.findAlquilerByEstado(estado, fecha).stream()
                 .map(TransaccionMapper.INSTANCE::toTransaccionDto)

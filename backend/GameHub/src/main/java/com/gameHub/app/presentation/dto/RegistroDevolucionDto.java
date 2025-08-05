@@ -19,7 +19,7 @@ public class RegistroDevolucionDto {
     private Integer id;
 
     @Valid
-    private TransaccionDto transaccion;
+    private TransaccionRequestDto transaccion;
     private LocalDate fecha;
     private LocalTime hora;
 

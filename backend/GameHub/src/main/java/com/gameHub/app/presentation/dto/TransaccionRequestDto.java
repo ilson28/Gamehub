@@ -22,7 +22,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class TransaccionDto {
+public class TransaccionRequestDto {
 
     private Integer id;
 
@@ -35,18 +35,15 @@ public class TransaccionDto {
     private double total;
 
     private LocalDate fechaTrans;
+    private LocalTime hora;
 
-    @NotNull
     @Future
     private LocalDate fechaDev;
-
-    private LocalTime hora;
 
     @Valid
     private ClienteDto cliente;
 
     @NotEmpty
-    @Valid
-    private List<Trans_juegoDto> transJuegos;
+    private List<Trans_juegoResponseDto> trans_juegos;
 
 }

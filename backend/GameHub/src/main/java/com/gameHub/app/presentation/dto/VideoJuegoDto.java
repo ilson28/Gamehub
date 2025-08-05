@@ -11,13 +11,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.validation.annotation.Validated;
 
 import com.gameHub.app.util.enums.Plataforma;
 
 @Builder
 @Data
-@Validated
 @NoArgsConstructor
 @AllArgsConstructor
 public class VideoJuegoDto {

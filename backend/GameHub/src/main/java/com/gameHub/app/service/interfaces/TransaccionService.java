@@ -1,7 +1,7 @@
 package com.gameHub.app.service.interfaces;
 
 import com.gameHub.app.persistence.entity.Transaccion;
-import com.gameHub.app.presentation.dto.TransaccionDto;
+import com.gameHub.app.presentation.dto.TransaccionRequestDto;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -9,25 +9,25 @@ import java.util.Optional;
 
 public interface TransaccionService {
 
-    List<TransaccionDto> findAll();
+    List<TransaccionRequestDto> findAll();
 
-    List<TransaccionDto> findAllOrderByIdDesc();
+    List<TransaccionRequestDto> findAllOrderByIdDesc();
 
     List<Transaccion> findAllWithTransJuego();
 
-    List<TransaccionDto> findByIdCliente(Integer id);
+    List<TransaccionRequestDto> findByIdCliente(Integer id);
 
-    List<TransaccionDto> findByTipo(String tipo, LocalDate fecha);
+    List<TransaccionRequestDto> findByTipo(String tipo, LocalDate fecha);
 
-    List<TransaccionDto> findAlquilerByEstado(String estado, LocalDate fecha);
+    List<TransaccionRequestDto> findAlquilerByEstado(String estado, LocalDate fecha);
 
     Long totalActiveAlquilerTransaccions();
 
     Long totalSalesToday();
 
-    TransaccionDto save(TransaccionDto transaccion);
+    TransaccionRequestDto save(TransaccionRequestDto transaccion);
 
-    Optional<TransaccionDto> findById(Integer id);
+    Optional<TransaccionRequestDto> findById(Integer id);
 
     void delete(Integer id);
 
