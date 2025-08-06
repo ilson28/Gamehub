@@ -28,9 +28,6 @@ public class TransaccionRequestDto {
     @NotBlank
     private String tipo;
 
-    @NotBlank
-    private String estado;
-
     @Future
     private LocalDate fechaDev;
 

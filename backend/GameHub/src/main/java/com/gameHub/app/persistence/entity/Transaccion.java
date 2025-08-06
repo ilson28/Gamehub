@@ -43,6 +43,22 @@ public class Transaccion {
     private List<Trans_juego> transJuegos;
 
     public double calcularTotal() {
+
+        if (this.tipo.equals("venta")) {
+            this.setEstado("vendido");
+
+            this.getTransJuegos().forEach(t -> {
+                Double totalTransJuego = t.getCant() * t.getVideoJuego().getPrecioVenta();
+                t.setTotal(totalTransJuego);
+            });
+        } else {
+            this.setEstado("alquilado");
+            this.getTransJuegos().forEach(t -> {
+                Double totalTransJuego = t.getCant() * t.getVideoJuego().getPrecioAlquiler();
+                t.setTotal(totalTransJuego);
+            });
+
+        }
         return getTransJuegos().stream().mapToDouble(Trans_juego::getTotal).sum();
     }
 
@@ -50,7 +66,8 @@ public class Transaccion {
     public void prePersist() {
         this.fechaTrans = LocalDate.now();
         this.hora = LocalTime.now();
-        // this.total = calcularTotal();
+        this.setActivo(1);
+        this.total = calcularTotal();
     }
 
 }
