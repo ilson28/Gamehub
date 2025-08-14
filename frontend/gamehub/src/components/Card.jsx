@@ -2,34 +2,41 @@ import Videojuego from "./Videojuego"
 
 import { getGames } from "../services/videojuegoService";
 
-import { useEffect, useState } from "react";
-import { useApiRequest } from "../hooks/useApiRequest";
+import { useQuery } from "@tanstack/react-query"; // Importamos React Query
 
 
 const Cards = () => {
 
-    const { loading, error, sendRequest } = useApiRequest();
+    // Usamos React Query para manejar la petición a la API de videojuegos
+    // Esto nos permite manejar el estado de carga, error y datos de manera más eficiente
+    const { data: videojuegos = [], isLoading, isError } = useQuery({
+        queryKey: ['videojuegos'],
+        queryFn: getGames,
+        select: (response) => response.success ? response.data : []
 
-    const [videojuegos, setVideojuegos] = useState([]);
+    })
 
-    const fetchData = async () => {
+    // forma anterior de realizar la petición a la API para  obtener los videojuegos, ahora se usa React Query 
+    // const { loading, error, sendRequest } = useApiRequest();
+    // const [videojuegos, setVideojuegos] = useState([]);
+    // const fetchData = async () => {
 
-        // Llamada a la API para obtener los videojuegos
-        const response = await sendRequest(() => getGames());
+    //     // Llamada a la API para obtener los videojuegos
+    //     const response = await sendRequest(() => getGames());
 
-        if (response.success) {
-            setVideojuegos(response.data);
-        } else {
-            console.error("Error al obtener los videojuegos:", response.message);
-        }
-    }
+    //     if (response.success) {
+    //         setVideojuegos(response.data);
+    //     } else {
+    //         console.error("Error al obtener los videojuegos:", response.message);
+    //     }
+    // }
 
-    useEffect(() => {
-        fetchData();
-    }, []);
+    // useEffect(() => {
+    //     fetchData();
+    // }, []);
 
 
-    if (loading) {
+    if (isLoading) {
         // Mostrar un spinner o mensaje de carga mientras se obtienen los videojuegos
         return (
             <div className="container mt-10 flex justify-center items-center flex-col gap-4 text-gray-600">
@@ -38,6 +45,15 @@ const Cards = () => {
                 </div>
                 <p className="text-xl font-semibold after:content-[''] after:animate-dots">Cargando juegos</p>
                 <p>Preparando tu biblioteca</p>
+            </div>
+        )
+    }
+    if (isError) {
+        return (
+            <div className="container mt-10 flex justify-center items-center flex-col gap-4 text-red-600">
+                <div className="text-6xl">❌</div>
+                <p className="text-xl font-semibold">Error al obtener los videojuegos</p>
+                <p>{error.message}</p>
             </div>
         )
     }
