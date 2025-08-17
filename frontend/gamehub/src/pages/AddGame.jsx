@@ -1,101 +1,85 @@
 import { createGame, editGame, getGameById } from "../services/videojuegoService";
 import GameForm from "../components/GameForm";
-import { useParams } from "react-router-dom";
-import { useApiRequest } from "../hooks/useApiRequest";
+import { useParams, useNavigate } from "react-router-dom";
 import gta from "../assets/img/gta.jpg";
-
 import { useEffect, useRef, useState } from "react";
 import GameModal from "../components/GameModal";
-
-import { useNavigate } from "react-router-dom";
 import ErrorModal from "../components/ErrorModal";
 import useModalContext from "../components/modal/context/useModalContext";
 import Modal from "../components/modal/Modal";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 const AddGame = () => {
-
-    const formRef = useRef(); //  ref para GameForm
-    const [game, setGame] = useState(null); // Estado para almacenar el videojuego agregado
+    const formRef = useRef();
+    const [game, setGame] = useState(null);
     const navigate = useNavigate();
     const { gameId } = useParams();
-    const { setState } = useModalContext(); // Para manejar el estado del modal
-    const { loading, error, sendRequest, clearError } = useApiRequest();// Hook personalizado para manejar peticiones http.
+    const { setState } = useModalContext();
+    const queryClient = useQueryClient();
 
-    const fetchGame = async (id) => {
+    // Obtener videojuego si estamos en modo edición
+    const { data: gameData, isLoading: loadingGame } = useQuery({
+        queryKey: ["game", gameId],
+        queryFn: () => getGameById(gameId),
+        enabled: !!gameId
+    });
 
-        const response = await sendRequest(() => getGameById(id));
-        if (response?.success) {
-            formRef.current?.resetData(response.data); // Resetear el formulario con los datos del videojuego
-            // console.log("Videojuego obtenido exitosamente", response.data);
+    // Mutación para crear/editar videojuego
+    const mutation = useMutation({
+        mutationFn: ({ id, data, img }) => {
+            return id ? editGame(id, data, img) : createGame(data, img);
+        },
+        onSuccess: (response) => {
+            const message = gameId
+                ? `Videojuego editado exitosamente id:${gameId}`
+                : "Videojuego agregado exitosamente";
+            console.log(message, response.data);
+
+            setGame(response.data);
+            setState(true);
+            queryClient.invalidateQueries(["games"]);
         }
+    });
 
-    }
+    // Prellenar formulario en modo edición
+    useEffect(() => {
+        if (gameData?.success) {
+            formRef.current?.resetData(gameData.data);
+        }
+    }, [gameData]);
 
     const handleCloseModal = () => {
 
+        formRef.current?.resetForm();
         if (gameId) {
-            navigate("/add-game"); // Cambia la URL para ir a modo crear
+            navigate("/add-game");
         }
         setGame(null);
-        clearError(); // Limpiar el error si lo hay
-        setState(false); // Cerrar el modal
-    }
-
-
-    useEffect(() => {
-        if (gameId) {
-            fetchGame(gameId);
-        }
-    }, [gameId]);
-
-    useEffect(() => {
-        if (error) setState(true); // Abrir el modal de error si hay un error
-
-    }, [error])
-
-
-    const onSubmit = async (data) => {
-
-        let response;
-        const img = data.imagen;
-        delete data.imagen; // Eliminar la propiedad imagen del objeto data
-
-        // Si hay gameId, significa que estamos editando un videojuego existente
-        gameId ? response = await sendRequest(() => editGame(gameId, data, img))
-            : response = await sendRequest(() => createGame(data, img));
-
-
-        if (response?.success) {
-
-            const message = gameId ? `Videojuego editado exitosamente id:${gameId}` : "Videojuego agregado exitosamente";
-            console.log(message, response.data);
-            setGame(response.data); // Guardar el videojuego en el estado para mostrar en el modal
-            formRef.current?.resetForm(); // Resetear el formulario después de agregar el videojuego
-            setState(true); // Abrir el modal para mostrar el videojuego agregado
-        }
-
+        setState(false);
     };
 
+    const onSubmit = (data) => {
+        const img = data.imagen;
+        delete data.imagen;
+        mutation.mutate({ id: gameId, data, img });
+    };
 
     return (
         <div className="container w-3/4">
-
-
-            <div className="flex flex-col gap-3 p-4 shadow-lg bg-white rounded-lg mt-5 ">
-
-                <h2 className='text-3xl font-bold text-gray-900'> {gameId ? "Editar" : "Agregar nuevo"} Videojuego</h2>
+            <div className="flex flex-col gap-3 p-4 shadow-lg bg-white rounded-lg mt-5">
+                <h2 className='text-3xl font-bold text-gray-900'>
+                    {gameId ? "Editar" : "Agregar nuevo"} Videojuego
+                </h2>
                 <p className='text-gray-600'>Completa todos los campos para registrar un nuevo videojuego</p>
             </div>
 
-            <div className="my-12 px-5 py-6 bg-white shadow-md rounded-lg ">
-
+            <div className="my-12 px-5 py-6 bg-white shadow-md rounded-lg">
                 <GameForm
-
                     mode={gameId ? "edit" : "create"}
                     onSubmit={onSubmit}
-                    loading={loading}
-                    ref={formRef} />
-
+                    loading={loadingGame || mutation.isPending}
+                    ref={formRef}
+                />
             </div>
 
             <Modal>
@@ -107,18 +91,15 @@ const AddGame = () => {
                     />
                 )}
 
-                {error && !game && (
+                {mutation.isError && !game && (
                     <ErrorModal
-                        open={!!error}
+                        open={!!mutation.error}
                         onClose={handleCloseModal}
                     />
                 )}
             </Modal>
+        </div>
+    );
+};
 
-
-
-        </div >
-    )
-}
-
-export default AddGame
+export default AddGame;
