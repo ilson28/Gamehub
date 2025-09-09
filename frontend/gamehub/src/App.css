@@ -28,3 +28,7 @@
   @apply h-dvh w-full z-50 fixed inset-0 flex border-none justify-center items-center bg-black/60 transition-all duration-500;
   
 }
+th, td{
+  @apply py-3 font-normal rounded border-b border-gray-200
+}
+
