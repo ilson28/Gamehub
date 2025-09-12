@@ -58,6 +58,17 @@ public class VidejuegoController {
 
     }
 
+    @GetMapping("/total-stock")
+    public ResponseEntity<ApiResponse<Long>> totalStock() {
+        Long totalStock = videoJuegoService.TotalStock();
+        ApiResponse<Long> response = new ApiResponse<>(
+                "Total stock retrieved successfully",
+                totalStock);
+
+        return ResponseEntity.ok(response);
+
+    }
+
     @PostMapping
     public ResponseEntity<ApiResponse<?>> create(
             @RequestPart("videoJuegoDto") @Valid VideoJuegoDto videoJuegoDto,

@@ -15,6 +15,8 @@ public interface VideoJuegoService {
 
     Optional<VideoJuegoDto> save(VideoJuegoDto videoJuego, MultipartFile imagen);
 
+    Long TotalStock();
+
     void delete(Integer id);
 
     Long totalVideojuegos();

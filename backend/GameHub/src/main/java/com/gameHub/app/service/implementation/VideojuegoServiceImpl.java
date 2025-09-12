@@ -94,4 +94,10 @@ public class VideojuegoServiceImpl implements VideoJuegoService {
         // Llamar al repositorio para obtener el total de videojuegos activos
         return this.videoJuegoRepository.totalVideojuegos();
     }
+
+    @Override
+    public Long TotalStock() {
+
+        return this.videoJuegoRepository.TotalStock();
+    }
 }
