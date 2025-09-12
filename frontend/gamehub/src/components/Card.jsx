@@ -10,7 +10,7 @@ const Cards = () => {
     // Usamos React Query para manejar la petición a la API de videojuegos
     // Esto nos permite manejar el estado de carga, error y datos de manera más eficiente
     const { data: videojuegos = [], isLoading, isError } = useQuery({
-        queryKey: ['videojuegos'],
+        queryKey: ['games'],
         queryFn: getGames,
         select: (response) => response.success ? response.data : []
 
