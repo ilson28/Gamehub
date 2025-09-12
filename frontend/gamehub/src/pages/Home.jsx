@@ -5,7 +5,7 @@ import { RiHistoryFill } from "react-icons/ri";
 import { CiSearch } from "react-icons/ci";
 
 import Cards from "../components/Card";
-import { getTotalGames } from "../services/videojuegoService";
+import { getTotalGames, getTotalStock } from "../services/videojuegoService";
 import { getTotalActiveTransaccions, getTotalSalesToday } from "../services/transaccionService";
 import { VscLoading } from "react-icons/vsc";
 
@@ -33,6 +33,15 @@ const Home = () => {
         queryFn: getTotalActiveTransaccions,
         select: (res) => res.data
     });
+
+    //  Stock total
+
+    const { data: totalStock = 0, isLoading: loadingStock } = useQuery({
+
+        queryKey: ['totalStock'],
+        queryFn: getTotalStock,
+        select: (res) => res.data
+    })
 
 
 
@@ -145,7 +154,16 @@ const Home = () => {
 
                     <div className="flex flex-col ">
                         <span className="text-gray-600">Stock Total</span>
-                        <span className="font-bold text-2xl">6</span>
+
+                        {
+                            loadingStock ?
+                                <div className="flex justify-center items-center">
+                                    <VscLoading className="animate-spin text-2xl" />
+                                </div>
+                                :
+                                <span className="font-bold text-2xl">{totalStock}</span>
+
+                        }
                     </div>
                 </div>
 
