@@ -2,7 +2,7 @@ import { clsx } from "clsx";
 import { twMerge } from 'tailwind-merge'
 import { useState } from "react";
 import { FaCartShopping } from "react-icons/fa6"
-import { IoTimeSharp } from "react-icons/io5";
+import { IoCart, IoTimeSharp } from "react-icons/io5";
 
 
 
@@ -69,7 +69,7 @@ const History = () => {
 
                         <div className="flex items-center gap-3 text-black font-semibold">
                             <IoTimeSharp color="blue" />
-                            <span>Historial de Ventas</span>
+                            <span>Historial de Alquileres</span>
                         </div>
 
                     }
@@ -93,14 +93,17 @@ const History = () => {
                 <div className="overflow-x-auto">
                     <table className="w-full text-left">
 
-                        <thead className="bg-gray-100 text-gray-600 ">
+                        <thead className="bg-gray-100 text-gray-500 ">
                             <tr>
                                 <th className="pl-8">Fecha y Hora </th>
                                 <th>Cédula Cliente</th>
                                 <th>Tipo</th>
                                 <th>Total</th>
                                 <th>Fecha Devolución</th>
-                                <th>Estado</th>
+
+                                {tabActive === "rent" &&
+                                    <th>Estado</th>
+                                }
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -114,26 +117,33 @@ const History = () => {
                                     </div>
                                 </td>
                                 <td>11223344</td>
-                                <td><span className="bg-blue-200 text-blue-900 font-medium rounded-xl px-2">alquiler</span></td>
-                                <td>$15.000</td>
-                                <td>20/07/2025</td>
-                                <td>activo</td>
-                                <td></td>
-                            </tr>
-                            <tr>
                                 <td>
-                                    <div className="flex flex-col gap-1 pl-8 text-sm">
-                                        <span>13/07/2025</span>
-                                        <span className="text-gray-500">16:20</span>
+                                    <div className={clsx("flex items-center gap-1 w-min px-2 py-0.5 text-xs font-medium rounded-xl",
+                                        tabActive === "sale" ? "bg-green-100 text-green-800" : "bg-blue-100 text-blue-800"
+
+                                    )}>
+                                        {
+                                            tabActive === "sale" ?
+                                                <IoCart size={18} />
+                                                :
+                                                <IoTimeSharp size={18} />}
+                                        alquiler
                                     </div>
                                 </td>
-                                <td>11223344</td>
-                                <td><span className="bg-blue-200 text-blue-900 font-medium rounded-xl px-2">alquiler</span></td>
                                 <td>$15.000</td>
                                 <td>20/07/2025</td>
-                                <td>activo</td>
+                                {
+                                    tabActive === "rent" &&
+                                    <td>
+                                        <div className="flex items-center gap-1 w-min px-2 py-0.5 bg-yellow-100 text-xs text-yellow-800 font-medium rounded-xl">
+                                            <IoTimeSharp size={18} />
+                                            activo
+                                        </div>
+                                    </td>}
                                 <td></td>
                             </tr>
+
+
 
                         </tbody>
 
