@@ -14,8 +14,12 @@ export const getTotalSalesToday = async () => {
 
 export const getTransactionsForType = async (type, date) => {
 
-    const response = await axios.get(`${API_URL}/type/${type}/${date}`);
-    return response.data;
+    const url = date
+    ? `${API_URL}/type/${type}?fecha=${date}`
+    : `${API_URL}/type/${type}`;
+
+  const response = await axios.get(url);
+  return response.data;
 
 }
 

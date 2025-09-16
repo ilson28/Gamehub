@@ -4,16 +4,24 @@ import { useState } from "react";
 import { FaCartShopping } from "react-icons/fa6"
 import { IoCart, IoTimeSharp } from "react-icons/io5";
 
+import { getTransactionsForType } from "../services/transaccionService"
+import { useQuery } from "@tanstack/react-query";
 
 
 const History = () => {
 
 
-    const [tabActive, setTabActive] = useState("sale")
+    const [tabActive, setTabActive] = useState("venta")
+
+    const { isLoading, isError, data: transactions = [] } = useQuery({
+        queryKey: ['transactions', tabActive],
+        queryFn: () => getTransactionsForType(tabActive),
+        select: (response) => response.success ? response.data : []
+    })
 
     const handleTab = (tab) => {
 
-        tab === "sale" ? setTabActive("sale") : setTabActive("rent")
+        tab === "venta" ? setTabActive("venta") : setTabActive("alquiler")
 
     }
 
@@ -30,11 +38,11 @@ const History = () => {
                 <div className="flex gap-10  border-b border-gray-200">
 
                     <div
-                        onClick={e => handleTab("sale")}
+                        onClick={e => handleTab("venta")}
                         className={twMerge(clsx(
                             "flex items-center gap-2 pb-2 text-gray-600 cursor-pointer",
                             {
-                                "border-b-2 border-blue-700 text-blue-800": tabActive === "sale"
+                                "border-b-2 border-blue-700 text-blue-800": tabActive === "venta"
                             }
 
                         ))}>
@@ -42,11 +50,11 @@ const History = () => {
                         <span>Ventas</span>
                     </div>
                     <div
-                        onClick={e => handleTab("rent")}
+                        onClick={e => handleTab("alquiler")}
                         className={twMerge(clsx(
                             "flex items-center gap-2 pb-2 text-gray-600 cursor-pointer",
                             {
-                                "border-b-2 border-blue-700 text-blue-800": tabActive === "rent"
+                                "border-b-2 border-blue-700 text-blue-800": tabActive === "alquiler"
                             }
 
                         ))}>
@@ -58,7 +66,7 @@ const History = () => {
 
                 <div className="flex">
 
-                    {tabActive === "sale" ?
+                    {tabActive === "venta" ?
 
                         <div className="flex items-center gap-3 text-black font-semibold">
                             <FaCartShopping color="blue" />
@@ -77,7 +85,7 @@ const History = () => {
                     <div className="ml-auto flex gap-3">
 
                         {
-                            tabActive === "rent" &&
+                            tabActive === "alquiler" &&
                             <select name="rentFilter" className="p-2 outline-none focus:border-blue-800 rounded-md focus:border-2 border border-gray-300">
                                 <option value="all">Todos los alquileres</option>
                                 <option value="actives">Alquileres Activos</option>
@@ -95,62 +103,79 @@ const History = () => {
 
                         <thead className="bg-gray-100 text-gray-500 ">
                             <tr>
-                                <th className="pl-8">Fecha y Hora </th>
+                                <th className="pl-8">Fecha y Hora</th>
                                 <th>Cédula Cliente</th>
                                 <th>Tipo</th>
                                 <th>Total</th>
                                 <th>Fecha Devolución</th>
 
-                                {tabActive === "rent" &&
+                                {tabActive === "alquiler" &&
                                     <th>Estado</th>
                                 }
                                 <th>Acciones</th>
                             </tr>
                         </thead>
 
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <div className="flex flex-col gap-1 pl-8 text-sm">
-                                        <span>13/07/2025</span>
-                                        <span className="text-gray-500">16:20</span>
+                        {
+                            isLoading ?
+                                <div className="container mt-10 flex justify-center items-center flex-col gap-4 text-gray-600">
+                                    <div className="text-6xl animate-spin">
+                                        🎮
                                     </div>
-                                </td>
-                                <td>11223344</td>
-                                <td>
-                                    <div className={clsx("flex items-center gap-1 w-min px-2 py-0.5 text-xs font-medium rounded-xl",
-                                        tabActive === "sale" ? "bg-green-100 text-green-800" : "bg-blue-100 text-blue-800"
+                                    <p className="text-xl font-semibold after:content-[''] after:animate-dots">Cargando</p>
 
-                                    )}>
-                                        {
-                                            tabActive === "sale" ?
-                                                <IoCart size={18} />
-                                                :
-                                                <IoTimeSharp size={18} />}
-                                        alquiler
-                                    </div>
-                                </td>
-                                <td>$15.000</td>
-                                <td>20/07/2025</td>
-                                {
-                                    tabActive === "rent" &&
-                                    <td>
-                                        <div className="flex items-center gap-1 w-min px-2 py-0.5 bg-yellow-100 text-xs text-yellow-800 font-medium rounded-xl">
-                                            <IoTimeSharp size={18} />
-                                            activo
-                                        </div>
-                                    </td>}
-                                <td></td>
-                            </tr>
+                                </div>
+                                :
 
+                                <tbody>
+                                    {
+                                        transactions.map(transaction =>
+                                            < tr >
+                                                <td>
+                                                    <div className="flex flex-col gap-1 pl-8 text-sm">
+                                                        <span>{new Date(transaction.fechaTrans).toLocaleDateString()}</span>
+                                                        <span className="text-gray-500">{transaccion.hora.slice(0, 5)}</span>
+                                                    </div>
+                                                </td>
+                                                <td>{transaction.cliente.cedula}</td>
+                                                <td>
+                                                    <div className={clsx("flex items-center gap-1 w-min px-2 py-0.5 text-xs font-medium rounded-xl",
+                                                        tabActive === "venta" ? "bg-green-100 text-green-800" : "bg-blue-100 text-blue-800"
 
+                                                    )}>
+                                                        {
+                                                            tabActive === "venta" ?
+                                                                <IoCart size={18} />
+                                                                :
+                                                                <IoTimeSharp size={18} />}
+                                                        alquiler
+                                                    </div>
+                                                </td>
+                                                <td>${transaction.total}</td>
+                                                <td>{transaction.fechaDev}</td>
+                                                {
+                                                    tabActive === "alquiler" &&
+                                                    <td>
+                                                        <div className="flex items-center gap-1 w-min px-2 py-0.5 bg-yellow-100 text-xs text-yellow-800 font-medium rounded-xl">
+                                                            <IoTimeSharp size={18} />
+                                                            {transaction.estado}
+                                                        </div>
+                                                    </td>}
+                                                <td></td>
+                                            </tr>)
+                                    }
 
-                        </tbody>
+                                </tbody>
+
+                        }
 
                     </table>
                 </div>
 
             </div>
+            {
+                isLoading && <p>hola</p>
+            }
 
         </div >
     )

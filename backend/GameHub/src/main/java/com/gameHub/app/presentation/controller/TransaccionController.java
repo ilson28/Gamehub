@@ -84,9 +84,9 @@ public class TransaccionController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/type/{tipo}/{fecha}")
+    @GetMapping("/type/{tipo}")
     public ResponseEntity<ApiResponse<?>> findByTipo(@PathVariable String tipo,
-            @PathVariable(required = false) LocalDate fecha) {
+            @RequestParam(required = false) LocalDate fecha) {
 
         ApiResponse<List<TransaccionResponseDto>> response = new ApiResponse<>("Data retrieved seccessfully",
                 transaccionService.findByTipo(tipo, fecha));
