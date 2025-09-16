@@ -116,66 +116,66 @@ const History = () => {
                             </tr>
                         </thead>
 
+
                         {
-                            isLoading ?
-                                <div className="container mt-10 flex justify-center items-center flex-col gap-4 text-gray-600">
-                                    <div className="text-6xl animate-spin">
-                                        🎮
-                                    </div>
-                                    <p className="text-xl font-semibold after:content-[''] after:animate-dots">Cargando</p>
+                            !isLoading &&
+                            <tbody>
+                                {
+                                    transactions.map(transaction =>
+                                        < tr >
+                                            <td>
+                                                <div className="flex flex-col gap-1 pl-8 text-sm">
+                                                    <span>{new Date(transaction.fechaTrans).toLocaleDateString()}</span>
+                                                    <span className="text-gray-500">{transaccion.hora.slice(0, 5)}</span>
+                                                </div>
+                                            </td>
+                                            <td>{transaction.cliente.cedula}</td>
+                                            <td>
+                                                <div className={clsx("flex items-center gap-1 w-min px-2 py-0.5 text-xs font-medium rounded-xl",
+                                                    tabActive === "venta" ? "bg-green-100 text-green-800" : "bg-blue-100 text-blue-800"
 
-                                </div>
-                                :
-
-                                <tbody>
-                                    {
-                                        transactions.map(transaction =>
-                                            < tr >
+                                                )}>
+                                                    {
+                                                        tabActive === "venta" ?
+                                                            <IoCart size={18} />
+                                                            :
+                                                            <IoTimeSharp size={18} />}
+                                                    alquiler
+                                                </div>
+                                            </td>
+                                            <td>${transaction.total}</td>
+                                            <td>{transaction.fechaDev}</td>
+                                            {
+                                                tabActive === "alquiler" &&
                                                 <td>
-                                                    <div className="flex flex-col gap-1 pl-8 text-sm">
-                                                        <span>{new Date(transaction.fechaTrans).toLocaleDateString()}</span>
-                                                        <span className="text-gray-500">{transaccion.hora.slice(0, 5)}</span>
+                                                    <div className="flex items-center gap-1 w-min px-2 py-0.5 bg-yellow-100 text-xs text-yellow-800 font-medium rounded-xl">
+                                                        <IoTimeSharp size={18} />
+                                                        {transaction.estado}
                                                     </div>
-                                                </td>
-                                                <td>{transaction.cliente.cedula}</td>
-                                                <td>
-                                                    <div className={clsx("flex items-center gap-1 w-min px-2 py-0.5 text-xs font-medium rounded-xl",
-                                                        tabActive === "venta" ? "bg-green-100 text-green-800" : "bg-blue-100 text-blue-800"
+                                                </td>}
+                                            <td></td>
+                                        </tr>)
+                                }
 
-                                                    )}>
-                                                        {
-                                                            tabActive === "venta" ?
-                                                                <IoCart size={18} />
-                                                                :
-                                                                <IoTimeSharp size={18} />}
-                                                        alquiler
-                                                    </div>
-                                                </td>
-                                                <td>${transaction.total}</td>
-                                                <td>{transaction.fechaDev}</td>
-                                                {
-                                                    tabActive === "alquiler" &&
-                                                    <td>
-                                                        <div className="flex items-center gap-1 w-min px-2 py-0.5 bg-yellow-100 text-xs text-yellow-800 font-medium rounded-xl">
-                                                            <IoTimeSharp size={18} />
-                                                            {transaction.estado}
-                                                        </div>
-                                                    </td>}
-                                                <td></td>
-                                            </tr>)
-                                    }
-
-                                </tbody>
+                            </tbody>
 
                         }
 
                     </table>
+                    {
+                        isLoading &&
+                        <div className="container mt-10 flex justify-center items-center flex-col gap-4 text-gray-600">
+                            <div className="text-6xl animate-spin">
+                                🎮
+                            </div>
+                            <p className="text-xl font-semibold after:content-[''] after:animate-dots">Cargando</p>
+
+                        </div>
+                    }
+
                 </div>
 
             </div>
-            {
-                isLoading && <p>hola</p>
-            }
 
         </div >
     )
