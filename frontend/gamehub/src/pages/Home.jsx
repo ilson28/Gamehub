@@ -17,30 +17,37 @@ const Home = () => {
     const { data: totalGames = 0, isLoading: loadingGames } = useQuery({
         queryKey: ['totalGames'],
         queryFn: getTotalGames,
-        select: (res) => res.data // simplifica acceso
+        select: (res) => res.data, // simplifica acceso
+        staleTime: 1000 * 60 * 60 * 2 // 2 horas
+
     });
 
     // Ventas de hoy
     const { data: totalSales = 0, isLoading: loadingSales } = useQuery({
         queryKey: ['totalSalesToday'],
         queryFn: getTotalSalesToday,
-        select: (res) => res.data
+        select: (res) => res.data,
+        staleTime: 1000 * 60 * 60 * 2 // 2 horas
+
+
     });
 
     //  Alquileres activos
     const { data: totalRentals = 0, isLoading: loadingRentals } = useQuery({
         queryKey: ['totalActiveRentals'],
         queryFn: getTotalActiveTransaccions,
-        select: (res) => res.data
+        select: (res) => res.data,
+        staleTime: 1000 * 60 * 60 * 2 // 2 horas
+
     });
 
     //  Stock total
-
     const { data: totalStock = 0, isLoading: loadingStock } = useQuery({
 
         queryKey: ['totalStock'],
         queryFn: getTotalStock,
-        select: (res) => res.data
+        select: (res) => res.data,
+        staleTime: 1000 * 60 * 60 * 2 // 2 horas
     })
 
 
@@ -156,14 +163,15 @@ const Home = () => {
                         <span className="text-gray-600">Stock Total</span>
 
                         {
-                            loadingStock ?
+                            loadingStock ? (
                                 <div className="flex justify-center items-center">
                                     <VscLoading className="animate-spin text-2xl" />
                                 </div>
-                                :
+                            ) : (
                                 <span className="font-bold text-2xl">{totalStock}</span>
-
+                            )
                         }
+
                     </div>
                 </div>
 
