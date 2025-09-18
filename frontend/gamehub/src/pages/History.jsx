@@ -16,7 +16,9 @@ const History = () => {
     const { isLoading, isError, data: transactions = [] } = useQuery({
         queryKey: ['transactions', tabActive],
         queryFn: () => getTransactionsForType(tabActive),
-        select: (response) => response.success ? response.data : []
+        select: (response) => response.success ? response.data : [],
+        staleTime: 1000 * 60 * 60 * 2 // 2 horas
+
     })
 
     const handleTab = (tab) => {

@@ -39,7 +39,7 @@ const AddGame = () => {
 
             setGame(response.data);
             setState(true);
-            queryClient.invalidateQueries(["games", "totalStock"]);
+            queryClient.invalidateQueries(["games", "totalStock", "totalGames"]);
         }
     });
 
