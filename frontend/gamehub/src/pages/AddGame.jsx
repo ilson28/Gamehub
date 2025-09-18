@@ -21,7 +21,9 @@ const AddGame = () => {
     const { data: gameData, isLoading: loadingGame } = useQuery({
         queryKey: ["game", gameId],
         queryFn: () => getGameById(gameId),
-        enabled: !!gameId
+        enabled: !!gameId,
+        staleTime: 1000 * 60 * 60 * 2 // 2 horas
+
     });
 
     // Mutación para crear/editar videojuego
