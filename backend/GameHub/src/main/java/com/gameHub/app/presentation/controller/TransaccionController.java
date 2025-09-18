@@ -95,9 +95,9 @@ public class TransaccionController {
 
     }
 
-    @GetMapping("/alquiler/{estado}/{fecha}")
+    @GetMapping("/alquiler/{estado}")
     public ResponseEntity<ApiResponse<?>> findAlquilerByEstado(@PathVariable String estado,
-            @PathVariable(required = false) LocalDate fecha) {
+            @RequestParam(required = false) LocalDate fecha) {
 
         ApiResponse<List<TransaccionResponseDto>> response = new ApiResponse<>("Data retrieved seccessfully",
                 transaccionService.findAlquilerByEstado(estado, fecha));
