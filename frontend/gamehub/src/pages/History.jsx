@@ -1,31 +1,35 @@
 import { clsx } from "clsx";
 import { twMerge } from 'tailwind-merge'
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { FaCartShopping } from "react-icons/fa6"
 import { IoCart, IoTimeSharp } from "react-icons/io5";
 
-import { getTransactionsForType } from "../services/transaccionService"
+import { getRentalTransactions, getTransactionsForType } from "../services/transaccionService"
 import { useQuery } from "@tanstack/react-query";
 
 
 const History = () => {
 
 
-    const [tabActive, setTabActive] = useState("venta")
-
+    const [tabActive, setTabActive] = useState("venta");
+    const [rentalFilter, setRentalFilter] = useState("all")
     const { isLoading, isError, data: transactions = [] } = useQuery({
-        queryKey: ['transactions', tabActive],
-        queryFn: () => getTransactionsForType(tabActive),
+        queryKey: ['transactions', tabActive, rentalFilter],
+        queryFn: () => {
+            if (tabActive === "venta" || rentalFilter === "all") {
+                return getTransactionsForType(tabActive);
+            }
+            return getRentalTransactions(rentalFilter);
+        },
         select: (response) => response.success ? response.data : [],
         staleTime: 1000 * 60 * 60 * 2 // 2 horas
 
     })
 
-    const handleTab = (tab) => {
+    const handleTab = tab => tab === "venta" ? setTabActive("venta") : setTabActive("alquiler");
 
-        tab === "venta" ? setTabActive("venta") : setTabActive("alquiler")
 
-    }
+
 
     return (
         <div className="container overflow-x-auto">
@@ -88,7 +92,12 @@ const History = () => {
 
                         {
                             tabActive === "alquiler" &&
-                            <select name="rentFilter" className="p-2 outline-none focus:border-blue-800 rounded-md focus:border-2 border border-gray-300">
+                            <select
+
+                                defaultValue={"all"}
+                                onChange={e => setRentalFilter(e.target.value)}
+                                name="rentFilter"
+                                className="p-2 outline-none focus:border-blue-800 rounded-md focus:border-2 border border-gray-300">
                                 <option value="all">Todos los alquileres</option>
                                 <option value="actives">Alquileres Activos</option>
                                 <option value="returns">Alquileres devueltos</option>
@@ -128,7 +137,7 @@ const History = () => {
                                             <td>
                                                 <div className="flex flex-col gap-1 pl-8 text-sm">
                                                     <span>{new Date(transaction.fechaTrans).toLocaleDateString()}</span>
-                                                    <span className="text-gray-500">{transaccion.hora.slice(0, 5)}</span>
+                                                    <span className="text-gray-500">{transaction.hora.slice(0, 5)}</span>
                                                 </div>
                                             </td>
                                             <td>{transaction.cliente.cedula}</td>

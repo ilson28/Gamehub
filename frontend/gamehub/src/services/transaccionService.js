@@ -25,7 +25,7 @@ export const getTransactionsForType = async (type, date) => {
 
 export const getRentalTransactions = async (estado, date) => {
 
-    const url = date ? `${API_URL}/alquiler/${estado}` : `${API_URL}/alquiler/${estado}?fecha=${date}`;
+    const url = !date ? `${API_URL}/alquiler/${estado}` : `${API_URL}/alquiler/${estado}?fecha=${date}`;
 
     const response = await axios.get(url);
     return response.data;
