@@ -118,7 +118,8 @@ const History = () => {
                                 <th>Cédula Cliente</th>
                                 <th>Tipo</th>
                                 <th>Total</th>
-                                <th>Fecha Devolución</th>
+                                {tabActive === "alquiler" &&
+                                    <th>Fecha Devolución</th>}
 
                                 {tabActive === "alquiler" &&
                                     <th>Estado</th>
@@ -155,7 +156,9 @@ const History = () => {
                                                 </div>
                                             </td>
                                             <td>${transaction.total}</td>
-                                            <td>{transaction.fechaDev}</td>
+                                            {tabActive === "alquiler" &&
+                                                <td>{transaction.fechaDev}</td>
+                                            }
                                             {
                                                 tabActive === "alquiler" &&
                                                 <td>
