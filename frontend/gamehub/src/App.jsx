@@ -6,6 +6,7 @@ import Home from './pages/Home'
 import History from './pages/History';
 import { ModalProvider } from './components/modal/context/modalContext';
 import { CartContextProvider } from './contexts/CartContext';
+import Cart from './pages/Cart';
 
 
 function App() {
@@ -17,7 +18,6 @@ function App() {
       <ModalProvider>
         <CartContextProvider>
 
-
           <BrowserRouter>
 
             <Header />
@@ -28,6 +28,8 @@ function App() {
               <Route path="/add-game" element={<AddGame />} />
               <Route path="/add-game/:gameId" element={<AddGame />} />
               <Route path="/history" element={<History />} />
+              <Route path="/cart" element={<Cart />} />
+
 
               {/**
            * Ruta de error 404
