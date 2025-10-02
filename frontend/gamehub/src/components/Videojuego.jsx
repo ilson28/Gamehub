@@ -3,7 +3,26 @@ import ButtonCard from './ButtonCard';
 import { MdAddShoppingCart } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
 import { NavLink } from 'react-router-dom';
+import useCartContext from '../hooks/useCartContext';
 const Videojuego = ({ id, title, genre, platform, sale, rent, img, stock }) => {
+
+    const { addGameToCart } = useCartContext();
+
+    const handleAddGame = () => {
+        const game = {
+            id,
+            title,
+            genre,
+            platform,
+            sale,
+            img,
+            stock
+        }
+
+        addGameToCart(game);
+
+    }
+
     return (
         <div
             className="pb-4 rounded-lg shadow-md flex flex-col gap-2 relative before:content-[attr(data-stock)] before:absolute before:top-1 before:right-2 before:p-2 before:rounded-md before:bg-green-100 before:text-green-600 text-sm"
@@ -44,7 +63,7 @@ const Videojuego = ({ id, title, genre, platform, sale, rent, img, stock }) => {
                         <MdAddShoppingCart size={28} />
 
                     </ButtonCard>
-                    <ButtonCard color="orange" className="grow relative">
+                    <ButtonCard color="orange" className="grow relative" onClick={handleAddGame}>
                         <NavLink to={`/add-game/${id}`} className="absolute inset-0 w-full h-full flex items-center justify-center" >
                             <FaEdit size={25} />
                         </NavLink>
