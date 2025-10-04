@@ -7,6 +7,8 @@ export const CartContextProvider = ({ children }) => {
 
     const [games, setGames] = useState([]);
 
+    const [typeOfTransaction, setTypeOfTransaction] = useState('venta');
+
     const addGameToCart = (game) => {
 
         setGames((prevGames) => [...prevGames, game]);
@@ -22,7 +24,7 @@ export const CartContextProvider = ({ children }) => {
 
 
     return (
-        <CartContext.Provider value={{ games, addGameToCart, resetCart, deleteGame }}>
+        <CartContext.Provider value={{ games, addGameToCart, resetCart, deleteGame, typeOfTransaction, setTypeOfTransaction }}>
             {children}
         </CartContext.Provider>
     )

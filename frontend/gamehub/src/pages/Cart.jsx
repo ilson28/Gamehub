@@ -4,7 +4,7 @@ import useCartContext from "../hooks/useCartContext"
 
 const Cart = () => {
 
-    const { games } = useCartContext();
+    const { games, typeOfTransaction, setTypeOfTransaction } = useCartContext();
 
 
     return <div className="container">
@@ -42,12 +42,26 @@ const Cart = () => {
                     <h2>Tipo de transacción</h2>
                 </div>
                 <div className="px-5 flex flex-col gap-3 ">
-                    <div className="flex items-center gap-3 border-2 border-gray-300 p-3 rounded-md">
-                        <input type="radio" name="type" defaultChecked id="sale" />
+                    <div
+                        onClick={() => setTypeOfTransaction('venta')}
+                        className="flex items-center gap-3 border-2 border-gray-300 p-3 rounded-md">
+                        <input
+                            checked={typeOfTransaction === 'venta'}
+                            onChange={() => setTypeOfTransaction('venta')}
+                            type="radio"
+                            name="type"
+                            id="sale" />
                         <label htmlFor="sale">Venta</label>
                     </div>
-                    <div className="flex items-center gap-3 border-2 border-gray-300 p-3 rounded-md">
-                        <input type="radio" name="type" id="rent" />
+                    <div
+                        onClick={() => setTypeOfTransaction('alquiler')}
+                        className="flex items-center gap-3 border-2 border-gray-300 p-3 rounded-md">
+                        <input
+                            checked={typeOfTransaction === 'alquiler'}
+                            onChange={() => setTypeOfTransaction('alquiler')}
+                            type="radio"
+                            name="type"
+                            id="rent" />
                         <label htmlFor="rent">Alquiler</label>
                     </div>
 
