@@ -15,7 +15,7 @@ import { twMerge } from "tailwind-merge";
 
 import InputForm from "../components/InputForm";
 import SelectForm from "../components/SelectForm";
-import schema from "../models/form.model";
+import schema from "../models/form-game.model";
 import ButtonCard from "../components/ButtonCard";
 import { clsx } from "clsx";
 import FileInputForm from "./FileInputForm";
