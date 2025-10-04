@@ -1,3 +1,4 @@
+import InputRadioCart from "../components/InputRadioCart";
 import Videojuego from "../components/Videojuego";
 import useCartContext from "../hooks/useCartContext"
 
@@ -42,28 +43,22 @@ const Cart = () => {
                     <h2>Tipo de transacción</h2>
                 </div>
                 <div className="px-5 flex flex-col gap-3 ">
-                    <div
-                        onClick={() => setTypeOfTransaction('venta')}
-                        className="flex items-center gap-3 border-2 border-gray-300 p-3 rounded-md">
-                        <input
-                            checked={typeOfTransaction === 'venta'}
-                            onChange={() => setTypeOfTransaction('venta')}
-                            type="radio"
-                            name="type"
-                            id="sale" />
-                        <label htmlFor="sale">Venta</label>
-                    </div>
-                    <div
-                        onClick={() => setTypeOfTransaction('alquiler')}
-                        className="flex items-center gap-3 border-2 border-gray-300 p-3 rounded-md">
-                        <input
-                            checked={typeOfTransaction === 'alquiler'}
-                            onChange={() => setTypeOfTransaction('alquiler')}
-                            type="radio"
-                            name="type"
-                            id="rent" />
-                        <label htmlFor="rent">Alquiler</label>
-                    </div>
+
+                    <InputRadioCart
+                        id={'sale'}
+                        name={'type'}
+                        checked={typeOfTransaction === 'venta'}
+                        onChange={() => setTypeOfTransaction('venta')}
+                        label={'Venta'}
+                    />
+                    <InputRadioCart
+                        id={'rent'}
+                        name={'type'}
+                        checked={typeOfTransaction === 'alquiler'}
+                        onChange={() => setTypeOfTransaction('alquiler')}
+                        label={'Alquiler'}
+                    />
+
 
                 </div>
             </div>
