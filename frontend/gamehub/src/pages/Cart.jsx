@@ -1,3 +1,4 @@
+import ButtonCard from "../components/ButtonCard";
 import ClientForm from "../components/ClientForm";
 import InputRadioCart from "../components/InputRadioCart";
 import Videojuego from "../components/Videojuego";
@@ -17,7 +18,7 @@ const Cart = () => {
         </div>
         <div className="flex flex-col gap-5 lg:flex-row">
 
-            <div className="bg-white border border-gray-200 rounded-b-sm grow">
+            <div className="bg-white border border-gray-200 rounded-md grow">
 
                 <div className="p-5 border-b border-b-gray-200 text-xl font-medium text-gray-900">
                     <h2>Videojuegos en el carrito</h2>
@@ -41,7 +42,7 @@ const Cart = () => {
 
             <div className="flex flex-col gap-5 grow">
 
-                <div className="bg-white border border-gray-200 rounded-b-sm">
+                <div className="bg-white border border-gray-200 rounded-md">
                     <div className="p-5 text-md md:text-xl font-medium text-gray-900">
                         <h2>Tipo de transacción</h2>
                     </div>
@@ -65,11 +66,39 @@ const Cart = () => {
 
                     </div>
                 </div>
-                <div className="bg-white border border-gray-200 rounded-b-sm">
+                <div className="bg-white border border-gray-200 rounded-md">
                     <div className="p-5 text-md md:text-xl font-medium text-gray-900">
                         <h2>Información del cliente</h2>
                     </div>
                     <ClientForm />
+                </div>
+                <div className="bg-white border border-gray-200 rounded-md p-5">
+                    <div className="text-md md:text-xl font-medium text-gray-900">
+                        <h2>Resumen</h2>
+                    </div>
+                    <div className="text-gray-600 mt-4 flex flex-col gap-2 border-b border-b-gray-300 pb-2">
+                        <div className="flex justify-between">
+                            <p>Videojuegos</p>
+                            <p>{games.length}</p>
+                        </div>
+                        <div className="flex justify-between">
+                            <p>Tipo</p>
+                            <p className="text-blue-600">{typeOfTransaction}</p>
+                        </div>
+                    </div>
+                    <div className="text-gray-600 mt-4 flex flex-col ">
+                        <div className="flex justify-between text-2xl text-gray-950">
+                            <p>Total</p>
+                            <p className="font-extrabold text-3xl">${games.length}</p>
+                        </div>
+                    </div>
+                    <ButtonCard
+                        className="px-3 w-full mt-4"
+                        color="blue"
+                        disabled={games.length == 0}
+                    >
+                        Finalizar Transaccion
+                    </ButtonCard>
                 </div>
             </div>
 
