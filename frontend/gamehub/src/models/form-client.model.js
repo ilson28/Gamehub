@@ -10,7 +10,7 @@ const clientSchema = z.object({
     .refine((val) => val >= 7, "Debe tener minimo 7 digitos"),
     telefono: z.string().trim().min(1,"El telefono es obligatorio")
     .transform((val) => Number(val))
-      .refine((val) => val ==10, "Debe tener 10 digitos"),
+      .refine((val) => val.toString().length === 10, "Debe tener 10 digitos"),
     direccion: z.string().trim().min(1, "La direccion es obligatoria")
 
 
