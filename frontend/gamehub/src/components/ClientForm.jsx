@@ -36,7 +36,7 @@ const ClientForm = forwardRef(({ onSubmit, loading }, ref) => {
 
     return <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col gap-2"
+        className="flex flex-col gap-2 p-5"
     >
 
         <InputForm
