@@ -1,3 +1,4 @@
+import { MdOutlineShoppingCart } from "react-icons/md";
 import ButtonCard from "../components/ButtonCard";
 import ClientForm from "../components/ClientForm";
 import InputRadioCart from "../components/InputRadioCart";
@@ -18,13 +19,14 @@ const Cart = () => {
         </div>
         <div className="flex flex-col gap-5 lg:flex-row">
 
-            <div className="bg-white border border-gray-200 rounded-md grow">
+            <div className="bg-white border border-gray-200 rounded-md grow h-fit">
 
                 <div className="p-5 border-b border-b-gray-200 text-xl font-medium text-gray-900">
                     <h2>Videojuegos en el carrito</h2>
                 </div>
-                {
-                    games.map(game => (<div key={game.id} className="p-4 border-b border-b-gray-200">
+                {games.length > 0
+                    ?
+                    (games.map(game => (<div key={game.id} className="p-4 border-b border-b-gray-200">
                         <Videojuego
                             id={game.id}
                             title={game.titulo}
@@ -35,7 +37,13 @@ const Cart = () => {
                             stock={game.stock}
                             img={game.imagenUrl}
                             cart />
-                    </div>))
+                    </div>)))
+                    :
+                    <div className="flex flex-col gap-3 items-center justify-center py-10">
+                        <MdOutlineShoppingCart size={64} className="text-gray-400" />
+                        <p className="text-gray-600">El carrito esta vacio</p>
+                        <p className="text-gray-400 text-sm">Agrega videojuegos desde la pagina de Inicio</p>
+                    </div>
                 }
 
             </div>
