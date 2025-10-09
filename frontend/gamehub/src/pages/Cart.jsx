@@ -4,11 +4,26 @@ import ClientForm from "../components/ClientForm";
 import InputRadioCart from "../components/InputRadioCart";
 import Videojuego from "../components/Videojuego";
 import useCartContext from "../hooks/useCartContext"
+import { useRef } from "react";
 
 
 const Cart = () => {
 
     const { games, typeOfTransaction, setTypeOfTransaction } = useCartContext();
+    const formclientRef = useRef();
+
+    const handleSubmit = (data) => {
+        e.preventDefault();
+
+        const transactionData = {
+
+            tipo: typeOfTransaction,
+            fechaDev: typeOfTransaction === 'alquiler' ? new Date() : null
+        };
+
+        console.log("Formulario enviado", transactionData);
+
+    }
 
 
     return <div className="container">
@@ -78,7 +93,10 @@ const Cart = () => {
                     <div className="p-5 text-md md:text-xl font-medium text-gray-900">
                         <h2>Información del cliente</h2>
                     </div>
-                    <ClientForm />
+                    <ClientForm
+                        onSubmit={handleSubmit}
+                        ref={formclientRef}
+                    />
                 </div>
                 <div className="bg-white border border-gray-200 rounded-md p-5">
                     <div className="text-md md:text-xl font-medium text-gray-900">
@@ -101,6 +119,7 @@ const Cart = () => {
                         </div>
                     </div>
                     <ButtonCard
+                        form="client-form"
                         className="px-3 w-full mt-4"
                         color="blue"
                         disabled={games.length == 0}
