@@ -4,21 +4,29 @@ import ClientForm from "../components/ClientForm";
 import InputRadioCart from "../components/InputRadioCart";
 import Videojuego from "../components/Videojuego";
 import useCartContext from "../hooks/useCartContext"
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 
 const Cart = () => {
 
+    const [date, setDate] = useState(null);
     const { games, typeOfTransaction, setTypeOfTransaction } = useCartContext();
     const formclientRef = useRef();
 
     const handleSubmit = (data) => {
-        e.preventDefault();
 
         const transactionData = {
 
             tipo: typeOfTransaction,
-            fechaDev: typeOfTransaction === 'alquiler' ? new Date() : null
+            fechaDev: typeOfTransaction === 'alquiler' ? new Date(date) : null,
+            cliente: { ...data, sexo: '0', role: "user" },
+            transJuegos: games.map(game => ({
+                gameId: game.id,
+
+            }))
+
+
+
         };
 
         console.log("Formulario enviado", transactionData);
@@ -92,6 +100,7 @@ const Cart = () => {
                             <div className="flex flex-col gap-1 mt-1">
                                 <label htmlFor="fechaDev" className="text-gray-700 font-medium text-sm">Fecha de devolución</label>
                                 <input
+                                    onChange={(e) => setDate(e.target.value)}
                                     className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                                     type="date"
                                     name="fechaDev"
