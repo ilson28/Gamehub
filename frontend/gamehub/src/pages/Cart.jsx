@@ -32,7 +32,7 @@ const Cart = () => {
             <h1 className="text-gray-900 font-bold text-3xl">Carrito de Compras</h1>
             <span className="text-gray-500">Revisa tus videojuegos y completa tu transacción</span>
         </div>
-        <div className="flex flex-col gap-5 lg:flex-row">
+        <div className="flex flex-col gap-5 lg:flex-row lg:basis-1/2">
 
             <div className="bg-white border border-gray-200 rounded-md grow h-fit">
 
@@ -63,7 +63,7 @@ const Cart = () => {
 
             </div>
 
-            <div className="flex flex-col gap-5 grow">
+            <div className="flex flex-col gap-5 lg:basis-1/3">
 
                 <div className="bg-white border border-gray-200 rounded-md">
                     <div className="p-5 text-md md:text-xl font-medium text-gray-900">
@@ -85,6 +85,20 @@ const Cart = () => {
                             onChange={() => setTypeOfTransaction('alquiler')}
                             label={'Alquiler'}
                         />
+
+                        {
+                            typeOfTransaction === 'alquiler' &&
+
+                            <div className="flex flex-col gap-1 mt-1">
+                                <label htmlFor="fechaDev" className="text-gray-700 font-medium text-sm">Fecha de devolución</label>
+                                <input
+                                    className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    type="date"
+                                    name="fechaDev"
+                                    id="fechaDev" />
+
+                            </div>
+                        }
 
 
                     </div>
