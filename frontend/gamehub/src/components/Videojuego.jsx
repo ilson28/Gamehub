@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import ButtonCard from './ButtonCard';
 import { MdAddShoppingCart } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
@@ -9,6 +9,8 @@ import { RiDeleteBin6Line } from 'react-icons/ri';
 const Videojuego = ({ id, title, genre, platform, sale, rent, img, stock, cart = false }) => {
 
     const { addGameToCart } = useCartContext();
+
+    const [cant, setCant] = useState(1);
 
     const handleAddGame = () => {
         const game = {
@@ -81,12 +83,33 @@ const Videojuego = ({ id, title, genre, platform, sale, rent, img, stock, cart =
                                 <span className='text-orange-700 font-bold'>${rent}</span>
                             </div>
                         </div>
-                        {cart &&
+
+
+                        {cart ?
 
 
                             <div className={clsx("self-end mt-3 flex flex-col gap-3 text-xl")}>
                                 <RiDeleteBin6Line className='text-red-600 sm:absolute sm:absolute:content[""] ml-auto sm:top-4.5' />
                                 <p className='font-bold sm:absolute sm:absolute:content[""] sm:bottom-3 sm:right-0'>$100</p>
+                            </div>
+                            :
+                            <div className="ml-1 flex items-center justify-between mt-2">
+                                <span>Cantidad</span>
+                                <div className='flex items-center gap-2'>
+                                    <ButtonCard
+                                        disabled={cant === 1}
+                                        onClick={() => setCant(cant > 1 ? cant - 1 : 1)}
+                                        className="bg-gray-200 w-8 py-2 font-semibold"> - </ButtonCard>
+                                    <input
+                                        readOnly
+                                        min={1}
+                                        value={cant}
+                                        className='w-16 text-center font-bold focus:outline-none rounded-md border border-gray-300 p-2 focus:ring-2 focus:ring-blue-500'
+                                        type="number" />
+                                    <ButtonCard
+                                        onClick={() => setCant(cant < stock ? cant + 1 : stock)}
+                                        className="bg-gray-200 w-8 py-2 font-semibold">+</ButtonCard>
+                                </div>
                             </div>
 
                         }
@@ -110,7 +133,7 @@ const Videojuego = ({ id, title, genre, platform, sale, rent, img, stock, cart =
                 </div>
             </div>
 
-        </div>
+        </div >
     );
 };
 
