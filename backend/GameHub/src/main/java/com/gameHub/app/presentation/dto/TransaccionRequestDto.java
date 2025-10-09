@@ -23,7 +23,6 @@ import java.util.List;
 @AllArgsConstructor
 public class TransaccionRequestDto {
 
-    private Integer id;
 
     @NotBlank
     private String tipo;
