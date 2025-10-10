@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 const defaultValuesForm = {
     nombre: "",
+    apellido: "",
     cedula: "",
     telefono: "",
     direccion: "",
@@ -52,8 +53,16 @@ const ClientForm = forwardRef(({ onSubmit, loading }, ref) => {
             name="nombre"
             control={control}
             error={errors.nombre}
-            label="Nombre y apellido"
-            placeholder="Jhon Perez Garcia"
+            label="Nombre"
+            placeholder="Jhon"
+            type="text"
+        />
+        <InputForm
+            name="apellido"
+            control={control}
+            error={errors.apellido}
+            label="Apellidos"
+            placeholder="Perez Garcia"
             type="text"
         />
         <InputForm

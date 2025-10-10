@@ -2,7 +2,8 @@ import { z } from "zod";
 
 const clientSchema = z.object({
     
-    nombre: z.string().trim().regex( /^[a-zA-Z]+(\s[a-zA-Z]+)+$/,"El nombre y el apellido son obligatorios"),
+    nombre: z.string().trim().min(1,"El nombre es obligatorio"),
+    apellido: z.string().trim().min(1,"El apellido es obligatorio"),
     cedula: z.union([
         z.string().min(1,"La cedula es obligatoria"),
         z.number()
