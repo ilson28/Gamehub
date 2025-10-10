@@ -6,14 +6,24 @@ export const CartContextProvider = ({ children }) => {
 
 
     const [games, setGames] = useState([]);
+    const [transJuegos, setTransJuegos] = useState([]);
 
     const [typeOfTransaction, setTypeOfTransaction] = useState('venta');
 
-    const addGameToCart = (game) => {
+    const addGameToCart = (game, cant) => {
 
         const gameInCart = games.find(g => g.id === game.id);
 
-        if (!gameInCart) setGames((prevGames) => [...prevGames, game]);
+        if (!gameInCart) {
+
+            setGames((prevGames) => [...prevGames, game]);
+            const transJuego = {
+                gameId: game.id,
+                cantidad: cant
+            }
+            setTransJuegos(prev => [...prev, transJuego]);
+
+        }
 
 
     }
@@ -28,7 +38,7 @@ export const CartContextProvider = ({ children }) => {
 
 
     return (
-        <CartContext.Provider value={{ games, addGameToCart, resetCart, deleteGame, typeOfTransaction, setTypeOfTransaction }}>
+        <CartContext.Provider value={{ games, addGameToCart, resetCart, deleteGame, typeOfTransaction, setTypeOfTransaction, transJuegos }}>
             {children}
         </CartContext.Provider>
     )
