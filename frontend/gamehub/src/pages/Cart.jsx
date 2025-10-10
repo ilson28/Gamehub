@@ -5,30 +5,43 @@ import InputRadioCart from "../components/InputRadioCart";
 import Videojuego from "../components/Videojuego";
 import useCartContext from "../hooks/useCartContext"
 import { useRef, useState } from "react";
+import { createTransaction } from "../services/transaccionService";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { VscLoading } from "react-icons/vsc";
+
 
 
 const Cart = () => {
 
+    const queryClient = useQueryClient();
     const [date, setDate] = useState(null);
-    const { games, typeOfTransaction, setTypeOfTransaction } = useCartContext();
+    const { games, typeOfTransaction, setTypeOfTransaction, transJuegos } = useCartContext();
     const formclientRef = useRef();
 
+    //mutacion para crear la transaccion
+    const mutation = useMutation({
+
+        mutationFn: (transaction) => createTransaction(transaction),
+        onSuccess: (response) => {
+            console.log("Transaccion creada exitosamente", response.data);
+            // formclientRef.current?.resetForm();
+            queryClient.invalidateQueries(["transactions"]);//invalidar query de transacciones para que se actualice la lista
+        }
+    })
+
     const handleSubmit = (data) => {
+
+        if (typeOfTransaction === 'alquiler' && !date) return;
 
         const transactionData = {
 
             tipo: typeOfTransaction,
-            fechaDev: typeOfTransaction === 'alquiler' ? new Date(date) : null,
-            cliente: { ...data, sexo: '0', role: "user" },
-            transJuegos: games.map(game => ({
-                gameId: game.id,
-
-            }))
-
-
+            fechaDev: typeOfTransaction === 'alquiler' ? date : null,
+            cliente: { ...data, sexo: '0', role: "CLIENTE" },
+            transJuegos
 
         };
-
+        mutation.mutate(transactionData);
         console.log("Formulario enviado", transactionData);
 
     }
@@ -147,7 +160,15 @@ const Cart = () => {
                         color="blue"
                         disabled={games.length == 0}
                     >
-                        Finalizar Transaccion
+                        {
+                            mutation.isPending ? (
+                                <div className="flex justify-center items-center gap-2">
+                                    <VscLoading className="animate-spin text-2xl" /> Cargando...
+                                </div>
+                            )
+                                :
+                                "Finalizar Transaccion"
+                        }
                     </ButtonCard>
                 </div>
             </div>
