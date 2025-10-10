@@ -11,7 +11,11 @@ export const CartContextProvider = ({ children }) => {
 
     const addGameToCart = (game) => {
 
-        setGames((prevGames) => [...prevGames, game]);
+        const gameInCart = games.find(g => g.id === game.id);
+
+        if (!gameInCart) setGames((prevGames) => [...prevGames, game]);
+
+
     }
 
     const deleteGame = (GameId) => {
