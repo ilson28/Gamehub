@@ -107,9 +107,13 @@ public class TransaccionController {
     }
 
     @PostMapping
-    public ResponseEntity<TransaccionResponseDto> create(@RequestBody @Valid TransaccionRequestDto transaccion) {
+    public ResponseEntity<ApiResponse<?>> create(@RequestBody @Valid TransaccionRequestDto transaccion) {
 
-        return new ResponseEntity<>(transaccionService.save(transaccion), HttpStatus.CREATED);
+        ApiResponse<TransaccionResponseDto> response = new ApiResponse<>(
+                "Transaction created successfully",
+                transaccionService.save(transaccion));
+
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
 
     }
 
