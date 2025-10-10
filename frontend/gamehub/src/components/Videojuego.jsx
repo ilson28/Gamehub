@@ -24,7 +24,7 @@ const Videojuego = ({ id, title, genre, platform, sale, rent, img, stock, cart =
             stock
         }
 
-        addGameToCart(game);
+        addGameToCart(game, cant);
 
     }
 
