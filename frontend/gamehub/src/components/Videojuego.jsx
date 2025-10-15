@@ -8,7 +8,7 @@ import clsx from 'clsx';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 const Videojuego = ({ id, title, genre, platform, sale, rent, img, stock, cart = false }) => {
 
-    const { addGameToCart } = useCartContext();
+    const { addGameToCart, typeOfTransaction } = useCartContext();
 
     const [cant, setCant] = useState(1);
 
@@ -90,7 +90,9 @@ const Videojuego = ({ id, title, genre, platform, sale, rent, img, stock, cart =
 
                             <div className={clsx("self-end mt-3 flex flex-col gap-3 text-xl")}>
                                 <RiDeleteBin6Line className='text-red-600 sm:absolute sm:absolute:content[""] ml-auto sm:top-4.5' />
-                                <p className='font-bold sm:absolute sm:absolute:content[""] sm:bottom-3 sm:right-0'>$100</p>
+                                <p className='font-bold sm:absolute sm:absolute:content[""] sm:bottom-3 sm:right-0'>
+                                    ${typeOfTransaction === 'venta' ? sale : rent}
+                                </p>
                             </div>
                             :
                             <div className="ml-1 flex items-center justify-between mt-2">
