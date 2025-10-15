@@ -15,7 +15,7 @@ const Cart = () => {
 
     const queryClient = useQueryClient();
     const [date, setDate] = useState(null);
-    const { games, typeOfTransaction, setTypeOfTransaction, transJuegos } = useCartContext();
+    const { games, typeOfTransaction, setTypeOfTransaction, transJuegos, calculateTotal } = useCartContext();
     const formclientRef = useRef();
 
     //mutacion para crear la transaccion
@@ -151,7 +151,7 @@ const Cart = () => {
                     <div className="text-gray-600 mt-4 flex flex-col ">
                         <div className="flex justify-between text-2xl text-gray-950">
                             <p>Total</p>
-                            <p className="font-extrabold text-3xl">${games.length}</p>
+                            <p className="font-extrabold text-3xl">${calculateTotal()}</p>
                         </div>
                     </div>
                     <ButtonCard
