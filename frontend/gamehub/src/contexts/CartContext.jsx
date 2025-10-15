@@ -19,7 +19,7 @@ export const CartContextProvider = ({ children }) => {
             setGames((prevGames) => [...prevGames, game]);
             const transJuego = {
                 gameId: game.id,
-                cantidad: cant
+                cant: cant
             }
             setTransJuegos(prev => [...prev, transJuego]);
 
