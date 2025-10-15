@@ -26,42 +26,42 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<ClienteDto> findAllPageable(Pageable pageable) {
+    public List<ClienteResponseDto> findAllPageable(Pageable pageable) {
 
         return clienteRepository.findAll(pageable).stream()
-                .map(ClienteMapper.INSTANCE::toClienteDto)
+                .map(ClienteMapper.INSTANCE::toClienteResponseDto)
                 .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
     @Override
-    public List<ClienteDto> findAll() {
+    public List<ClienteResponseDto> findAll() {
         // ModelMapper mapper = new ModelMapper();
         // mapper.getConfiguration().setPropertyCondition(ctx ->
         // Hibernate.isInitialized(ctx.getSource()));
         return clienteRepository.findAll().stream()
-                .map(ClienteMapper.INSTANCE::toClienteDto)
+                .map(ClienteMapper.INSTANCE::toClienteResponseDto)
                 .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
     @Override
-    public Optional<ClienteDto> findById(Integer id) {
+    public Optional<ClienteResponseDto> findById(Integer id) {
 
         Cliente cliente = clienteRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Cliente", "Id", id));
-        ClienteDto clienteDto = ClienteMapper.INSTANCE.toClienteDto(cliente);
+        ClienteResponseDto clienteResponseDto = ClienteMapper.INSTANCE.toClienteResponseDto(cliente);
 
-        return Optional.ofNullable(clienteDto);
+        return Optional.ofNullable(clienteResponseDto);
     }
 
     @Transactional
     @Override
-    public ClienteDto save(ClienteDto clienteDto) {
+    public ClienteResponseDto save(ClienteDto clienteDto) {
 
         Cliente cliente = ClienteMapper.INSTANCE.toCliente(clienteDto);
 
-        return ClienteMapper.INSTANCE.toClienteDto(clienteRepository.save(cliente));
+        return ClienteMapper.INSTANCE.toClienteResponseDto(clienteRepository.save(cliente));
     }
 
     @Transactional

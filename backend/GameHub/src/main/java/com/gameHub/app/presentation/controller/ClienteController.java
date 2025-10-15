@@ -1,10 +1,11 @@
 package com.gameHub.app.presentation.controller;
 
 import com.gameHub.app.presentation.dto.ClienteDto;
+import com.gameHub.app.service.implementation.ClienteResponseDto;
 import com.gameHub.app.service.interfaces.ClienteService;
 
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -27,7 +28,8 @@ public class ClienteController {
     }
 
     @GetMapping("/{page}/{size}")
-    public ResponseEntity<List<ClienteDto>> getAllPageable(@PathVariable Integer page, @PathVariable Integer size) {
+    public ResponseEntity<List<ClienteResponseDto>> getAllPageable(@PathVariable Integer page,
+            @PathVariable Integer size) {
 
         Pageable pageable = PageRequest.of(page, size);
 
@@ -35,30 +37,31 @@ public class ClienteController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ClienteDto>> getAll() {
+    public ResponseEntity<List<ClienteResponseDto>> getAll() {
 
         return ResponseEntity.ok(clienteService.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ClienteDto> getById(@PathVariable Integer id) {
+    public ResponseEntity<ClienteResponseDto> getById(@PathVariable Integer id) {
 
-        ClienteDto clienteDto = clienteService.findById(id).orElseThrow();
+        ClienteResponseDto clienteDto = clienteService.findById(id).orElseThrow();
         return ResponseEntity.ok(clienteDto);
 
     }
 
     @PostMapping
-    public ResponseEntity<ClienteDto> create(@RequestBody @Valid ClienteDto clienteDto) {
+    public ResponseEntity<ClienteResponseDto> create(@RequestBody @Valid ClienteDto clienteDto) {
 
         return new ResponseEntity<>(clienteService.save(clienteDto), HttpStatus.CREATED);
 
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ClienteDto> update(@PathVariable Integer id, @RequestBody @Valid ClienteDto clienteDto) {
+    public ResponseEntity<ClienteResponseDto> update(@PathVariable Integer id,
+            @RequestBody @Valid ClienteDto clienteDto) {
 
-        ClienteDto cliente = clienteService.findById(id).orElseThrow();
+        ClienteResponseDto cliente = clienteService.findById(id).orElseThrow();
 
         clienteDto.setCedula(cliente.getCedula());
 
