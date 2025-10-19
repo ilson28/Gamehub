@@ -14,7 +14,7 @@ const defaultValuesForm = {
 }
 
 
-const ClientForm = forwardRef(({ onSubmit, loading }, ref) => {
+const ClientForm = forwardRef(({ onSubmit }, ref) => {
 
     const { control, handleSubmit, formState: { errors }, reset } = useForm({
         resolver: zodResolver(clientSchema),
