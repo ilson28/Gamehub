@@ -1,8 +1,8 @@
 import { createPortal } from "react-dom";
-import useModalContext from "./context/useModalContext"
 import { twMerge } from "tailwind-merge";
 import { clsx } from "clsx";
 import { useEffect } from "react";
+import useModalContext from "../../hooks/useModalContext";
 
 
 
