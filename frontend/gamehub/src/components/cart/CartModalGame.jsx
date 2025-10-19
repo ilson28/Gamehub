@@ -6,7 +6,7 @@ import { AiFillDollarCircle } from "react-icons/ai";
 import ButtonCard from "../ButtonCard";
 import useCartContext from "../../hooks/useCartContext";
 
-const CartModalGame = ({ cliente, onClick }) => {
+const CartModalGame = ({ cliente, onClick, loading }) => {
 
     const { typeOfTransaction, games, getGameQuantity, getTotalItem, calculateTotal } = useCartContext();
 
@@ -122,7 +122,13 @@ const CartModalGame = ({ cliente, onClick }) => {
                         className="w-full"
                         onClick={onClick}
                     >
-                        Confirmar transaccion
+                        {
+                            loading ? (<div className="flex justify-center items-center gap-2">
+                                <VscLoading className="animate-spin text-2xl" /> Cargando...
+                            </div>)
+                                :
+                                "Confirmar transaccion"
+                        }
                     </ButtonCard>
                 </div>
             </div>
