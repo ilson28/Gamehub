@@ -5,6 +5,7 @@ import { CgGames } from "react-icons/cg";
 import { AiFillDollarCircle } from "react-icons/ai";
 import ButtonCard from "../ButtonCard";
 import useCartContext from "../../hooks/useCartContext";
+import { VscLoading } from "react-icons/vsc";
 
 const CartModalGame = ({ cliente, onClick, loading }) => {
 
@@ -62,13 +63,15 @@ const CartModalGame = ({ cliente, onClick, loading }) => {
                 <div className="m-6">
                     <div className="flex gap-2 items-center mb-5">
                         <CgGames className="text-2xl font-bold text-blue-600" />
-                        <h3 className="text-xl font-semibold text-gray-900" s>Videojuegos</h3>
+                        <h3 className="text-xl font-semibold text-gray-900">Videojuegos</h3>
                     </div>
 
                     <div className="max-h-60 overflow-y-auto flex flex-col gap-3">
                         {
                             games.map(game =>
-                            (<div className="flex flex-col md:flex-row md:justify-between text-gray-500 border border-gray-300 shadow-xl rounded-lg p-3">
+                            (<div
+                                key={game.id}
+                                className="flex flex-col md:flex-row md:justify-between text-gray-500 border border-gray-300 shadow-xl rounded-lg p-3">
 
                                 <div className="flex flex-col pl-2">
                                     <span>{game.titulo}</span>
@@ -104,7 +107,7 @@ const CartModalGame = ({ cliente, onClick, loading }) => {
                             games.reduce((total, game) => {
                                 const cant = getGameQuantity(game.id);
                                 return total + cant;
-                            })
+                            }, 0)
                         }</span>
                     </div>
                 </div>
