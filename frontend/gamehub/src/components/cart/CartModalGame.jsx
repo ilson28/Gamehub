@@ -6,7 +6,7 @@ import { AiFillDollarCircle } from "react-icons/ai";
 import ButtonCard from "../ButtonCard";
 import useCartContext from "../../hooks/useCartContext";
 
-const CartModalGame = ({ cliente }) => {
+const CartModalGame = ({ cliente, onClick }) => {
 
     const { typeOfTransaction, games, getGameQuantity, getTotalItem, calculateTotal } = useCartContext();
 
@@ -117,7 +117,11 @@ const CartModalGame = ({ cliente }) => {
                     <ButtonCard className="w-full border border-gray-400 text-gray-700">
                         Cancelar
                     </ButtonCard>
-                    <ButtonCard color="blue" className="w-full">
+                    <ButtonCard
+                        color="blue"
+                        className="w-full"
+                        onClick={onClick}
+                    >
                         Confirmar transaccion
                     </ButtonCard>
                 </div>
