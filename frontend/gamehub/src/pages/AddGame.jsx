@@ -1,13 +1,13 @@
 import { createGame, editGame, getGameById } from "../services/videojuegoService";
 import GameForm from "../components/GameForm";
 import { useParams, useNavigate } from "react-router-dom";
-import gta from "../assets/img/gta.jpg";
+// import gta from "../assets/img/gta.jpg";
 import { useEffect, useRef, useState } from "react";
 import GameModal from "../components/GameModal";
 import ErrorModal from "../components/ErrorModal";
-import useModalContext from "../components/modal/context/useModalContext";
 import Modal from "../components/modal/Modal";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import useModalContext from "../hooks/useModalContext";
 
 const AddGame = () => {
     const formRef = useRef();
