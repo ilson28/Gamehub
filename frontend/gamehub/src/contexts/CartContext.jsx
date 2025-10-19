@@ -28,6 +28,18 @@ export const CartContextProvider = ({ children }) => {
 
     }
 
+    const getGameQuantity = (gameId) => {
+        const transjuego = transJuegos.find(g => g.gameId === gameId);
+        return transjuego ? transjuego.cant : 1;
+    }
+
+    const getTotalItem = (gameId) => {
+        const transjuego = transJuegos.find(g => g.gameId === gameId);
+        const game = games.find(g => g.id === gameId);
+        const cant = transjuego.cant || 1;
+        return (typeOfTransaction === 'venta' ? game.precioVenta : game.precioAlquiler) * cant;
+    }
+
     const calculateTotal = () => {
         return games.reduce((total, game) => {
 
@@ -48,7 +60,7 @@ export const CartContextProvider = ({ children }) => {
 
 
     return (
-        <CartContext.Provider value={{ games, addGameToCart, resetCart, deleteGame, calculateTotal, typeOfTransaction, setTypeOfTransaction, transJuegos }}>
+        <CartContext.Provider value={{ games, addGameToCart, resetCart, deleteGame, calculateTotal, typeOfTransaction, setTypeOfTransaction, transJuegos, getGameQuantity, getTotalItem }}>
             {children}
         </CartContext.Provider>
     )

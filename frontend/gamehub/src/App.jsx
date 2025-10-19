@@ -4,7 +4,7 @@ import Header from './layout/Header'
 import AddGame from './pages/AddGame'
 import Home from './pages/Home'
 import History from './pages/History';
-import { ModalProvider } from './components/modal/context/modalContext';
+import { ModalProvider } from './contexts/modalContext';
 import { CartContextProvider } from './contexts/CartContext';
 import Cart from './pages/Cart';
 
