@@ -10,6 +10,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { VscLoading } from "react-icons/vsc";
 import CartModalGame from "../components/cart/CartModalGame";
 import useModalContext from "../hooks/useModalContext";
+import ModalNotification from "../components/modal/ModalNotification";
 
 
 
@@ -17,18 +18,25 @@ const Cart = () => {
 
     const queryClient = useQueryClient();
     const [date, setDate] = useState(null);
+    const [showModalResponse, setShowModalResponse] = useState(false);
     const [client, setClient] = useState(null);
-    const { state, setState } = useModalContext();
-    const { games, typeOfTransaction, setTypeOfTransaction, transJuegos, calculateTotal } = useCartContext();
+    const { setState } = useModalContext();
+    const { games, typeOfTransaction, setTypeOfTransaction, transJuegos, calculateTotal, resetCart } = useCartContext();
     const formclientRef = useRef();
 
     //mutacion para crear la transaccion
     const mutation = useMutation({
 
         mutationFn: (transaction) => createTransaction(transaction),
+        onError: (error) => {
+            console.error("Error al crear la transacción", error);
+            handleModalNotification();
+        },
         onSuccess: (response) => {
             console.log("Transaccion creada exitosamente", response.data);
+            resetCart();
             formclientRef.current?.resetForm();
+            handleModalNotification();
             queryClient.invalidateQueries(["transactions"]);//invalidar query de transacciones para que se actualice la lista
         }
     })
@@ -57,10 +65,30 @@ const Cart = () => {
 
     }
 
+    const handleModalNotification = () => {
+        setState(false);
+        setClient(null);
+        setShowModalResponse(true);
+        setTimeout(() => {
+            setShowModalResponse(false);
+
+        }, 5000);
+
+    }
+
+
+
 
     return (
 
         <div className="container">
+
+            <ModalNotification
+                body={mutation.isError ? "No se pudo procesar la transacción. Por favor verifica los datos e intenta nuevamente." : "La transacción se ha procesado correctamente. "}
+                error={mutation.isError}
+                show={showModalResponse}
+                title={mutation.isError ? "Error en la transacción" : "¡Transacción exitosa!"}
+            />
 
             <div className="flex flex-col gap-2 my-4">
                 <h1 className="text-gray-900 font-bold text-3xl">Carrito de Compras</h1>
@@ -171,7 +199,7 @@ const Cart = () => {
                             form="client-form"
                             className="px-3 w-full mt-4"
                             color="blue"
-                            disabled={games.length == 0}
+                            disabled={games.length == 0 || showModalResponse}
                         >
                             {
                                 mutation.isPending ? (
@@ -188,12 +216,14 @@ const Cart = () => {
 
             </div>
 
+
             {
                 client &&
                 <CartModalGame
                     onClick={handleConfirmTransaction}
                     cliente={client}
                     loading={mutation.isPending}
+                    Onclose={() => setState(false)}
                 />
             }
 
