@@ -15,11 +15,21 @@
     80%, 100% { content: '...'; }
   }
 
+  --animate-progress: progress 5s ease-in-out forwards;
+  @keyframes progress {
+    from {
+        width: 100%;
+    }
+    to {
+        width: 0%;
+    }
 }
+}
+
 
 .container{
 
-  @apply mx-auto overflow-hidden p-4  max-w-7xl ;
+  @apply mx-auto overflow-hidden p-4 max-w-7xl ;
 
 }
 
