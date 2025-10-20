@@ -7,7 +7,7 @@ import ButtonCard from "../ButtonCard";
 import useCartContext from "../../hooks/useCartContext";
 import { VscLoading } from "react-icons/vsc";
 
-const CartModalGame = ({ cliente, onClick, loading }) => {
+const CartModalGame = ({ cliente, onClick, loading, Onclose }) => {
 
     const { typeOfTransaction, games, getGameQuantity, getTotalItem, calculateTotal } = useCartContext();
 
@@ -117,10 +117,14 @@ const CartModalGame = ({ cliente, onClick, loading }) => {
                     <div className="text-yellow-600 ">Por favor verifica que toda la información sea correcta antes de confirmar la transacción.</div>
                 </div>
                 <div className="m-6 flex flex-col sm:flex-row gap-2">
-                    <ButtonCard className="w-full border border-gray-400 text-gray-700">
+                    <ButtonCard
+                        disabled={loading}
+                        onClick={Onclose}
+                        className="w-full border border-gray-400 text-gray-700">
                         Cancelar
                     </ButtonCard>
                     <ButtonCard
+                        disabled={loading}
                         color="blue"
                         className="w-full"
                         onClick={onClick}
