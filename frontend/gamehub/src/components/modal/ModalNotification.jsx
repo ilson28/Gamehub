@@ -4,7 +4,7 @@ import { GiCancel } from "react-icons/gi";
 const ModalNotification = ({ error, title, body, show }) => {
 
     return (
-        <div className={clsx("max-w-96 flex flex-col gap-4 fixed right-4 z-50 rounded-md shadow-xl bg-white p-4 border-l-2",
+        <div className={clsx("max-w-96 flex flex-col gap-4 fixed top-20 right-4 z-50 rounded-md shadow-xl bg-white p-4 border-l-2",
             "transition-all duration-500 ease-in-out",
             error ? "border-red-500" : "border-green-500",
             show ? "translate-x-0 opacity-full" : "translate-x-[calc(100%+1rem)] opacity-0"
