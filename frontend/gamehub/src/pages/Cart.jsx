@@ -82,14 +82,6 @@ const Cart = () => {
     return (
 
         <div className="container">
-
-            <ModalNotification
-                body={mutation.isError ? "No se pudo procesar la transacción. Por favor verifica los datos e intenta nuevamente." : "La transacción se ha procesado correctamente. "}
-                error={mutation.isError}
-                show={showModalResponse}
-                title={mutation.isError ? "Error en la transacción" : "¡Transacción exitosa!"}
-            />
-
             <div className="flex flex-col gap-2 my-4">
                 <h1 className="text-gray-900 font-bold text-3xl">Carrito de Compras</h1>
                 <span className="text-gray-500">Revisa tus videojuegos y completa tu transacción</span>
@@ -215,7 +207,12 @@ const Cart = () => {
                 </div>
 
             </div>
-
+            <ModalNotification
+                body={mutation.isError ? "No se pudo procesar la transacción. Por favor verifica los datos e intenta nuevamente." : "La transacción se ha procesado correctamente. "}
+                error={mutation.isError}
+                show={showModalResponse}
+                title={mutation.isError ? "Error en la transacción" : "¡Transacción exitosa!"}
+            />
 
             {
                 client &&
