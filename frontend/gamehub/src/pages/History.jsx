@@ -134,7 +134,7 @@ const History = () => {
                             <tbody>
                                 {
                                     transactions.map(transaction =>
-                                        < tr >
+                                        <tr key={transaction.id} >
                                             <td>
                                                 <div className="flex flex-col gap-1 pl-8 text-sm">
                                                     <span>{new Date(transaction.fechaTrans).toLocaleDateString()}</span>
@@ -152,7 +152,7 @@ const History = () => {
                                                             <IoCart size={18} />
                                                             :
                                                             <IoTimeSharp size={18} />}
-                                                    alquiler
+                                                    {transaction.tipo}
                                                 </div>
                                             </td>
                                             <td>${transaction.total}</td>
