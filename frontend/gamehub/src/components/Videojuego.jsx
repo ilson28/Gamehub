@@ -112,7 +112,7 @@ const Videojuego = ({ id, title, genre, platform, sale, rent, img, stock, cart =
                                         className='w-16 text-center font-bold focus:outline-none rounded-md border border-gray-300 p-2 focus:ring-2 focus:ring-blue-500'
                                         type="number" />
                                     <ButtonCard
-                                        onClick={() => setCant(cant < stock ? cant + 1 : stock)}
+                                        onClick={() => setCant(cant < stock ? cant + 1 : cant)}
                                         className="bg-gray-200 w-8 py-2 font-semibold">+</ButtonCard>
                                 </div>
                             </div>
