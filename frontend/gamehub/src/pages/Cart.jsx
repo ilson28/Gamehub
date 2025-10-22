@@ -95,7 +95,7 @@ const Cart = () => {
                     </div>
                     {games.length > 0
                         ?
-                        (games.map(game => (<div key={game.id} className="p-4 border-b border-b-gray-200">
+                        (games.map(game => (<div key={game.id} className="border-b border-b-gray-200">
                             <Videojuego
                                 id={game.id}
                                 title={game.titulo}
