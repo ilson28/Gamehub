@@ -53,10 +53,15 @@ export const CartContextProvider = ({ children }) => {
     const deleteGame = (GameId) => {
 
         const newGames = games.filter(game => game.id !== GameId);
+        const newTransJuegos = transJuegos.filter(tj => tj.gameId !== GameId);
         setGames(newGames);
+        setTransJuegos(newTransJuegos);
     }
 
-    const resetCart = () => setGames([]);
+    const resetCart = () => {
+        setGames([]);
+        setTransJuegos([]);
+    };
 
 
     return (
