@@ -30,8 +30,9 @@ const Videojuego = ({ id, title, genre, platform, sale, rent, img, stock, cart =
 
     return (
         <div
-            className={clsx("pb-4 rounded-lg shadow-md flex flex-col gap-2 relative before:content-[attr(data-stock)] before:absolute before:top-1 before:right-2 before:p-2 before:rounded-md before:bg-green-100 before:text-green-600 text-sm",
-                cart && "sm:before:content-[''] sm:before:p-0"
+            className={clsx("rounded-lg flex flex-col gap-2 relative before:content-[attr(data-stock)] before:absolute before:top-1 before:right-2 before:p-2 before:rounded-md before:bg-green-100 before:text-green-600 text-sm",
+                cart && "sm:before:content-[''] sm:before:p-0",
+                cart && "p-4"
             )}
             data-stock={`Stock: ${stock}`}
         >
