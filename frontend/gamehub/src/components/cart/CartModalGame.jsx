@@ -71,13 +71,13 @@ const CartModalGame = ({ cliente, onClick, loading, Onclose }) => {
                             games.map(game =>
                             (<div
                                 key={game.id}
-                                className="flex flex-col md:flex-row md:justify-between text-gray-500 border border-gray-300 shadow-xl rounded-lg p-3">
+                                className="flex flex-col md:flex-row md:justify-between text-gray-500 border border-gray-300 rounded-lg p-3">
 
                                 <div className="flex flex-col pl-2">
                                     <span>{game.titulo}</span>
                                     <span>{game.plataforma}</span>
                                     <span>
-                                        cantidad:{getGameQuantity(game.id)} x {typeOfTransaction === 'venta' ? game.precioVenta : game.precioAlquiler}
+                                        cantidad: {getGameQuantity(game.id)} x {typeOfTransaction === 'venta' ? game.precioVenta : game.precioAlquiler}
                                     </span>
                                 </div>
                                 <div className="mt-3 flex justify-between">
