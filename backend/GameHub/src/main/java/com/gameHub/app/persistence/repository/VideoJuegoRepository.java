@@ -16,6 +16,6 @@ public interface VideoJuegoRepository extends JpaRepository<VideoJuego, Integer>
     @Query("SELECT count(v) FROM VideoJuego v where v.activo = 1")
     Long totalVideojuegos();
 
-    @Query("SELECT SUM(v.stock) FROM VideoJuego v where v.activo = 1")
+    @Query("SELECT COALESCE(SUM(v.stock), 0) FROM VideoJuego v where v.activo = 1")
     Long TotalStock();
 }
