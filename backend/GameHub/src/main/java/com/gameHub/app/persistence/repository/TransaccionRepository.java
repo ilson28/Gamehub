@@ -21,7 +21,7 @@ public interface TransaccionRepository extends JpaRepository<Transaccion, Intege
         @Query("SELECT t FROM Transaccion t JOIN FETCH t.transJuegos")
         List<Transaccion> findAllWithTransJuego();
 
-        @Query("SELECT COUNT(t) FROM Transaccion t WHERE t.tipo = 'alquiler' AND t.estado = 'activo' AND t.activo = 1")
+        @Query("SELECT COUNT(t) FROM Transaccion t WHERE t.tipo = 'alquiler' AND t.estado = 'alquilado' AND t.activo = 1")
         Long totalActiveAlquilerTransaccions();
 
         @Query("SELECT COUNT(t) FROM Transaccion t WHERE t.tipo = 'venta' AND t.activo = 1 AND t.fechaTrans = :today")
