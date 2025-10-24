@@ -9,17 +9,17 @@ const TransactionModalGame = ({
 }) => {
 
 
-    const gamesInTransaction = transaction.transjuegos.map(t => t.juego);
+    const gamesInTransaction = transaction.transJuegos.map(t => t.juego);
 
     const getGameQuantity = (gameId) => {
 
-        const transjuego = transaction.transjuegos.find(tj => tj.videoJuego.id === gameId);
+        const transjuego = transaction.transJuegos.find(tj => tj.videoJuego.id === gameId);
         return transjuego.cant;
     }
 
     const getTotalItem = (gameId) => {
 
-        const transjuego = transaction.transjuegos.find(tj => tj.videoJuego.id === gameId);
+        const transjuego = transaction.transJuegos.find(tj => tj.videoJuego.id === gameId);
         return transjuego.total;
     }
 
