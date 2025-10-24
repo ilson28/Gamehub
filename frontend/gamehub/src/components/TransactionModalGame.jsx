@@ -44,14 +44,14 @@ const TransactionModalGame = ({
                     <div className="flex flex-col gap-1">
                         <span>Fecha y Hora</span>
                         <span className="text-gray-600">
-                            {new Date(transaction.fechaTrans).toLocaleDateString()} {transaction.hora.slice(0, 5)}
+                            {transaction.fechaTrans} {transaction.hora.slice(0, 5)}
                         </span>
                     </div>
                     <div className="flex flex-col gap-1">
                         <span>Fecha de Devolución</span>
                         <span className="text-gray-600">
                             {
-                                transaction.tipo === "alquiler" ? new Date(transaction.fechaDev).toLocaleDateString() : "N/A"
+                                transaction.tipo === "alquiler" ? transaction.fechaDev : "N/A"
                             }
                         </span>
                     </div>
