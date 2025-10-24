@@ -6,7 +6,8 @@ import ButtonCard from "./ButtonCard";
 const ButtonsModalTransaction = ({
     onClick,
     loading,
-    transactionState = ""
+    transactionState = "",
+    typeOfTransaction = "",
 }) => {
 
     const { setState } = useModalContext();
@@ -19,7 +20,7 @@ const ButtonsModalTransaction = ({
                 Cancelar
             </ButtonCard>
             {
-                transactionState !== "devuelto" &&
+                ((typeOfTransaction == "alquiler" && transactionState !== "devuelto") || (!typeOfTransaction && !transactionState)) &&
                 <ButtonCard
                     disabled={loading}
                     color="blue"
