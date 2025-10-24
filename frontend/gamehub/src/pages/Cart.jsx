@@ -220,7 +220,7 @@ const Cart = () => {
                     onClick={handleConfirmTransaction}
                     cliente={client}
                     loading={mutation.isPending}
-                    Onclose={() => setState(false)}
+
                 />
             }
 
