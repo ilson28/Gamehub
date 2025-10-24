@@ -141,7 +141,7 @@ const History = () => {
                                         <tr key={transaction.id} >
                                             <td>
                                                 <div className="flex flex-col gap-1 pl-8 text-sm">
-                                                    <span>{new Date(transaction.fechaTrans).toLocaleDateString()}</span>
+                                                    <span>{transaction.fechaTrans}</span>
                                                     <span className="text-gray-500">{transaction.hora.slice(0, 5)}</span>
                                                 </div>
                                             </td>
