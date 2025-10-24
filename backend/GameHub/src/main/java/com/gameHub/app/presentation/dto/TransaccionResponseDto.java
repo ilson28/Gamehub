@@ -23,6 +23,6 @@ public class TransaccionResponseDto {
     private LocalTime hora;
     private LocalDate fechaDev;
     private ClienteDto cliente;
-    private List<Trans_juegoResponseDto> transjuegos;
+    private List<Trans_juegoResponseDto> transJuegos;
 
 }
