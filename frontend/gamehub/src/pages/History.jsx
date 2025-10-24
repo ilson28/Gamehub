@@ -1,18 +1,22 @@
 import { clsx } from "clsx";
 import { twMerge } from 'tailwind-merge'
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { FaCartShopping } from "react-icons/fa6"
-import { IoCart, IoTimeSharp } from "react-icons/io5";
+import { IoCart, IoEyeSharp, IoTimeSharp } from "react-icons/io5";
 
 import { getRentalTransactions, getTransactionsForType } from "../services/transaccionService"
 import { useQuery } from "@tanstack/react-query";
+import useModalContext from "../hooks/useModalContext";
+import TransactionModalGame from "../components/TransactionModalGame";
 
 
 const History = () => {
 
 
     const [tabActive, setTabActive] = useState("venta");
-    const [rentalFilter, setRentalFilter] = useState("all")
+    const [rentalFilter, setRentalFilter] = useState("all");
+    const [transaction, setTransaction] = useState(null);
+    const { state, setState } = useModalContext();
     const { isLoading, isError, data: transactions = [] } = useQuery({
         queryKey: ['transactions', tabActive, rentalFilter],
         queryFn: () => {
@@ -167,7 +171,14 @@ const History = () => {
                                                         {transaction.estado}
                                                     </div>
                                                 </td>}
-                                            <td></td>
+                                            <td className="cursor-pointer">
+                                                <IoEyeSharp
+                                                    onClick={e => {
+                                                        setTransaction(transaction);
+                                                        setState(true);
+                                                    }}
+                                                    className="text-blue-600 text-2xl text-center" />
+                                            </td>
                                         </tr>)
                                 }
 
@@ -190,6 +201,16 @@ const History = () => {
                 </div>
 
             </div>
+
+            {
+                transaction &&
+                <TransactionModalGame
+                    cliente={transaction.cliente}
+                    Onclose={() => setState(false)}
+                    transaction={transaction}
+                    cart={false}
+                />
+            }
 
         </div >
     )
