@@ -62,6 +62,7 @@ const TransactionModalGame = ({
                 loading={loading}
                 onClick={onClick}
                 transactionState={transaction.estado}
+                typeOfTransaction={transaction.tipo}
             />
         </TransactionInfo>
     )
