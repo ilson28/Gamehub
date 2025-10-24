@@ -1,6 +1,6 @@
 import ButtonsModalTransaction from "./ButtonsModalTransaction";
 import TransactionInfo from "./TransactionInfo"
-
+import { IoIosInformationCircleOutline } from "react-icons/io";
 
 const TransactionModalGame = ({
     transaction,
@@ -9,7 +9,7 @@ const TransactionModalGame = ({
 }) => {
 
 
-    const gamesInTransaction = transaction.transJuegos.map(t => t.juego);
+    const gamesInTransaction = transaction.transJuegos.map(t => t.videoJuego);
 
     const getGameQuantity = (gameId) => {
 
@@ -34,7 +34,6 @@ const TransactionModalGame = ({
             onClick={onClick}
             totalTransaction={transaction.total}
             loading={loading}
-            onClose={onClose}
         >
             <div className="flex flex-col gap-4 rounded-md bg-gray-100 m-5 p-5">
                 <div className="flex items-center gap-2 text-gray-900 font-bold">
