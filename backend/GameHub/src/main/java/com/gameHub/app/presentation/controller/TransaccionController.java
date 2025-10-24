@@ -37,9 +37,12 @@ public class TransaccionController {
     }
 
     @GetMapping("/transjuegos")
-    public ResponseEntity<List<Transaccion>> getAllWithTransjuego() {
+    public ResponseEntity<ApiResponse<?>> getAllWithTransjuego() {
 
-        return ResponseEntity.ok(transaccionService.findAllWithTransJuego());
+        ApiResponse<List<Transaccion>> response = new ApiResponse<>("Data retrieved seccessfully",
+                transaccionService.findAllWithTransJuego());
+        return ResponseEntity.ok(response);
+       
     }
 
     @GetMapping("/ordered")
