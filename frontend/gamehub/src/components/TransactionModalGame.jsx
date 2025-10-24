@@ -50,7 +50,9 @@ const TransactionModalGame = ({
                     <div className="flex flex-col gap-1">
                         <span>Fecha de Devolución</span>
                         <span className="text-gray-600">
-                            {new Date(transaction.fechaDev).toLocaleDateString()}
+                            {
+                                transaction.tipo === "alquiler" ? new Date(transaction.fechaDev).toLocaleDateString() : "N/A"
+                            }
                         </span>
                     </div>
 
