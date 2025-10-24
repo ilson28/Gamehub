@@ -2,6 +2,7 @@ package com.gameHub.app.presentation.dto;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,5 +23,6 @@ public class TransaccionResponseDto {
     private LocalTime hora;
     private LocalDate fechaDev;
     private ClienteDto cliente;
+    private List<Trans_juegoResponseDto> transjuegos;
 
 }
