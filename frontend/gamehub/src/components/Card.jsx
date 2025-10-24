@@ -74,7 +74,7 @@ const Cards = () => {
     }
 
     return (
-        <div className='grid sm:grid-cols-2  md:grid-cols-3 lg:grid-cols-4  gap-4 bg-white dark:bg-gray-800 overflow-hidden'>
+        <div className='grid sm:grid-cols-2  md:grid-cols-3 lg:grid-cols-4  gap-4 bg-white overflow-hidden'>
 
 
             {
