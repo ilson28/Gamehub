@@ -13,11 +13,15 @@ public interface TransaccionMapper {
 
     TransaccionMapper INSTANCE = Mappers.getMapper(TransaccionMapper.class);
 
+    // Versión ligera (por defecto, sin transJuegos)
     @Mapping(target = "transJuegos", ignore = true)
     TransaccionResponseDto toTransaccionDto(Transaccion transaccion);
 
+    // Versión completa (incluye los transJuegos)
+    @Mapping(target = "transJuegos", source = "transJuegos")
+    TransaccionResponseDto toTransaccionDtoConJuegos(Transaccion transaccion);
+
     // ESTO FUNCIONA, NO HACE FALTA CREAR UN MAPPER PERSONALIZADO PARA TRANS_JUEGO
-    // @Mapping(target ="videoJuego",ignore =true)
     // Trans_juegoDto toTransjuegoDto(Trans_juego transjuego);
 
     Transaccion toTransaccion(TransaccionRequestDto transaccion);
