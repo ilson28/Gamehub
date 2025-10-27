@@ -122,7 +122,7 @@ public class TransaccionServiceImpl implements TransaccionService {
     public List<TransaccionResponseDto> findByTipo(String tipo, LocalDate fecha) {
 
         return transaccionRepository.findByTipo(tipo, fecha).stream()
-                .map(TransaccionMapper.INSTANCE::toTransaccionDto)
+                .map(TransaccionMapper.INSTANCE::toTransaccionDtoConJuegos)
                 .collect(Collectors.toList());
     }
 
@@ -130,7 +130,7 @@ public class TransaccionServiceImpl implements TransaccionService {
     public List<TransaccionResponseDto> findAlquilerByEstado(String estado, LocalDate fecha) {
 
         return transaccionRepository.findAlquilerByEstado(estado, fecha).stream()
-                .map(TransaccionMapper.INSTANCE::toTransaccionDto)
+                .map(TransaccionMapper.INSTANCE::toTransaccionDtoConJuegos)
                 .collect(Collectors.toList());
     }
 
