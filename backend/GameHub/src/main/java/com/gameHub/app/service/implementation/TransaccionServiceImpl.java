@@ -81,6 +81,17 @@ public class TransaccionServiceImpl implements TransaccionService {
             trans.setVideoJuego(this.videoJuegoRepository.findById(trans.getGameId())
                     .orElseThrow(
                             () -> new ResourceNotFoundException("Videjuego not found with id " + trans.getGameId())));
+
+            int newStock = trans.getVideoJuego().getStock() - trans.getCant();
+
+            if (newStock < 0) {
+
+                throw new RuntimeException("Cannot complete transaction. Insufficient stock for game: "
+                        + trans.getVideoJuego().getTitulo());
+
+            }
+            this.videoJuegoRepository.updateStock(trans.getGameId(), newStock);
+
         });
 
         Transaccion transaccion = TransaccionMapper.INSTANCE.toTransaccion(transaccionDto);
