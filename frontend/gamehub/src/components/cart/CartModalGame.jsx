@@ -1,13 +1,6 @@
-import { MdPersonOutline } from "react-icons/md"
-import Modal from "../modal/Modal"
-import { IoCartOutline, IoWarningSharp } from "react-icons/io5"
-import { CgGames } from "react-icons/cg";
-import { AiFillDollarCircle } from "react-icons/ai";
-import ButtonCard from "../ButtonCard";
+
+import { IoWarningSharp } from "react-icons/io5"
 import useCartContext from "../../hooks/useCartContext";
-import { VscLoading } from "react-icons/vsc";
-import { IoIosInformationCircleOutline } from "react-icons/io";
-import clsx from "clsx";
 import TransactionInfo from "../TransactionInfo";
 import ButtonsModalTransaction from "../ButtonsModalTransaction";
 
