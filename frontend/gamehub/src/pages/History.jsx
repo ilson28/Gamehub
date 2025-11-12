@@ -205,10 +205,7 @@ const History = () => {
             {
                 transaction &&
                 <TransactionModalGame
-                    cliente={transaction.cliente}
-                    Onclose={() => setState(false)}
                     transaction={transaction}
-                    cart={false}
                 />
             }
 
