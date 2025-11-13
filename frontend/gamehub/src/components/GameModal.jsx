@@ -1,8 +1,6 @@
 import { FaCircleCheck } from "react-icons/fa6";
 
 import ButtonCard from "../components/ButtonCard";
-import { twMerge } from "tailwind-merge";
-import { clsx } from "clsx";
 import { useEffect } from "react";
 
 
