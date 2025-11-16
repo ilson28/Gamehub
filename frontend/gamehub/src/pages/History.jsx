@@ -8,6 +8,7 @@ import { getRentalTransactions, getTransactionsForType } from "../services/trans
 import { useQuery } from "@tanstack/react-query";
 import useModalContext from "../hooks/useModalContext";
 import TransactionModalGame from "../components/TransactionModalGame";
+import ModalHistoryNotification from "../components/modal/ModalHistoryNotification";
 
 
 const History = () => {
@@ -203,9 +204,15 @@ const History = () => {
             </div>
 
             {
+                !transaction &&
+                <ModalHistoryNotification />
+            }
+
+            {
                 transaction &&
                 <TransactionModalGame
                     transaction={transaction}
+                    onClick={() => setTransaction(null)}
                 />
             }
 
