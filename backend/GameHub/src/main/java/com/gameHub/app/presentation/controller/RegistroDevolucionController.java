@@ -5,10 +5,13 @@ import com.gameHub.app.service.exception.ResourceNotFoundException;
 import com.gameHub.app.service.interfaces.RegistroDevolucionService;
 
 import jakarta.validation.Valid;
+
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +40,16 @@ public class RegistroDevolucionController {
                 .orElseThrow(() -> new ResourceNotFoundException("Registro devolucion", "Id", id));
         return ResponseEntity.ok(registroDevolucionDto);
 
+    }
+
+    @GetMapping
+    public ResponseEntity<List<RegistroDevolucionDto>> filtrar(@RequestParam String cedula,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fromDate,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime toDate) {
+
+        List<RegistroDevolucionDto> resultados = registroDevolucionService.filtrar(cedula, fromDate, toDate);
+
+        return ResponseEntity.ok(resultados);
     }
 
     @PostMapping
