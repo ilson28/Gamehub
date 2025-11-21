@@ -37,4 +37,8 @@ public interface TransaccionRepository extends JpaRepository<Transaccion, Intege
                         "AND (:fecha IS NULL OR t.fechaTrans = :fecha)")
         List<Transaccion> findAlquilerByEstado(String estado, LocalDate fecha);
 
+         @Modifying
+        @Query("UPDATE Transaccion t SET t.estado = 'devuelto' WHERE t.id = :id")
+        int updateEstadoToDevuelto(int id);
+
 }
