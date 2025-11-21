@@ -17,4 +17,9 @@ const getAll = async () => {
     return response.data;
 }
 
-export { getAll, getFilterRegistroDevoluciones };
+const create = async (registroDevolucion) => {
+    const response = await axios.post(API_URL, registroDevolucion);
+    return response.data;
+}
+
+export { getAll, getFilterRegistroDevoluciones, create };
