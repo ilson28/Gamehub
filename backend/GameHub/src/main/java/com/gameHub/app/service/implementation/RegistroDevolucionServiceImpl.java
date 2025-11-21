@@ -10,6 +10,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -58,4 +59,14 @@ public class RegistroDevolucionServiceImpl implements RegistroDevolucionService 
     public void delete(Integer id) {
 
     }
+
+   @Override
+    @Transactional(readOnly = true)
+    public List<RegistroDevolucionDto> filtrar(String cedula, LocalDateTime fromDate, LocalDateTime toDate) {
+        ModelMapper mapper = new ModelMapper();
+        return registroDevolucionRepository.filtrar(cedula, fromDate, toDate).stream()
+                .map(r -> mapper.map(r, RegistroDevolucionDto.class))
+                .collect(Collectors.toList());
+    }
+
 }
