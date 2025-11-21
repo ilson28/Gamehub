@@ -1,6 +1,7 @@
 package com.gameHub.app.persistence.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -37,7 +38,7 @@ public interface TransaccionRepository extends JpaRepository<Transaccion, Intege
                         "AND (:fecha IS NULL OR t.fechaTrans = :fecha)")
         List<Transaccion> findAlquilerByEstado(String estado, LocalDate fecha);
 
-         @Modifying
+        @Modifying
         @Query("UPDATE Transaccion t SET t.estado = 'devuelto' WHERE t.id = :id")
         int updateEstadoToDevuelto(int id);
 

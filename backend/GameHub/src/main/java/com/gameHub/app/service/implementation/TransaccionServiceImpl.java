@@ -145,4 +145,10 @@ public class TransaccionServiceImpl implements TransaccionService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public int updateEstadoToDevuelto(int id) {
+        // TODO Auto-generated method stub
+        return transaccionRepository.updateEstadoToDevuelto(id);
+    }
+
 }

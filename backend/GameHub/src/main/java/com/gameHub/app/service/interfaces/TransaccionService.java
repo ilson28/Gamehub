@@ -30,6 +30,8 @@ public interface TransaccionService {
 
     Optional<TransaccionResponseDto> findById(Integer id);
 
+    int updateEstadoToDevuelto(int id);
+
     void delete(Integer id);
 
 }
