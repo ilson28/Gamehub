@@ -9,15 +9,22 @@ import { useQuery } from "@tanstack/react-query";
 import useModalContext from "../hooks/useModalContext";
 import TransactionModalGame from "../components/TransactionModalGame";
 import ModalHistoryNotification from "../components/modal/ModalHistoryNotification";
+import { create } from "../services/registroDevolucionService";
 
 
 const History = () => {
 
-
+    const mutate = useMutation({
+        mutationFn: (registroDevolucion) => create(registroDevolucion),
+        onSuccess: (response) => {
+            console.log("Registro de devolución creado:", response);
+            setTransaction(null);
+        }
+    })
     const [tabActive, setTabActive] = useState("venta");
     const [rentalFilter, setRentalFilter] = useState("all");
     const [transaction, setTransaction] = useState(null);
-    const { state, setState } = useModalContext();
+    const { setState } = useModalContext();
     const { isLoading, isError, data: transactions = [] } = useQuery({
         queryKey: ['transactions', tabActive, rentalFilter],
         queryFn: () => {
@@ -33,6 +40,13 @@ const History = () => {
 
     const handleTab = tab => tab === "venta" ? setTabActive("venta") : setTabActive("alquiler");
 
+    const handleSubmit = () => {
+        const registroDevolucion = {
+            transaccion: transaction,
+        }
+        mutate.mutate(registroDevolucion);
+
+    }
 
 
 
@@ -212,7 +226,7 @@ const History = () => {
                 transaction &&
                 <TransactionModalGame
                     transaction={transaction}
-                    onClick={() => setTransaction(null)}
+                    onClick={handleSubmit}
                 />
             }
 
