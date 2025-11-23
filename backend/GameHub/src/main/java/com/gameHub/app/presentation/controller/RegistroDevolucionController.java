@@ -42,7 +42,7 @@ public class RegistroDevolucionController {
 
     }
 
-    @GetMapping
+    @GetMapping("/filter")
     public ResponseEntity<List<RegistroDevolucionDto>> filtrar(@RequestParam String cedula,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fromDate,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime toDate) {
