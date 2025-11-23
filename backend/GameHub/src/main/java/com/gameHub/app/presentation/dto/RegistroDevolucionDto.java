@@ -7,8 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 @Builder
 @Data
@@ -20,7 +19,6 @@ public class RegistroDevolucionDto {
 
     @Valid
     private TransaccionRequestDto transaccion;
-    private LocalDate fecha;
-    private LocalTime hora;
+    private LocalDateTime fecha;
 
 }
