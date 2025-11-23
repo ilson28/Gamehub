@@ -2,9 +2,12 @@ package com.gameHub.app.service.implementation;
 
 import com.gameHub.app.persistence.entity.RegistroDevolucion;
 import com.gameHub.app.persistence.repository.RegistroDevolucionRepository;
+import com.gameHub.app.persistence.repository.TransaccionRepository;
 import com.gameHub.app.presentation.dto.RegistroDevolucionDto;
 import com.gameHub.app.service.exception.ResourceNotFoundException;
 import com.gameHub.app.service.interfaces.RegistroDevolucionService;
+
+import lombok.RequiredArgsConstructor;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -16,13 +19,11 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class RegistroDevolucionServiceImpl implements RegistroDevolucionService {
 
-    private RegistroDevolucionRepository registroDevolucionRepository;
-
-    public RegistroDevolucionServiceImpl(RegistroDevolucionRepository registroDevolucionRepository) {
-        this.registroDevolucionRepository = registroDevolucionRepository;
-    }
+    private final RegistroDevolucionRepository registroDevolucionRepository;
+    private final TransaccionRepository transaccionRepository;
 
     @Transactional(readOnly = true)
     @Override
@@ -50,6 +51,8 @@ public class RegistroDevolucionServiceImpl implements RegistroDevolucionService 
     public RegistroDevolucionDto save(RegistroDevolucionDto devolucion) {
         ModelMapper mapper = new ModelMapper();
 
+        this.transaccionRepository.updateEstadoToDevuelto(devolucion.getTransaccion().getId());
+
         RegistroDevolucion devolucion1 = mapper.map(devolucion, RegistroDevolucion.class);
 
         return mapper.map(registroDevolucionRepository.save(devolucion1), RegistroDevolucionDto.class);
@@ -60,7 +63,7 @@ public class RegistroDevolucionServiceImpl implements RegistroDevolucionService 
 
     }
 
-   @Override
+    @Override
     @Transactional(readOnly = true)
     public List<RegistroDevolucionDto> filtrar(String cedula, LocalDateTime fromDate, LocalDateTime toDate) {
         ModelMapper mapper = new ModelMapper();
