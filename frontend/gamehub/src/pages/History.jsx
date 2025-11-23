@@ -5,7 +5,7 @@ import { FaCartShopping } from "react-icons/fa6"
 import { IoCart, IoEyeSharp, IoTimeSharp } from "react-icons/io5";
 
 import { getRentalTransactions, getTransactionsForType } from "../services/transaccionService"
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import useModalContext from "../hooks/useModalContext";
 import TransactionModalGame from "../components/TransactionModalGame";
 import ModalHistoryNotification from "../components/modal/ModalHistoryNotification";

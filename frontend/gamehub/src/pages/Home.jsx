@@ -7,9 +7,10 @@ import { CiSearch } from "react-icons/ci";
 import Cards from "../components/Card";
 import { getTotalGames, getTotalStock } from "../services/videojuegoService";
 import { getTotalActiveTransaccions, getTotalSalesToday } from "../services/transaccionService";
-import { VscLoading } from "react-icons/vsc";
+
 
 import { useQuery } from "@tanstack/react-query";
+import ItemCard from "../components/ItemCard";
 
 const Home = () => {
 
@@ -92,89 +93,36 @@ const Home = () => {
             <div className='my-4 flex flex-col md:flex-row gap-4 '>
 
                 {/* Total juegos */}
-                <div className='flex items-center gap-3 shadow-lg bg-white rounded-lg p-6 grow'>
-                    <div className="text-2xl p-2 bg-blue-100 text-blue-600 rounded-lg">
-                        <IoGameControllerOutline />
-                    </div>
-
-                    <div className="flex flex-col ">
-                        <span className="text-gray-600">Total juegos</span>
-
-                        {
-                            loadingGames ? (
-                                <div className="flex justify-center items-center">
-                                    <VscLoading className="animate-spin text-2xl" />
-                                </div>
-                            ) : (
-                                <span className="font-bold text-2xl">{totalGames}</span>
-                            )
-                        }
-                    </div>
-                </div>
+                <ItemCard
+                    icon={<IoGameControllerOutline />}
+                    text="Total juegos"
+                    loading={loadingGames}
+                    value={totalGames}
+                />
 
                 {/* Ventas hoy */}
-                <div className='flex items-center gap-3 shadow-lg bg-white rounded-lg p-6 grow'>
-                    <div className="text-2xl p-2 bg-green-100 text-green-600 rounded-lg">
-                        <FaCartShopping />
-                    </div>
-
-                    <div className="flex flex-col ">
-                        <span className="text-gray-600">Ventas hoy</span>
-
-                        {
-                            loadingSales ? (
-                                <div className="flex justify-center items-center">
-                                    <VscLoading className="animate-spin text-2xl" />
-                                </div>
-                            ) : (
-                                <span className="font-bold text-2xl">{totalSales}</span>
-                            )
-                        }
-
-                    </div>
-                </div>
+                <ItemCard
+                    icon={<FaCartShopping />}
+                    text="Ventas hoy"
+                    loading={loadingSales}
+                    value={totalSales}
+                />
 
                 {/* Alquileres activos */}
-                <div className='flex items-center gap-3 shadow-lg bg-white rounded-lg p-6 grow'>
-                    <div className="text-2xl p-2 bg-orange-100 text-orange-600 rounded-lg">
-                        <SlReload />
-                    </div>
+                <ItemCard
+                    icon={<SlReload />}
+                    text="Alquileres Activos"
+                    loading={loadingRentals}
+                    value={totalRentals}
+                />
 
-                    <div className="flex flex-col ">
-                        <span className="text-gray-600">Alquileres Activos</span>
-                        {
-                            loadingRentals ? (
-                                <div className="flex justify-center items-center">
-                                    <VscLoading className="animate-spin text-2xl" />
-                                </div>
-                            ) : (
-                                <span className="font-bold text-2xl">{totalRentals}</span>
-                            )
-                        }
-                    </div>
-                </div>
                 {/* Stock total */}
-                <div className='flex items-center gap-3 shadow-lg bg-white rounded-lg p-6 grow'>
-                    <div className="text-2xl p-2 bg-purple-100 text-purple-600 rounded-lg">
-                        <RiHistoryFill />
-                    </div>
-
-                    <div className="flex flex-col ">
-                        <span className="text-gray-600">Stock Total</span>
-
-                        {
-                            loadingStock ? (
-                                <div className="flex justify-center items-center">
-                                    <VscLoading className="animate-spin text-2xl" />
-                                </div>
-                            ) : (
-                                <span className="font-bold text-2xl">{totalStock}</span>
-                            )
-                        }
-
-                    </div>
-                </div>
-
+                <ItemCard
+                    icon={<RiHistoryFill />}
+                    text="Stock Total"
+                    loading={loadingStock}
+                    value={totalStock}
+                />
             </div>
             {/* Buscador */}
             <div className="my-4 text-gray-500 relative">
