@@ -3,11 +3,12 @@ package com.gameHub.app.service.interfaces;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+
+import org.springdoc.core.converters.models.Pageable;
+
 import com.gameHub.app.presentation.dto.RegistroDevolucionDto;
 
 public interface RegistroDevolucionService {
-
-    List<RegistroDevolucionDto> findAll();
 
     Optional<RegistroDevolucionDto> findById(Integer id);
 
@@ -15,6 +16,6 @@ public interface RegistroDevolucionService {
 
     void delete(Integer id);
 
-    List<RegistroDevolucionDto> filtrar(String cedula, LocalDateTime fromDate, LocalDateTime toDate);
+    List<RegistroDevolucionDto> findAll(String cedula, LocalDateTime fromDate, LocalDateTime toDate, Pageable pageable);
 
 }

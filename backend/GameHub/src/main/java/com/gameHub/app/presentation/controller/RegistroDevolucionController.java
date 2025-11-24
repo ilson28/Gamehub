@@ -6,6 +6,9 @@ import com.gameHub.app.service.interfaces.RegistroDevolucionService;
 
 import jakarta.validation.Valid;
 
+import org.springdoc.core.converters.models.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,9 +31,17 @@ public class RegistroDevolucionController {
     }
 
     @GetMapping
-    public ResponseEntity<List<RegistroDevolucionDto>> getAll() {
+    public ResponseEntity<List<RegistroDevolucionDto>> getAll(
+            @RequestParam String cedula,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fromDate,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime toDate,
+            @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable
 
-        return ResponseEntity.ok(registroDevolucionService.findAll());
+    ) {
+
+        List<RegistroDevolucionDto> resultados = registroDevolucionService.findAll(cedula, fromDate, toDate, pageable);
+
+        return ResponseEntity.ok(resultados);
     }
 
     @GetMapping("/{id}")
@@ -40,16 +51,6 @@ public class RegistroDevolucionController {
                 .orElseThrow(() -> new ResourceNotFoundException("Registro devolucion", "Id", id));
         return ResponseEntity.ok(registroDevolucionDto);
 
-    }
-
-    @GetMapping("/filter")
-    public ResponseEntity<List<RegistroDevolucionDto>> filtrar(@RequestParam String cedula,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fromDate,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime toDate) {
-
-        List<RegistroDevolucionDto> resultados = registroDevolucionService.filtrar(cedula, fromDate, toDate);
-
-        return ResponseEntity.ok(resultados);
     }
 
     @PostMapping

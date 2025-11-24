@@ -10,6 +10,7 @@ import com.gameHub.app.service.interfaces.RegistroDevolucionService;
 import lombok.RequiredArgsConstructor;
 
 import org.modelmapper.ModelMapper;
+import org.springdoc.core.converters.models.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,11 +26,12 @@ public class RegistroDevolucionServiceImpl implements RegistroDevolucionService 
     private final RegistroDevolucionRepository registroDevolucionRepository;
     private final TransaccionRepository transaccionRepository;
 
-    @Transactional(readOnly = true)
     @Override
-    public List<RegistroDevolucionDto> findAll() {
+    @Transactional(readOnly = true)
+    public List<RegistroDevolucionDto> findAll(String cedula, LocalDateTime fromDate, LocalDateTime toDate,
+            Pageable pageable) {
         ModelMapper mapper = new ModelMapper();
-        return registroDevolucionRepository.findAll().stream()
+        return registroDevolucionRepository.findAllWithFilters(cedula, fromDate, toDate, pageable).stream()
                 .map(r -> mapper.map(r, RegistroDevolucionDto.class))
                 .collect(Collectors.toList());
     }
@@ -61,15 +63,6 @@ public class RegistroDevolucionServiceImpl implements RegistroDevolucionService 
     @Override
     public void delete(Integer id) {
 
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<RegistroDevolucionDto> filtrar(String cedula, LocalDateTime fromDate, LocalDateTime toDate) {
-        ModelMapper mapper = new ModelMapper();
-        return registroDevolucionRepository.filtrar(cedula, fromDate, toDate).stream()
-                .map(r -> mapper.map(r, RegistroDevolucionDto.class))
-                .collect(Collectors.toList());
     }
 
 }
