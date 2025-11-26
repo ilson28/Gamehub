@@ -6,7 +6,8 @@ import com.gameHub.app.service.interfaces.RegistroDevolucionService;
 
 import jakarta.validation.Valid;
 
-import org.springdoc.core.converters.models.Pageable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -31,7 +31,7 @@ public class RegistroDevolucionController {
     }
 
     @GetMapping
-    public ResponseEntity<List<RegistroDevolucionDto>> getAll(
+    public ResponseEntity<Page<RegistroDevolucionDto>> getAll(
             @RequestParam String cedula,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime fromDate,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime toDate,
@@ -39,8 +39,7 @@ public class RegistroDevolucionController {
 
     ) {
 
-        List<RegistroDevolucionDto> resultados = registroDevolucionService.findAll(cedula, fromDate, toDate, pageable);
-
+        Page<RegistroDevolucionDto> resultados = registroDevolucionService.findAll(cedula, fromDate, toDate, pageable);
         return ResponseEntity.ok(resultados);
     }
 

@@ -7,6 +7,7 @@ import com.gameHub.app.service.exception.ResourceNotFoundException;
 import com.gameHub.app.service.interfaces.ClienteService;
 import com.gameHub.app.util.mapper.ClienteMapper;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,11 +27,10 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<ClienteResponseDto> findAllPageable(Pageable pageable) {
+    public Page<ClienteResponseDto> findAllPageable(Pageable pageable) {
 
-        return clienteRepository.findAll(pageable).stream()
-                .map(ClienteMapper.INSTANCE::toClienteResponseDto)
-                .collect(Collectors.toList());
+        return clienteRepository.findAll(pageable).map(ClienteMapper.INSTANCE::toClienteResponseDto);
+
     }
 
     @Transactional(readOnly = true)

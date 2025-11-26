@@ -1,13 +1,12 @@
 package com.gameHub.app.persistence.repository;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
-import org.springdoc.core.converters.models.Pageable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-
 import com.gameHub.app.persistence.entity.RegistroDevolucion;
 
 public interface RegistroDevolucionRepository extends JpaRepository<RegistroDevolucion, Integer> {
@@ -21,7 +20,7 @@ public interface RegistroDevolucionRepository extends JpaRepository<RegistroDevo
                         AND (:fromDate IS NULL OR r.fecha >= :fromDate)
                         AND (:toDate IS NULL OR r.fecha <= :toDate)
                         """)
-        List<RegistroDevolucion> findAllWithFilters(
+        Page<RegistroDevolucion> findAllWithFilters(
                         @Param("cedula") String cedula,
                         @Param("fromDate") LocalDateTime fromDate,
                         @Param("toDate") LocalDateTime toDate,

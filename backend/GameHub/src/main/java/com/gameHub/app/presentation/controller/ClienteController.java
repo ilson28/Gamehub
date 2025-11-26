@@ -6,8 +6,10 @@ import com.gameHub.app.service.interfaces.ClienteService;
 
 import jakarta.validation.Valid;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.springframework.data.domain.Sort;
 
 @RestController
 @CrossOrigin
@@ -27,20 +30,18 @@ public class ClienteController {
         this.clienteService = clienteService;
     }
 
-    @GetMapping("/{page}/{size}")
-    public ResponseEntity<List<ClienteResponseDto>> getAllPageable(@PathVariable Integer page,
-            @PathVariable Integer size) {
-
-        Pageable pageable = PageRequest.of(page, size);
+    @GetMapping
+    public ResponseEntity<Page<ClienteResponseDto>> getAllPageable(
+            @PageableDefault(page = 0, size = 5, sort = "username", direction = Sort.Direction.DESC) Pageable pageable) {
 
         return ResponseEntity.ok(clienteService.findAllPageable(pageable));
     }
 
-    @GetMapping
-    public ResponseEntity<List<ClienteResponseDto>> getAll() {
+    // @GetMapping
+    // public ResponseEntity<List<ClienteResponseDto>> getAll() {
 
-        return ResponseEntity.ok(clienteService.findAll());
-    }
+    // return ResponseEntity.ok(clienteService.findAll());
+    // }
 
     @GetMapping("/{id}")
     public ResponseEntity<ClienteResponseDto> getById(@PathVariable Integer id) {

@@ -1,10 +1,10 @@
 package com.gameHub.app.service.interfaces;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 
-import org.springdoc.core.converters.models.Pageable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import com.gameHub.app.presentation.dto.RegistroDevolucionDto;
 
@@ -16,6 +16,6 @@ public interface RegistroDevolucionService {
 
     void delete(Integer id);
 
-    List<RegistroDevolucionDto> findAll(String cedula, LocalDateTime fromDate, LocalDateTime toDate, Pageable pageable);
+    Page<RegistroDevolucionDto> findAll(String cedula, LocalDateTime fromDate, LocalDateTime toDate, Pageable pageable);
 
 }

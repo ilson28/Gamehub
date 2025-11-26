@@ -1,5 +1,6 @@
 package com.gameHub.app.service.interfaces;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.gameHub.app.presentation.dto.ClienteDto;
@@ -10,7 +11,7 @@ import java.util.Optional;
 
 public interface ClienteService {
 
-    List<ClienteResponseDto> findAllPageable(Pageable pageable);
+    Page<ClienteResponseDto> findAllPageable(Pageable pageable);
 
     List<ClienteResponseDto> findAll();
 
