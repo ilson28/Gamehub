@@ -7,7 +7,7 @@ package com.gameHub.app.persistence.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.Period;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -29,13 +29,13 @@ public class RegistroDevolucion {
     private Transaccion transaccion;
 
     @CreationTimestamp
-    private LocalDateTime fecha;
+    private LocalDate fecha;
 
     public double[] calcularAdicion() {
 
         double ad = 0.0;
         double porcentaje = 0;
-        Period lapsus = Period.between(getTransaccion().getFechaDev(), getFecha().toLocalDate());
+        Period lapsus = Period.between(getTransaccion().getFechaDev(), getFecha());
         int dias = lapsus.getDays();
         if (dias >= 10) {
             porcentaje = 20;

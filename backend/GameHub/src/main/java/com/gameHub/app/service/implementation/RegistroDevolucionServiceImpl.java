@@ -18,7 +18,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+
 import java.util.Optional;
 
 @Service
@@ -30,7 +31,7 @@ public class RegistroDevolucionServiceImpl implements RegistroDevolucionService 
 
     @Override
     @Transactional(readOnly = true)
-    public Page<RegistroDevolucionDto> findAll(String cedula, LocalDateTime fromDate, LocalDateTime toDate,
+    public Page<RegistroDevolucionDto> findAll(String cedula, LocalDate fromDate, LocalDate toDate,
             Pageable pageable) {
         ModelMapper mapper = new ModelMapper();
         return registroDevolucionRepository.findAllWithFilters(cedula, fromDate, toDate, pageable)

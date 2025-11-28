@@ -1,6 +1,6 @@
 package com.gameHub.app.persistence.repository;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,7 +22,7 @@ public interface RegistroDevolucionRepository extends JpaRepository<RegistroDevo
                         """)
         Page<RegistroDevolucion> findAllWithFilters(
                         @Param("cedula") String cedula,
-                        @Param("fromDate") LocalDateTime fromDate,
-                        @Param("toDate") LocalDateTime toDate,
+                        @Param("fromDate") LocalDate fromDate,
+                        @Param("toDate") LocalDate toDate,
                         Pageable pageable);
 }

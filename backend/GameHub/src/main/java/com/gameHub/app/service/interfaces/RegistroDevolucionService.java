@@ -1,6 +1,6 @@
 package com.gameHub.app.service.interfaces;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -16,6 +16,6 @@ public interface RegistroDevolucionService {
 
     void delete(Integer id);
 
-    Page<RegistroDevolucionDto> findAll(String cedula, LocalDateTime fromDate, LocalDateTime toDate, Pageable pageable);
+    Page<RegistroDevolucionDto> findAll(String cedula, LocalDate fromDate, LocalDate toDate, Pageable pageable);
 
 }

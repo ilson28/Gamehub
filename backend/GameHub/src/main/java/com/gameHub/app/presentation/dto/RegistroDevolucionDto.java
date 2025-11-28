@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -22,6 +22,6 @@ public class RegistroDevolucionDto {
     @Positive
     private Integer idTransaccion;
     private TransaccionResponseDto transaccion;
-    private LocalDateTime fecha;
+    private LocalDate fecha;
 
 }
