@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
+import com.gameHub.app.service.implementation.ClienteResponseDto;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,7 +24,7 @@ public class TransaccionResponseDto {
     private LocalDate fechaTrans;
     private LocalTime hora;
     private LocalDate fechaDev;
-    private ClienteDto cliente;
+    private ClienteResponseDto cliente;
     private List<Trans_juegoResponseDto> transJuegos;
 
 }

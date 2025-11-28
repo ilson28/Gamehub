@@ -4,8 +4,10 @@ import com.gameHub.app.persistence.entity.RegistroDevolucion;
 import com.gameHub.app.persistence.repository.RegistroDevolucionRepository;
 import com.gameHub.app.persistence.repository.TransaccionRepository;
 import com.gameHub.app.presentation.dto.RegistroDevolucionDto;
+import com.gameHub.app.presentation.dto.TransaccionResponseDto;
 import com.gameHub.app.service.exception.ResourceNotFoundException;
 import com.gameHub.app.service.interfaces.RegistroDevolucionService;
+import com.gameHub.app.util.mapper.TransaccionMapper;
 
 import lombok.RequiredArgsConstructor;
 
@@ -51,6 +53,14 @@ public class RegistroDevolucionServiceImpl implements RegistroDevolucionService 
     @Override
     public RegistroDevolucionDto save(RegistroDevolucionDto devolucion) {
         ModelMapper mapper = new ModelMapper();
+
+        TransaccionResponseDto transaccion = TransaccionMapper.INSTANCE
+                .toTransaccionDtoConJuegos(this.transaccionRepository
+                        .findById(devolucion.getIdTransaccion())
+                        .orElseThrow(() -> new ResourceNotFoundException("Transaccion", "Id",
+                                devolucion.getTransaccion().getId())));
+
+        devolucion.setTransaccion(transaccion);
 
         this.transaccionRepository.updateEstadoToDevuelto(devolucion.getTransaccion().getId());
 
