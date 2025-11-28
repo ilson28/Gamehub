@@ -3,9 +3,11 @@ import Modal from "./Modal"
 import { FaCheck } from "react-icons/fa";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import useModalContext from "../../hooks/useModalContext";
 const ModalHistoryNotification = () => {
 
+    const navigate = useNavigate();
     const { state, setState } = useModalContext();
     const [counter, setCounter] = useState(5);
 
@@ -25,7 +27,7 @@ const ModalHistoryNotification = () => {
         if (counter === 0) {
 
             setState(false);
-            console.log("Redirigiendo a la vista de devoluciones...");
+            navigate("/returns");
         }
     }, [counter, setCounter])
 
@@ -43,13 +45,13 @@ const ModalHistoryNotification = () => {
                     </div>
                     <div className="w-full">
 
-                        <div className={clsx("h-2 rounded-md bg-linear-to-l from-purple-500 to-blue-700",
+                        <div className={clsx("h-2 rounded-md bg-linear-to-l from-blue-500 to-blue-800",
                             state && "animate-progress")}>
                         </div>
                     </div>
                     <div className="flex gap-2 items-center cursor-pointer font-semibold">
-                        <span className="text-purple-600">Ir ahora </span>
-                        <FaArrowRightLong className="text-purple-700" />
+                        <span className="text-blue-600">Ir ahora </span>
+                        <FaArrowRightLong className="text-blue-700" />
                     </div>
                 </div>
             </div>

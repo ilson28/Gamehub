@@ -7,6 +7,7 @@ import History from './pages/History';
 import { ModalProvider } from './contexts/modalContext';
 import { CartContextProvider } from './contexts/CartContext';
 import Cart from './pages/Cart';
+import Returns from './pages/Returns';
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
               <Route path="/add-game/:gameId" element={<AddGame />} />
               <Route path="/history" element={<History />} />
               <Route path="/cart" element={<Cart />} />
+              <Route path='/returns' element={<Returns />} />
 
 
               {/**

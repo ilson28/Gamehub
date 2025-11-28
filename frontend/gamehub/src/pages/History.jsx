@@ -5,33 +5,37 @@ import { FaCartShopping } from "react-icons/fa6"
 import { IoCart, IoEyeSharp, IoTimeSharp } from "react-icons/io5";
 
 import { getRentalTransactions, getTransactionsForType } from "../services/transaccionService"
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import useModalContext from "../hooks/useModalContext";
 import TransactionModalGame from "../components/TransactionModalGame";
 import ModalHistoryNotification from "../components/modal/ModalHistoryNotification";
 import { create } from "../services/registroDevolucionService";
 
 
+
 const History = () => {
 
+
+    const queryClient = useQueryClient();
     const mutate = useMutation({
         mutationFn: (registroDevolucion) => create(registroDevolucion),
         onSuccess: (response) => {
             console.log("Registro de devolución creado:", response);
             setTransaction(null);
+            queryClient.invalidateQueries(["returns"]);
         }
     })
     const [tabActive, setTabActive] = useState("venta");
-    const [rentalFilter, setRentalFilter] = useState("all");
+    const [rentalFilter, setRentalFilter] = useState("todos");
     const [transaction, setTransaction] = useState(null);
     const { setState } = useModalContext();
     const { isLoading, isError, data: transactions = [] } = useQuery({
         queryKey: ['transactions', tabActive, rentalFilter],
         queryFn: () => {
-            if (tabActive === "venta" || rentalFilter === "all") {
-                return getTransactionsForType(tabActive);
+            if (tabActive === "venta" || rentalFilter === "todos") {
+                return getTransactionsForType(tabActive, null);
             }
-            return getRentalTransactions(rentalFilter);
+            return getRentalTransactions(rentalFilter, null);
         },
         select: (response) => response.success ? response.data : [],
         staleTime: 1000 * 60 * 60 * 2 // 2 horas
@@ -42,7 +46,7 @@ const History = () => {
 
     const handleSubmit = () => {
         const registroDevolucion = {
-            transaccion: transaction,
+            idTransaccion: transaction.id,
         }
         mutate.mutate(registroDevolucion);
 
@@ -113,13 +117,13 @@ const History = () => {
                             tabActive === "alquiler" &&
                             <select
 
-                                defaultValue={"all"}
+                                defaultValue={"todos"}
                                 onChange={e => setRentalFilter(e.target.value)}
                                 name="rentFilter"
                                 className="p-2 outline-none focus:border-blue-800 rounded-md focus:border-2 border border-gray-300">
-                                <option value="all">Todos los alquileres</option>
-                                <option value="actives">Alquileres Activos</option>
-                                <option value="returns">Alquileres devueltos</option>
+                                <option value="todos">Todos los alquileres</option>
+                                <option value="alquilado">Alquileres Activos</option>
+                                <option value="devuelto">Alquileres devueltos</option>
                             </select>
                         }
                         <input
@@ -131,7 +135,7 @@ const History = () => {
                 <div className="overflow-x-auto">
                     <table className="w-full text-left">
 
-                        <thead className="bg-gray-100 text-gray-500 ">
+                        <thead className="bg-gray-100 text-gray-500">
                             <tr>
                                 <th className="pl-8">Fecha y Hora</th>
                                 <th>Cédula Cliente</th>

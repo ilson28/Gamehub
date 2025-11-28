@@ -90,7 +90,7 @@ const Home = () => {
             </div>
 
             {/* Tarjetas */}
-            <div className='my-4 flex flex-col md:flex-row gap-4 '>
+            <div className='my-4 flex flex-col md:flex-row gap-4'>
 
                 {/* Total juegos */}
                 <ItemCard
@@ -130,7 +130,7 @@ const Home = () => {
                     className="w-full h-full py-4 px-9 rounded-lg shadow-md border border-gray-300 outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
                     type="text"
                     placeholder="Busca un videojuego por titulo o genero" />
-                <CiSearch size={22} className=" absolute top-1/2 -translate-y-1/2 left-2" />
+                <CiSearch size={22} className="absolute top-1/2 -translate-y-1/2 left-2" />
             </div>
 
             <Cards />

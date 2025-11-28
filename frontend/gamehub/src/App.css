@@ -29,7 +29,7 @@
 
 .container{
 
-  @apply mx-auto overflow-hidden p-4 max-w-7xl ;
+  @apply mx-auto overflow-hidden p-4 max-w-7xl;
 
 }
 
@@ -39,6 +39,6 @@
   
 }
 th, td{
-  @apply py-3 font-normal rounded border-b border-gray-200
+  @apply py-3 font-normal rounded border-b border-gray-200;
 }
 
