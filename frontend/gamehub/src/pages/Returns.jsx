@@ -120,7 +120,7 @@ const Returns = () => {
                         onChange={(e) => setStartDate(e.target.value)}
                         id="startDate"
                         className="py-3 px-2 rounded-md border border-gray-300 outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
-                        type="datetime-local"
+                        type="date"
                         placeholder="dd/mm/aaaa" />
 
                 </div>
@@ -130,7 +130,7 @@ const Returns = () => {
                         onChange={(e) => setEndDate(e.target.value)}
                         id="endDate"
                         className="py-3 px-2 rounded-md border border-gray-300 outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
-                        type="datetime-local"
+                        type="date"
                         placeholder="dd/mm/aaaa" />
 
                 </div>
@@ -168,7 +168,7 @@ const Returns = () => {
                                         <td className="pl-6">{dev.transaccion.cliente.cedula}</td>
                                         <td>{`${dev.transaccion.cliente.nombre} ${dev.transaccion.cliente.apellido}`}</td>
                                         <td>{dev.transaccion.fechaTrans}</td>
-                                        <td>{dev.fecha.split("T")[0]}</td>
+                                        <td>{dev.fecha}</td>
                                         <td
                                             onClick={() => {
                                                 setTransaccion(dev.transaccion);
