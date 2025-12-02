@@ -16,7 +16,7 @@ public interface RegistroDevolucionRepository extends JpaRepository<RegistroDevo
                         FROM RegistroDevolucion r
                         JOIN r.transaccion t
                         JOIN t.cliente c
-                        WHERE (:cedula IS NULL OR c.cedula = :cedula)
+                        WHERE (:cedula IS NULL OR c.cedula LIKE %:cedula%)
                         AND (:fromDate IS NULL OR r.fecha >= :fromDate)
                         AND (:toDate IS NULL OR r.fecha <= :toDate)
                         """)
