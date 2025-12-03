@@ -25,4 +25,19 @@ public interface RegistroDevolucionRepository extends JpaRepository<RegistroDevo
                         @Param("fromDate") LocalDate fromDate,
                         @Param("toDate") LocalDate toDate,
                         Pageable pageable);
+
+        @Query("SELECT COUNT(r) FROM RegistroDevolucion r")
+        Long totalReturns();
+
+        @Query("""
+                        SELECT COUNT(r)
+                        FROM RegistroDevolucion r
+                        WHERE r.fecha BETWEEN :startOfMonth AND :endOfMonth
+                        """)
+        long countThisMonth(
+                        @Param("startOfMonth") LocalDate startOfMonth,
+                        @Param("endOfMonth") LocalDate endOfMonth);
+
+        long countByFecha(LocalDate fecha);
+
 }
