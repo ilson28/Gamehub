@@ -13,6 +13,7 @@ import { useQuery } from "@tanstack/react-query";
 import useModalContext from "../hooks/useModalContext";
 import TransactionModalGame from "../components/TransactionModalGame";
 import { getAll } from "../services/registroDevolucionService";
+import { getReturnsOfMonth, getReturnsOfToday, getTotalReturns } from "../services/registroDevolucionService";
 import clsx from "clsx";
 
 
@@ -31,6 +32,30 @@ const Returns = () => {
         staleTime: 1000 * 60 * 60 * 2, // 2 horas
 
     })
+
+    //total de devoluciones
+    const { data: totalReturns, isLoading: totalReturnsLoading } = useQuery({
+        queryKey: ['totalReturns'],
+        queryFn: getTotalReturns,
+        staleTime: 1000 * 60 * 60 * 2, // 2 horas
+    });
+
+    // devoluciones del mes
+    const { data: returnsOfMonth, isLoading: returnsOfMonthLoading } = useQuery({
+        queryKey: ['returnsOfMonth'],
+        queryFn: getReturnsOfMonth,
+        staleTime: 1000 * 60 * 60 * 2, // 2 horas
+    }
+    );
+
+    // devoluciones del dia
+    const { data: returnsOfToday, isLoading: returnsOfTodayLoading } = useQuery({
+        queryKey: ['returnsOfToday'],
+        queryFn: getReturnsOfToday,
+        staleTime: 1000 * 60 * 60 * 2, // 2 horas
+    }
+    );
+
 
     // console.log(data);
 
@@ -82,20 +107,20 @@ const Returns = () => {
                 <ItemCard
                     icon={<PiArrowCounterClockwiseFill />}
                     text="Total Devoluciones"
-                    loading={false}
-                    value={10}
+                    loading={totalReturnsLoading}
+                    value={totalReturns || 0}
                 />
                 <ItemCard
                     icon={<FaCircleCheck />}
                     text="Este Mes"
-                    loading={false}
-                    value={10}
+                    loading={returnsOfMonthLoading}
+                    value={returnsOfMonth || 0}
                 />
                 <ItemCard
                     icon={<IoTimeSharp />}
                     text="Hoy"
-                    loading={false}
-                    value={10}
+                    loading={returnsOfTodayLoading}
+                    value={returnsOfToday || 0}
                 />
             </div>
 
