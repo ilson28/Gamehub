@@ -52,6 +52,31 @@ public class RegistroDevolucionController {
 
     }
 
+    @GetMapping("/total-devoluciones")
+    public ResponseEntity<Long> getTotalDevoluciones() {
+
+        Long total = registroDevolucionService.totalReturns();
+        return ResponseEntity.ok(total);
+
+    }
+
+    @GetMapping("/devoluciones-mes")
+
+    public ResponseEntity<Long> getDevolucionesMes() {
+
+        long total = registroDevolucionService.countThisMonth();
+        return ResponseEntity.ok(total);
+
+    }
+
+    @GetMapping("/devoluciones-dia")
+    public ResponseEntity<Long> getDevolucionesDia() {
+
+        long total = registroDevolucionService.countByFecha();
+        return ResponseEntity.ok(total);
+
+    }
+
     @PostMapping
     public ResponseEntity<RegistroDevolucionDto> create(
             @RequestBody @Valid RegistroDevolucionDto registroDevolucionDto) {
