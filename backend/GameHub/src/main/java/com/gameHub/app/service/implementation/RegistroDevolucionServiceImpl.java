@@ -75,4 +75,25 @@ public class RegistroDevolucionServiceImpl implements RegistroDevolucionService 
 
     }
 
+    @Override
+    public Long totalReturns() {
+
+        return this.registroDevolucionRepository.totalReturns();
+    }
+
+    @Override
+    public long countThisMonth() {
+        LocalDate now = LocalDate.now();
+        LocalDate startOfMonth = now.withDayOfMonth(1);
+        LocalDate endOfMonth = now.withDayOfMonth(now.lengthOfMonth());
+
+        return this.registroDevolucionRepository.countThisMonth(startOfMonth, endOfMonth);
+    }
+
+    @Override
+    public long countByFecha() {
+        LocalDate today = LocalDate.now();
+        return this.registroDevolucionRepository.countByFecha(today);
+    }
+
 }

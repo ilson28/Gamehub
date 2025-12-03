@@ -18,4 +18,10 @@ public interface RegistroDevolucionService {
 
     Page<RegistroDevolucionDto> findAll(String cedula, LocalDate fromDate, LocalDate toDate, Pageable pageable);
 
+    Long totalReturns();
+
+    long countThisMonth();
+
+    long countByFecha();
+
 }
