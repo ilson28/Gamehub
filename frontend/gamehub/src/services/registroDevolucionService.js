@@ -27,10 +27,30 @@ const getAll = async (cliente, fromDate, toDate, page=0) => {
 };
 
 
+const getTotalReturns = async ()=>{
+
+    const response = await axios.get(`${API_URL}/total-devoluciones`);
+    return response.data;
+}
+const getReturnsOfToday = async ()=>{
+
+    const response = await axios.get(`${API_URL}/total-dia`);
+    return response.data;
+}
+
+
+const getReturnsOfMonth = async ()=> {
+
+    const response = await axios.get(`${API_URL}/devoluciones-mes`);
+    return response.data;
+
+ }
+
+
 
 const create = async (registroDevolucion) => {
     const response = await axios.post(API_URL, registroDevolucion);
     return response.data;
 }
 
-export { getAll, create };
+export { getAll, create, getReturnsOfMonth, getReturnsOfToday, getTotalReturns };
