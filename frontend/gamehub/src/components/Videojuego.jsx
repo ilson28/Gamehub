@@ -40,7 +40,7 @@ const Videojuego = ({ id, title, genre, platform, sale, rent, img, stock, cart =
                 "flex flex-col sm:flex-row": cart,
             })}>
 
-                <figure className={clsx("h-60", cart && " sm:h-35 sm:w-35")}>
+                <figure className={clsx("h-60", cart && "sm:h-35 sm:w-35")}>
                     <img
                         className="w-full rounded-t-lg h-full object-cover object-center"
                         src={img}
@@ -122,7 +122,11 @@ const Videojuego = ({ id, title, genre, platform, sale, rent, img, stock, cart =
                     {
                         !cart &&
                         <div className='py-4 flex gap-2'>
-                            <ButtonCard color={"blue"} className="grow flex justify-center" onClick={handleAddGame} >
+                            <ButtonCard
+                                disabled={stock == 0}
+                                color={"blue"}
+                                className="grow flex justify-center"
+                                onClick={handleAddGame} >
 
                                 <MdAddShoppingCart size={28} />
 
