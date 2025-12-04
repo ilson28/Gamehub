@@ -16,9 +16,9 @@ const getAll = async (cliente, fromDate, toDate, page = 0) => {
 
     const response = await axios.get(`${API_URL}`, {
         params: {
-            cliente,
-            fromDate,
-            toDate,
+            cliente: cliente && cliente.trim() != '' ? cliente : null,
+            fromDate:  fromDate|| null,
+            toDate: toDate || null,
             size: 2,
             page
         }

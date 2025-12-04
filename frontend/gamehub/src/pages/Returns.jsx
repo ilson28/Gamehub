@@ -28,7 +28,7 @@ const Returns = () => {
 
     const { isLoading, data, isError } = useQuery({
         queryKey: ['returns', cliente, startDate, endDate, actualPage],
-        queryFn: () => getAll(cliente, startDate, endDate, actualPage),
+        queryFn: () => getAll(parseInt(cedula, 10), startDate, endDate, actualPage),
         staleTime: 1000 * 60 * 60 * 2, // 2 horas
 
     })
