@@ -11,40 +11,40 @@ const API_URL = 'http://localhost:8080/api/registro-devoluciones';
 //     const response = await axios.get(`${API_URL}?${params.toString()}`);
 //     return response.data;
 // };
-const getAll = async (cliente, fromDate, toDate, page=0) => {
-   
+const getAll = async (cliente, fromDate, toDate, page = 0) => {
 
-    const response = await axios.get(`${API_URL}`,{
+
+    const response = await axios.get(`${API_URL}`, {
         params: {
             cliente,
             fromDate,
             toDate,
-            size:2,
+            size: 2,
             page
         }
-     });
+    });
     return response.data;
 };
 
 
-const getTotalReturns = async ()=>{
+const getTotalReturns = async () => {
 
     const response = await axios.get(`${API_URL}/total-devoluciones`);
     return response.data;
 }
-const getReturnsOfToday = async ()=>{
+const getReturnsOfToday = async () => {
 
-    const response = await axios.get(`${API_URL}/total-dia`);
+    const response = await axios.get(`${API_URL}/devoluciones-dia`);
     return response.data;
 }
 
 
-const getReturnsOfMonth = async ()=> {
+const getReturnsOfMonth = async () => {
 
     const response = await axios.get(`${API_URL}/devoluciones-mes`);
     return response.data;
 
- }
+}
 
 
 
