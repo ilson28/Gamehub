@@ -270,6 +270,17 @@ const Returns = () => {
 
                 </div>
             }
+
+            {
+                !isLoading && data?.totalPages == 0 &&
+                <div className="container mt-10 flex justify-center items-center flex-col gap-4 text-gray-600">
+                    <div className="text-6xl">
+                        👻
+                    </div>
+                    <p className="text-xl font-semibold">Nada por aquí</p>
+                    <p>El registro de devoluciones esta vacio!</p>
+                </div>
+            }
             {
                 transaccion &&
                 <TransactionModalGame
