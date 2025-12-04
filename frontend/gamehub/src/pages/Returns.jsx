@@ -115,12 +115,14 @@ const Returns = () => {
                     text="Este Mes"
                     loading={returnsOfMonthLoading}
                     value={returnsOfMonth || 0}
+                    color="green"
                 />
                 <ItemCard
                     icon={<IoTimeSharp />}
                     text="Hoy"
                     loading={returnsOfTodayLoading}
                     value={returnsOfToday || 0}
+                    color="purple"
                 />
             </div>
 

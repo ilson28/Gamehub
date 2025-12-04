@@ -106,6 +106,7 @@ const Home = () => {
                     text="Ventas hoy"
                     loading={loadingSales}
                     value={totalSales}
+                    color="green"
                 />
 
                 {/* Alquileres activos */}
@@ -114,6 +115,7 @@ const Home = () => {
                     text="Alquileres Activos"
                     loading={loadingRentals}
                     value={totalRentals}
+                    color="orange"
                 />
 
                 {/* Stock total */}
@@ -122,6 +124,7 @@ const Home = () => {
                     text="Stock Total"
                     loading={loadingStock}
                     value={totalStock}
+                    color="purple"
                 />
             </div>
             {/* Buscador */}

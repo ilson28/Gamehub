@@ -1,8 +1,24 @@
+import clsx from "clsx";
 import { VscLoading } from "react-icons/vsc";
-const ItemCard = ({ icon, text, loading, value }) => {
+import { twMerge } from "tailwind-merge";
+
+const colors = {
+
+    blue: 'bg-blue-100 text-blue-600',
+    green: 'bg-green-100 text-green-600',
+    orange: 'bg-orange-100 text-orange-600',
+    purple: 'bg-purple-100 text-purple-600',
+}
+
+
+const ItemCard = ({ icon, text, loading, value, color }) => {
     return (
         <div className='flex items-center gap-3 shadow-lg bg-white rounded-lg p-6 grow'>
-            <div className="text-2xl p-2 bg-blue-100 text-blue-600 rounded-lg">
+            <div className={twMerge(clsx(
+                "text-2xl p-2 rounded-lg",
+                colors.blue,
+                colors[color]
+            ))}>
                 {icon}
             </div>
 
