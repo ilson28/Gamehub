@@ -22,12 +22,15 @@ const ModalHistoryNotification = () => {
         return () => clearInterval(interval);
     }, [state])
 
+    const closeModal = () => {
+        setState(false);
+        navigate("/returns");
+    }
+
     useEffect(() => {
 
         if (counter === 0) {
-
-            setState(false);
-            navigate("/returns");
+            closeModal();
         }
     }, [counter, setCounter])
 
@@ -50,13 +53,17 @@ const ModalHistoryNotification = () => {
                         </div>
                     </div>
                     <div className="flex gap-2 items-center cursor-pointer font-semibold">
-                        <span className="text-blue-600">Ir ahora </span>
+                        <span
+                            onClick={closeModal}
+                            className="text-blue-600">
+                            Ir ahora
+                        </span>
                         <FaArrowRightLong className="text-blue-700" />
                     </div>
                 </div>
             </div>
 
-        </Modal>
+        </Modal >
     )
 }
 
