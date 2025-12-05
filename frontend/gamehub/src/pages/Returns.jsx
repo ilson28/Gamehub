@@ -8,7 +8,7 @@ import ItemCard from "../components/ItemCard";
 import { FaCircleCheck } from "react-icons/fa6";
 import { IoEyeSharp, IoTimeSharp } from "react-icons/io5";
 import ButtonCard from "../components/ButtonCard";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import useModalContext from "../hooks/useModalContext";
 import TransactionModalGame from "../components/TransactionModalGame";
@@ -19,6 +19,8 @@ import clsx from "clsx";
 
 const Returns = () => {
 
+    const [canScrollLeft, setCanScrollLeft] = useState(false);
+    const [canScrollRight, setCanScrollRight] = useState(true);
     const [transaccion, setTransaccion] = useState(null);
     const { setState } = useModalContext();
     const [cliente, setCliente] = useState("");
@@ -32,6 +34,43 @@ const Returns = () => {
         staleTime: 1000 * 60 * 60 * 2, // 2 horas
 
     })
+
+
+    const scrollMemory = useRef(0);
+
+    const handleSelectPage = (num) => {
+        if (scrollRef.current) {
+            scrollMemory.current = scrollRef.current.scrollLeft;
+        }
+
+        setActualPage(num);
+    };
+
+
+    const handleScroll = () => {
+        requestAnimationFrame(() => {
+            const el = scrollRef.current;
+            if (!el) return;
+
+            setCanScrollLeft(el.scrollLeft > 0);
+            setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth);
+        });
+    };
+
+    useEffect(() => {
+        const el = scrollRef.current;
+
+        if (!el) return;
+
+        requestAnimationFrame(() => {
+            // Restaurar scroll
+            el.scrollLeft = scrollMemory.current;
+
+            // Recalcular límites DESPUÉS de restaurar
+            setCanScrollLeft(el.scrollLeft > 0);
+            setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth);
+        });
+    }, [data]);
 
     //total de devoluciones
     const { data: totalReturns, isLoading: totalReturnsLoading } = useQuery({
@@ -57,6 +96,7 @@ const Returns = () => {
     );
 
 
+
     // console.log(data);
 
     const totalPages = data ? data.totalPages : 0;
@@ -66,12 +106,17 @@ const Returns = () => {
     const scrollRef = useRef(null);
 
     const scrollLeft = () => {
+
+        if (scrollRef.current.scrollLeft === 0) return;
+
         scrollRef.current.scrollBy({
             left: -34,
             behavior: 'smooth'
         });
     }
     const scrollRight = () => {
+
+        if (scrollRef.current.scrollLeft + scrollRef.current.clientWidth >= scrollRef.current.scrollWidth) return;
         scrollRef.current.scrollBy({
             left: 34,
             behavior: 'smooth'
@@ -221,7 +266,7 @@ const Returns = () => {
                         </div>
                         <div className="flex gap-1 ">
                             <button
-                                disabled={data.first}
+                                disabled={!canScrollLeft}
                                 onClick={scrollLeft}
                                 className="flex items-center justify-center w-11 py-1 rounded-lg border border-gray-300 cursor-pointer 
                                 disabled:opacity-50  disabled:cursor-not-allowed">
@@ -229,13 +274,14 @@ const Returns = () => {
                             </button>
                             <div
                                 ref={scrollRef}
+                                onScroll={handleScroll}
                                 className="flex gap-1 scroll-smooth overflow-x-hidden w-27">
 
                                 {
                                     pages.map(num => (
                                         <button
                                             key={num}
-                                            onClick={() => setActualPage(num)}
+                                            onClick={() => handleSelectPage(num)}
                                             className={clsx("flex items-center justify-center min-w-8 py-1 border rounded-lg border-gray-300",
                                                 actualPage === num && "bg-blue-500 text-white font-bold"
                                             )}>
@@ -246,7 +292,7 @@ const Returns = () => {
 
                             </div>
                             <button
-                                disabled={data.last}
+                                disabled={!canScrollRight}
                                 onClick={scrollRight}
                                 className="flex items-center justify-center w-11 py-1 rounded-lg border border-gray-300 cursor-pointer 
                                 disabled:opacity-50  disabled:cursor-not-allowed">
