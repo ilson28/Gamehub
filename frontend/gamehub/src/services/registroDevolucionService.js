@@ -11,12 +11,12 @@ const API_URL = 'http://localhost:8080/api/registro-devoluciones';
 //     const response = await axios.get(`${API_URL}?${params.toString()}`);
 //     return response.data;
 // };
-const getAll = async (cliente, fromDate, toDate, page = 0) => {
+const getAll = async (cedula, fromDate, toDate, page = 0) => {
 
 
     const response = await axios.get(`${API_URL}`, {
         params: {
-            cliente,
+            cedula,
             fromDate,
             toDate,
             size: 2,
