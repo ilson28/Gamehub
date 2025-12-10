@@ -26,11 +26,11 @@ public class VidejuegoController {
     }
 
     @GetMapping
-    public ResponseEntity<ApiResponse<?>> getAll() {
+    public ResponseEntity<ApiResponse<?>> getAll(@RequestParam(required = false) String titulo) {
 
         ApiResponse<List<VideoJuegoDto>> response = new ApiResponse<>(
                 "Data retrieved successfully",
-                videoJuegoService.findAll());
+                videoJuegoService.findAll(titulo));
 
         return ResponseEntity.ok(response);
     }

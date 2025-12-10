@@ -9,7 +9,7 @@ import com.gameHub.app.presentation.dto.VideoJuegoDto;
 
 public interface VideoJuegoService {
 
-    List<VideoJuegoDto> findAll();
+    List<VideoJuegoDto> findAll(String titulo);
 
     Optional<VideoJuegoDto> findById(Integer id);
 

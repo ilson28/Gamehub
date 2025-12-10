@@ -28,9 +28,9 @@ public class VideojuegoServiceImpl implements VideoJuegoService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<VideoJuegoDto> findAll() {
+    public List<VideoJuegoDto> findAll(String titulo) {
 
-        return videoJuegoRepository.findAll().stream()
+        return videoJuegoRepository.findAllGames(titulo).stream()
                 .map(videoJuegoMapper::toDto)
                 .collect(Collectors.toList());
     }
