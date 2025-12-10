@@ -10,9 +10,9 @@ import java.util.List;
 
 public interface VideoJuegoRepository extends JpaRepository<VideoJuego, Integer> {
 
-    @Override
-    @Query("SELECT v FROM VideoJuego v where v.activo = 1")
-    List<VideoJuego> findAll();
+    @Query("SELECT v FROM VideoJuego v where v.activo = 1 " +
+            "AND (:titulo IS NULL OR LOWER(v.titulo) LIKE LOWER(CONCAT('%', :name, '%')))")
+    List<VideoJuego> findAllGames(String titulo);
 
     @Query("SELECT count(v) FROM VideoJuego v where v.activo = 1")
     Long totalVideojuegos();
