@@ -14,7 +14,7 @@ const API_URL = 'http://localhost:8080/api/registro-devoluciones';
 const getAll = async (cedula, fromDate, toDate, page = 0) => {
 
 
-    const response = await axios.get(`${API_URL}`, {
+    const response = await axios.get(API_URL, {
         params: {
             cedula,
             fromDate,

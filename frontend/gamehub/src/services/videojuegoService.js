@@ -16,9 +16,13 @@ export const createGame = async (game, imagen) => {
     return response.data;
 }
 
-export const getGames = async () => {
+export const getGames = async (titulo) => {
 
-    const response = await axios.get(API_URL);
+    const response = await axios.get(API_URL,{
+        params:{
+            titulo: titulo && titulo.trim() !== '' ? titulo : null 
+        }
+    });
     return response.data;
 
 }
