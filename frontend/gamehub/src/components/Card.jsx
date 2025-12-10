@@ -1,21 +1,21 @@
 import Videojuego from "./Videojuego"
 
-import { getGames } from "../services/videojuegoService";
+// import { getGames } from "../services/videojuegoService";
 
-import { useQuery } from "@tanstack/react-query"; // Importamos React Query
+// import { useQuery } from "@tanstack/react-query"; // Importamos React Query
 
 
-const Cards = () => {
+const Cards = ({ games, isLoading, isError, error }) => {
 
     // Usamos React Query para manejar la petición a la API de videojuegos
     // Esto nos permite manejar el estado de carga, error y datos de manera más eficiente
-    const { data: videojuegos = [], isLoading, isError, error } = useQuery({
-        queryKey: ['games'],
-        queryFn: getGames,
-        select: (response) => response.success ? response.data : [],
-        staleTime: 1000 * 60 * 60 * 24 // 24 horas
+    // const { data: videojuegos = [], isLoading, isError, error } = useQuery({
+    //     queryKey: ['games'],
+    //     queryFn: getGames,
+    //     select: (response) => response.success ? response.data : [],
+    //     staleTime: 1000 * 60 * 60 * 24 // 24 horas
 
-    })
+    // })
 
     // forma anterior de realizar la petición a la API para  obtener los videojuegos, ahora se usa React Query 
     // const { loading, error, sendRequest } = useApiRequest();
@@ -60,7 +60,7 @@ const Cards = () => {
     }
 
 
-    if (videojuegos.length < 1) {
+    if (games.length < 1) {
         // Mostrar un mensaje si no hay videojuegos
         return (
             <div className="container mt-10 flex justify-center items-center flex-col gap-4 text-gray-600">
@@ -78,7 +78,7 @@ const Cards = () => {
 
 
             {
-                videojuegos.map((game) =>
+                games.map((game) =>
                     <Videojuego
                         key={game.id}
                         id={game.id}

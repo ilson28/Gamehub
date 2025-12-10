@@ -5,7 +5,7 @@ import { RiHistoryFill } from "react-icons/ri";
 import { CiSearch } from "react-icons/ci";
 
 import Cards from "../components/Card";
-import { getTotalGames, getTotalStock } from "../services/videojuegoService";
+import { getGames, getTotalGames, getTotalStock } from "../services/videojuegoService";
 import { getTotalActiveTransaccions, getTotalSalesToday } from "../services/transaccionService";
 
 
@@ -13,6 +13,17 @@ import { useQuery } from "@tanstack/react-query";
 import ItemCard from "../components/ItemCard";
 
 const Home = () => {
+
+
+    // Usamos React Query para manejar la petición a la API de videojuegos
+    // Esto nos permite manejar el estado de carga, error y datos de manera más eficiente
+    const { data: games = [], isLoading, isError, error } = useQuery({
+        queryKey: ['games'],
+        queryFn: getGames,
+        select: (response) => response.success ? response.data : [],
+        staleTime: 1000 * 60 * 60 * 24 // 24 horas
+
+    })
 
     //  Total de juegos
     const { data: totalGames = 0, isLoading: loadingGames } = useQuery({
@@ -136,7 +147,12 @@ const Home = () => {
                 <CiSearch size={22} className="absolute top-1/2 -translate-y-1/2 left-2" />
             </div>
 
-            <Cards />
+            <Cards
+                games={games}
+                isLoading={isLoading}
+                isError={isError}
+                error={error}
+            />
 
         </div>
     )
