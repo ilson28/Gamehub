@@ -11,7 +11,7 @@ import java.util.List;
 public interface VideoJuegoRepository extends JpaRepository<VideoJuego, Integer> {
 
     @Query("SELECT v FROM VideoJuego v where v.activo = 1 " +
-            "AND (:titulo IS NULL OR LOWER(v.titulo) LIKE LOWER(CONCAT('%', :name, '%')))")
+            "AND (:titulo IS NULL OR LOWER(v.titulo) LIKE LOWER(CONCAT('%', :titulo, '%')))")
     List<VideoJuego> findAllGames(String titulo);
 
     @Query("SELECT count(v) FROM VideoJuego v where v.activo = 1")
