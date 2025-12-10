@@ -11,15 +11,18 @@ import { getTotalActiveTransaccions, getTotalSalesToday } from "../services/tran
 
 import { useQuery } from "@tanstack/react-query";
 import ItemCard from "../components/ItemCard";
+import { useState } from "react";
 
 const Home = () => {
 
 
+    const [titulo, setTitulo] = useState('');
+
     // Usamos React Query para manejar la petición a la API de videojuegos
     // Esto nos permite manejar el estado de carga, error y datos de manera más eficiente
     const { data: games = [], isLoading, isError, error } = useQuery({
-        queryKey: ['games'],
-        queryFn: getGames,
+        queryKey: ['games', titulo],
+        queryFn: () => getGames(titulo),
         select: (response) => response.success ? response.data : [],
         staleTime: 1000 * 60 * 60 * 24 // 24 horas
 
@@ -141,6 +144,8 @@ const Home = () => {
             {/* Buscador */}
             <div className="my-4 text-gray-500 relative">
                 <input
+                    value={titulo}
+                    onChange={(e) => setTitulo(e.target.value)}
                     className="w-full h-full py-4 px-9 rounded-lg shadow-md border border-gray-300 outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
                     type="text"
                     placeholder="Busca un videojuego por titulo o genero" />
