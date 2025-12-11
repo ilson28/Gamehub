@@ -3,7 +3,6 @@ import { CiCalendarDate, CiSearch } from "react-icons/ci";
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
 import { PiArrowCounterClockwiseFill } from "react-icons/pi";
-import { LuFilter } from "react-icons/lu";
 import ItemCard from "../components/ItemCard";
 import { FaCircleCheck } from "react-icons/fa6";
 import { IoEyeSharp, IoTimeSharp } from "react-icons/io5";
@@ -14,6 +13,7 @@ import useModalContext from "../hooks/useModalContext";
 import TransactionModalGame from "../components/TransactionModalGame";
 import { getAll } from "../services/registroDevolucionService";
 import { getReturnsOfMonth, getReturnsOfToday, getTotalReturns } from "../services/registroDevolucionService";
+import { MdOutlineCleaningServices } from "react-icons/md";
 import clsx from "clsx";
 
 
@@ -24,8 +24,8 @@ const Returns = () => {
     const [transaccion, setTransaccion] = useState(null);
     const { setState } = useModalContext();
     const [cliente, setCliente] = useState("");
-    const [startDate, setStartDate] = useState();
-    const [endDate, setEndDate] = useState();
+    const [startDate, setStartDate] = useState("");
+    const [endDate, setEndDate] = useState("");
     const [actualPage, setActualPage] = useState(0);
 
     const { isLoading, data, isError } = useQuery({
@@ -128,6 +128,12 @@ const Returns = () => {
         return today.toLocaleDateString(undefined, options);
     }
 
+    const cleanFilters = () => {
+        setCliente("");
+        setStartDate("");
+        setEndDate("");
+    }
+
 
     return (
         <div className="container">
@@ -189,6 +195,7 @@ const Returns = () => {
                 <div className="flex flex-col gap-1 md:flex-1">
                     <label htmlFor="startDate">Fecha Desde</label>
                     <input
+                        value={startDate}
                         onChange={(e) => setStartDate(e.target.value)}
                         id="startDate"
                         className="py-3 px-2 rounded-md border border-gray-300 outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
@@ -197,8 +204,9 @@ const Returns = () => {
 
                 </div>
                 <div className="flex flex-col gap-1 md:flex-1">
-                    <label htmlFor="endDate">Fecha Desde</label>
+                    <label htmlFor="endDate">Fecha Hasta</label>
                     <input
+                        value={endDate}
                         onChange={(e) => setEndDate(e.target.value)}
                         id="endDate"
                         className="py-3 px-2 rounded-md border border-gray-300 outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
@@ -207,11 +215,12 @@ const Returns = () => {
 
                 </div>
                 <ButtonCard
+                    onClick={cleanFilters}
                     className="flex gap-2 justify-center items-center text-xl md:self-end md:flex-1"
                     color="blue"
                 >
-                    <LuFilter size={21} />
-                    Filtrar
+                    <MdOutlineCleaningServices size={21} />
+                    Clean
 
                 </ButtonCard>
             </div>
