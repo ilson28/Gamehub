@@ -25,24 +25,28 @@ const History = () => {
             queryClient.invalidateQueries(["returns"]);
         }
     })
+    const [date, setDate] = useState("");
     const [tabActive, setTabActive] = useState("venta");
     const [rentalFilter, setRentalFilter] = useState("todos");
     const [transaction, setTransaction] = useState(null);
     const { setState } = useModalContext();
     const { isLoading, isError, data: transactions = [] } = useQuery({
-        queryKey: ['transactions', tabActive, rentalFilter],
+        queryKey: ['transactions', tabActive, rentalFilter, date],
         queryFn: () => {
             if (tabActive === "venta" || rentalFilter === "todos") {
-                return getTransactionsForType(tabActive, null);
+                return getTransactionsForType(tabActive, date);
             }
-            return getRentalTransactions(rentalFilter, null);
+            return getRentalTransactions(rentalFilter, date);
         },
         select: (response) => response.success ? response.data : [],
         staleTime: 1000 * 60 * 60 * 2 // 2 horas
 
     })
 
-    const handleTab = tab => tab === "venta" ? setTabActive("venta") : setTabActive("alquiler");
+    const handleTab = tab => {
+        tab === "venta" ? setTabActive("venta") : setTabActive("alquiler");
+        setDate("");
+    };
 
     const handleSubmit = () => {
         const registroDevolucion = {
@@ -128,6 +132,8 @@ const History = () => {
                         }
                         <input
                             type="date"
+                            value={date}
+                            onChange={e => setDate(e.target.value)}
                             className="p-2 outline-none focus:border-blue-800 rounded-md focus:border-2 border border-gray-300" />
                     </div>
                 </div>
