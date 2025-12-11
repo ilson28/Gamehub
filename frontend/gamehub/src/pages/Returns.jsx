@@ -30,7 +30,7 @@ const Returns = () => {
 
     const { isLoading, data, isError } = useQuery({
         queryKey: ['returns', cliente, startDate, endDate, actualPage],
-        queryFn: () => getAll(cedula, startDate, endDate, actualPage),
+        queryFn: () => getAll(cliente, startDate, endDate, actualPage),
         staleTime: 1000 * 60 * 60 * 2, // 2 horas
 
     })
@@ -331,7 +331,7 @@ const Returns = () => {
                 transaccion &&
                 <TransactionModalGame
                     transaction={transaccion}
-
+                    returns={true}
                 />
             }
 
