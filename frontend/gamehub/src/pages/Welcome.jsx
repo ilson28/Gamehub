@@ -287,11 +287,9 @@ const Welcome = () => {
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                     <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
                         <div class="flex items-center space-x-2">
-                            <div class="w-8 h-8 gradient-bg rounded-lg flex items-center justify-center">
-                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
+                            <div class="w-8 h-8 rounded-lg flex items-center justify-center">
+                                <IoGameControllerOutline className="text-blue-700 text-2xl md:text-4xl" />
+
                             </div>
                             <span class="text-lg font-bold text-slate-800">GameHub</span>
                         </div>
@@ -302,7 +300,7 @@ const Welcome = () => {
                         </div>
 
                         <div class="text-sm text-slate-500">
-                            Creado por <span class="font-semibold text-slate-700">Tu Nombre</span>
+                            Creado por <span class="font-semibold text-slate-700">Ilson Diaz Morelo</span>
                         </div>
                     </div>
                 </div>
