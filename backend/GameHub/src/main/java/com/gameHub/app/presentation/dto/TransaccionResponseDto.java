@@ -4,8 +4,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
-import com.gameHub.app.service.implementation.ClienteResponseDto;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
