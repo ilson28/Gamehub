@@ -11,6 +11,6 @@ import lombok.*;
 public class ClienteResponseDto {
 
     private Integer cedula;
-    private String nombre, apellido, direccion, telefono, sexo;
-    private Role role;
+    private String nombre, apellido, direccion, telefono;
+
 }
