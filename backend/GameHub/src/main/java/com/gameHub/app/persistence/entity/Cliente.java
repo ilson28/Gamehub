@@ -23,29 +23,11 @@ import java.util.List;
 @Setter
 @Getter
 @Entity
-public class Cliente implements UserDetails {
+@Table(name = "clientes")
+public class Cliente {
 
     @Id
     private Integer cedula;
-    private String nombre, apellido, direccion, telefono, sexo, password;
-    @Column(nullable = false, unique = true)
-    private String username;
-    @Enumerated(EnumType.STRING)
-    private Role role;
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(this.role.name()));
-    }
-
-    @Override
-    public String getPassword() {
-        return this.password;
-    }
-
-    @Override
-    public String getUsername() {
-        return this.username;
-    }
+    private String nombre, apellido, direccion, telefono;
 
 }

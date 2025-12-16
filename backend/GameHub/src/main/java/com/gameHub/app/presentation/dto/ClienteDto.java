@@ -25,6 +25,6 @@ public class ClienteDto {
     private Integer cedula;
 
     @NotBlank
-    private String nombre, apellido, direccion, telefono, sexo, username;
+    private String nombre, apellido, direccion, telefono;
 
 }
