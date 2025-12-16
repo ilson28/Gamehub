@@ -1,5 +1,6 @@
 package com.gameHub.app.presentation.controller;
 
+import com.gameHub.app.persistence.entity.Usuario;
 import com.gameHub.app.presentation.dto.AuthResponse;
 import com.gameHub.app.presentation.dto.ClienteDto;
 import com.gameHub.app.presentation.dto.LoginRequest;
@@ -28,9 +29,9 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<AuthResponse> register(@RequestBody @Valid ClienteDto newCliente) {
+    public ResponseEntity<AuthResponse> register(@RequestBody @Valid Usuario usuario) {
 
-        return ResponseEntity.ok(authService.register(newCliente));
+        return ResponseEntity.ok(authService.register(usuario));
 
     }
 

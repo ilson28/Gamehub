@@ -1,14 +1,11 @@
 package com.gameHub.app.service.implementation;
 
-import com.gameHub.app.persistence.entity.Cliente;
-import com.gameHub.app.persistence.repository.ClienteRepository;
+import com.gameHub.app.persistence.entity.Usuario;
+import com.gameHub.app.persistence.repository.UsuarioRepository;
 import com.gameHub.app.presentation.dto.AuthResponse;
-import com.gameHub.app.presentation.dto.ClienteDto;
 import com.gameHub.app.presentation.dto.LoginRequest;
 import com.gameHub.app.service.interfaces.AuthService;
 import com.gameHub.app.service.interfaces.JwtService;
-import com.gameHub.app.util.mapper.ClienteMapper;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,7 +20,7 @@ public class AuthServiceImpl implements AuthService {
     private AuthenticationManager manager;
 
     @Autowired
-    private ClienteRepository clienteRepository;
+    private UsuarioRepository usuarioRepository;
 
     @Autowired
     private JwtService jwtService;
@@ -37,23 +34,21 @@ public class AuthServiceImpl implements AuthService {
         this.manager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.username(), request.password()));
 
-        Cliente cliente = this.clienteRepository.findByUsername(request.username()).orElseThrow(
+        Usuario user = this.usuarioRepository.findByUsername(request.username()).orElseThrow(
                 () -> new UsernameNotFoundException("No se encontré al usuario"));
 
-        var token = jwtService.generateToken(cliente);
+        var token = jwtService.generateToken(user);
 
         return new AuthResponse(token);
     }
 
     @Override
-    public AuthResponse register(ClienteDto clienteDto) {
+    public AuthResponse register(Usuario usuario) {
 
-        Cliente newCliente = ClienteMapper.INSTANCE.toCliente(clienteDto);
+        usuario.setPassword(this.passwordEncoder.encode(usuario.getPassword()));
+        this.usuarioRepository.save(usuario);
 
-        newCliente.setPassword(this.passwordEncoder.encode(clienteDto.getPassword()));
-        this.clienteRepository.save(newCliente);
-
-        var token = jwtService.generateToken(newCliente);
+        var token = jwtService.generateToken(usuario);
         // System.out.println("generate key -> "+ token);
 
         return new AuthResponse(token);
