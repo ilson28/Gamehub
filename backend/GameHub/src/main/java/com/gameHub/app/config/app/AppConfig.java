@@ -15,7 +15,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import com.gameHub.app.persistence.repository.ClienteRepository;
+import com.gameHub.app.persistence.repository.UsuarioRepository;
 
 import java.util.List;
 
@@ -23,12 +23,12 @@ import java.util.List;
 public class AppConfig {
 
     @Autowired
-    ClienteRepository clienteRepository;
+    private UsuarioRepository usuarioRepository;
 
     @Bean
     public UserDetailsService userDetailsService() {
 
-        return username -> clienteRepository.findByUsername(username)
+        return username -> usuarioRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User Not Found"));
     }
 
