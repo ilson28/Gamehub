@@ -8,8 +8,6 @@ import java.util.Optional;
 
 public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
 
-    Optional<Cliente> findByUsername(String username);
-
     // @Query("SELECT c FROM Cliente c JOIN FETCH c.transaccions")
     // List<Cliente> findAllWithTransaccions();
 }
