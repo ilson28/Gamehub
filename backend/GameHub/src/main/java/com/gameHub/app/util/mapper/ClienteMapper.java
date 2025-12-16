@@ -2,7 +2,7 @@ package com.gameHub.app.util.mapper;
 
 import com.gameHub.app.persistence.entity.Cliente;
 import com.gameHub.app.presentation.dto.ClienteDto;
-import com.gameHub.app.service.implementation.ClienteResponseDto;
+import com.gameHub.app.presentation.dto.ClienteResponseDto;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;

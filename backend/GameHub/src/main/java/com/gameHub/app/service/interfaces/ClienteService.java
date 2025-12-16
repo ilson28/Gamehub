@@ -4,7 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.gameHub.app.presentation.dto.ClienteDto;
-import com.gameHub.app.service.implementation.ClienteResponseDto;
+import com.gameHub.app.presentation.dto.ClienteResponseDto;
 
 import java.util.List;
 import java.util.Optional;

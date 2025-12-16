@@ -3,6 +3,7 @@ package com.gameHub.app.service.implementation;
 import com.gameHub.app.persistence.entity.Cliente;
 import com.gameHub.app.persistence.repository.ClienteRepository;
 import com.gameHub.app.presentation.dto.ClienteDto;
+import com.gameHub.app.presentation.dto.ClienteResponseDto;
 import com.gameHub.app.service.exception.ResourceNotFoundException;
 import com.gameHub.app.service.interfaces.ClienteService;
 import com.gameHub.app.util.mapper.ClienteMapper;

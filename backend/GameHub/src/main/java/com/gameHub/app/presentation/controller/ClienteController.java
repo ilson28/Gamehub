@@ -1,7 +1,7 @@
 package com.gameHub.app.presentation.controller;
 
 import com.gameHub.app.presentation.dto.ClienteDto;
-import com.gameHub.app.service.implementation.ClienteResponseDto;
+import com.gameHub.app.presentation.dto.ClienteResponseDto;
 import com.gameHub.app.service.interfaces.ClienteService;
 
 import jakarta.validation.Valid;
