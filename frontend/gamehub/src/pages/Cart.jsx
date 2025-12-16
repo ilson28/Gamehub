@@ -56,7 +56,7 @@ const Cart = () => {
 
             tipo: typeOfTransaction,
             fechaDev: typeOfTransaction === 'alquiler' ? date : null,
-            cliente: { ...client, sexo: '0', role: "CLIENTE", username: client.cedula, password: client.cedula },
+            cliente: client,
             transJuegos
 
         };
