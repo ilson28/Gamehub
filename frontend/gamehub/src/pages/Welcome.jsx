@@ -1,311 +1,244 @@
-import { IoGameControllerOutline } from "react-icons/io5"
+
 
 const Welcome = () => {
     return (
-        <div>
-            {/* Navbar  */}
-            <nav class="fixed w-full bg-white/80 backdrop-blur-md z-50 border-b border-slate-100">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="flex justify-between items-center h-16">
-                        <div class="flex items-center space-x-2">
-                            <div class="w-10 h-10 rounded-xl flex items-center justify-center">
-                                <IoGameControllerOutline className="text-blue-700 text-2xl md:text-4xl" />
-                            </div>
-                            <span class="text-xl font-bold text-slate-800">GameHub</span>
-                        </div>
-                        <div class="flex items-center space-x-3">
-                            <button class="hidden sm:block px-5 py-2 text-sm font-medium text-slate-600 hover:text-slate-900 transition duration-200">
-                                Iniciar sesión
-                            </button>
-                            <button class="px-5 py-2 text-sm font-medium text-white gradient-bg rounded-lg hover:opacity-90 transition duration-200 shadow-lg shadow-purple-500/30">
-                                Crear cuenta
-                            </button>
-                        </div>
-                    </div>
+        <div className="bg-white text-gray-900 antialiased" >
+            {/* <!-- Hero Section --> */}
+            <section className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-blue-50 via-white to-blue-50/30">
+                {/* <!-- Decorative background --> */}
+                <div className="absolute inset-0 overflow-hidden">
+                    <div className="absolute top-20 right-0 w-96 h-96 bg-blue-400/10 rounded-full blur-3xl"></div>
+                    <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl"></div>
                 </div>
-            </nav>
 
-            {/* Hero Section  */}
-            <section class="pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-50 to-white">
-                <div class="max-w-7xl mx-auto">
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-
-                        {/* Left Content  */}
-                        <div class="space-y-8">
-                            <div class="inline-flex items-center space-x-2 px-4 py-2 bg-purple-50 rounded-full">
-                                <div class="w-2 h-2 bg-purple-500 rounded-full animate-pulse"></div>
-                                <span class="text-sm font-medium text-purple-700">Sistema de gestión profesional</span>
+                <div className="relative max-w-7xl mx-auto px-6 py-20 w-full">
+                    <div className="grid lg:grid-cols-2 gap-16 items-center">
+                        {/* <!-- Content --> */}
+                        <div className="space-y-8 animate-fade-in-up">
+                            <div>
+                                <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm font-medium mb-6">
+                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                                    </svg>
+                                    Sistema Administrativo
+                                </div>
+                                <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 leading-tight mb-6">
+                                    Sistema de gestión de videojuegos
+                                </h1>
+                                <p className="text-xl md:text-2xl text-gray-600 leading-relaxed">
+                                    Plataforma interna para administrar inventario, ventas, alquileres y devoluciones.
+                                </p>
                             </div>
 
-                            <h1 class="text-5xl sm:text-6xl lg:text-7xl font-bold text-slate-900 leading-tight">
-                                Gestión inteligente de
-                                <span class="bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">
-                                    videojuegos
-                                </span>
-                            </h1>
-
-                            <p class="text-xl text-slate-600 leading-relaxed max-w-xl">
-                                Administra ventas, alquileres, devoluciones y clientes desde una sola plataforma moderna y eficiente.
-                            </p>
-
-                            <div class="flex flex-col sm:flex-row gap-4">
-                                <button class="px-8 py-4 text-base font-semibold text-white gradient-bg rounded-xl hover:opacity-90 transition duration-200 shadow-xl shadow-purple-500/30">
-                                    Crear cuenta gratis
-                                </button>
-                                <button class="px-8 py-4 text-base font-semibold text-slate-700 bg-white border-2 border-slate-200 rounded-xl hover:border-slate-300 transition duration-200">
-                                    Iniciar sesión
+                            <div className="flex">
+                                <button className="group relative px-8 py-4 bg-blue-600 text-white rounded-xl font-semibold text-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:shadow-blue-600/20 hover:-translate-y-0.5 cursor-pointer">
+                                    <span className="relative z-10">Acceder al sistema</span>
+                                    <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                                 </button>
                             </div>
-
-                            <div class="flex items-center space-x-8 pt-4">
-                                <div class="flex items-center space-x-2">
-                                    <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                                    </svg>
-                                    <span class="text-sm text-slate-600 font-medium">Sin tarjeta de crédito</span>
-                                </div>
-                                <div class="flex items-center space-x-2">
-                                    <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                                    </svg>
-                                    <span class="text-sm text-slate-600 font-medium">Configuración en minutos</span>
-                                </div>
-                            </div>
                         </div>
 
-                        {/* Right Mockup  */}
-                        <div class="relative">
-                            <div class="absolute inset-0 gradient-bg opacity-20 blur-3xl rounded-full"></div>
-                            <div class="relative bg-white rounded-2xl shadow-2xl border border-slate-200 p-8">
-                                <div class="space-y-4">
-                                    {/*  Mock header  */}
-                                    <div class="flex items-center justify-between pb-4 border-b border-slate-200">
-                                        <div class="flex space-x-2">
-                                            <div class="w-3 h-3 bg-red-400 rounded-full"></div>
-                                            <div class="w-3 h-3 bg-yellow-400 rounded-full"></div>
-                                            <div class="w-3 h-3 bg-green-400 rounded-full"></div>
+                        {/* <!-- Mockup --> */}
+                        <div className="relative animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+                            <div className="relative group">
+                                <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-blue-400 rounded-3xl blur opacity-20 group-hover:opacity-30 transition duration-300"></div>
+                                <div className="relative bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-100 transition-all duration-300 group-hover:shadow-3xl group-hover:-translate-y-1">
+                                    {/* <!-- Mockup Header --> */}
+                                    <div className="bg-gradient-to-r from-gray-50 to-gray-100 px-6 py-4 border-b border-gray-200 flex items-center justify-between">
+                                        <div className="flex gap-2">
+                                            <div className="w-3 h-3 bg-red-400 rounded-full"></div>
+                                            <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
+                                            <div className="w-3 h-3 bg-green-400 rounded-full"></div>
                                         </div>
-                                        <div class="text-xs font-medium text-slate-400">Dashboard</div>
-                                    </div>
-
-                                    {/*  Mock stats  */}
-                                    <div class="grid grid-cols-3 gap-3">
-                                        <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-4">
-                                            <div class="w-8 h-8 bg-blue-500 rounded-lg mb-2"></div>
-                                            <div class="h-2 bg-blue-200 rounded w-12 mb-2"></div>
-                                            <div class="h-4 bg-blue-300 rounded w-16"></div>
-                                        </div>
-                                        <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg p-4">
-                                            <div class="w-8 h-8 bg-purple-500 rounded-lg mb-2"></div>
-                                            <div class="h-2 bg-purple-200 rounded w-12 mb-2"></div>
-                                            <div class="h-4 bg-purple-300 rounded w-16"></div>
-                                        </div>
-                                        <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-lg p-4">
-                                            <div class="w-8 h-8 bg-green-500 rounded-lg mb-2"></div>
-                                            <div class="h-2 bg-green-200 rounded w-12 mb-2"></div>
-                                            <div class="h-4 bg-green-300 rounded w-16"></div>
+                                        <div className="flex items-center gap-3">
+                                            <div className="h-2 w-32 bg-gray-300 rounded"></div>
+                                            <div className="w-8 h-8 bg-blue-100 rounded-lg"></div>
                                         </div>
                                     </div>
 
-                                    {/*  Mock table  */}
-                                    <div class="space-y-2 pt-4">
-                                        <div class="flex items-center space-x-3 p-3 bg-slate-50 rounded-lg">
-                                            <div class="w-12 h-12 gradient-bg rounded-lg"></div>
-                                            <div class="flex-1 space-y-2">
-                                                <div class="h-3 bg-slate-200 rounded w-3/4"></div>
-                                                <div class="h-2 bg-slate-200 rounded w-1/2"></div>
+                                    {/* <!-- Mockup Content --> */}
+                                    <div className="p-8 space-y-6">
+                                        {/* <!-- Stats --> */}
+                                        <div className="grid grid-cols-3 gap-4">
+                                            <div className="bg-gradient-to-br from-blue-50 to-blue-100/50 rounded-xl p-4 space-y-2">
+                                                <div className="h-2 w-12 bg-blue-300 rounded"></div>
+                                                <div className="h-6 w-16 bg-blue-400 rounded"></div>
+                                            </div>
+                                            <div className="bg-gradient-to-br from-green-50 to-green-100/50 rounded-xl p-4 space-y-2">
+                                                <div className="h-2 w-12 bg-green-300 rounded"></div>
+                                                <div className="h-6 w-16 bg-green-400 rounded"></div>
+                                            </div>
+                                            <div className="bg-gradient-to-br from-purple-50 to-purple-100/50 rounded-xl p-4 space-y-2">
+                                                <div className="h-2 w-12 bg-purple-300 rounded"></div>
+                                                <div className="h-6 w-16 bg-purple-400 rounded"></div>
                                             </div>
                                         </div>
-                                        <div class="flex items-center space-x-3 p-3 bg-slate-50 rounded-lg">
-                                            <div class="w-12 h-12 gradient-bg rounded-lg opacity-80"></div>
-                                            <div class="flex-1 space-y-2">
-                                                <div class="h-3 bg-slate-200 rounded w-3/4"></div>
-                                                <div class="h-2 bg-slate-200 rounded w-1/2"></div>
+
+                                        {/* <!-- Table --> */}
+                                        <div className="space-y-3">
+                                            <div className="flex items-center gap-4 bg-gray-50 rounded-lg p-4">
+                                                <div className="w-12 h-12 bg-gray-200 rounded-lg"></div>
+                                                <div className="flex-1 space-y-2">
+                                                    <div className="h-2.5 w-3/4 bg-gray-300 rounded"></div>
+                                                    <div className="h-2 w-1/2 bg-gray-200 rounded"></div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="flex items-center space-x-3 p-3 bg-slate-50 rounded-lg">
-                                            <div class="w-12 h-12 gradient-bg rounded-lg opacity-60"></div>
-                                            <div class="flex-1 space-y-2">
-                                                <div class="h-3 bg-slate-200 rounded w-3/4"></div>
-                                                <div class="h-2 bg-slate-200 rounded w-1/2"></div>
+                                            <div className="flex items-center gap-4 bg-gray-50 rounded-lg p-4">
+                                                <div className="w-12 h-12 bg-gray-200 rounded-lg"></div>
+                                                <div className="flex-1 space-y-2">
+                                                    <div className="h-2.5 w-3/4 bg-gray-300 rounded"></div>
+                                                    <div className="h-2 w-1/2 bg-gray-200 rounded"></div>
+                                                </div>
+                                            </div>
+                                            <div className="flex items-center gap-4 bg-gray-50 rounded-lg p-4">
+                                                <div className="w-12 h-12 bg-gray-200 rounded-lg"></div>
+                                                <div className="flex-1 space-y-2">
+                                                    <div className="h-2.5 w-3/4 bg-gray-300 rounded"></div>
+                                                    <div className="h-2 w-1/2 bg-gray-200 rounded"></div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
-            </section>
+            </section >
 
-            {/*  Features Section  */}
-            <section class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
-                <div class="max-w-7xl mx-auto">
-                    <div class="text-center mb-16">
-                        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
-                            Todo lo que necesitas en un solo lugar
-                        </h2>
-                        <p class="text-lg text-slate-600 max-w-2xl mx-auto">
-                            Simplifica la gestión de tu negocio de videojuegos con herramientas potentes y fáciles de usar
-                        </p>
+            {/* <!-- Features Section --> */}
+            < section className="py-24 px-6 bg-white" >
+                <div className="max-w-7xl mx-auto">
+                    <div className="text-center mb-20">
+                        <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Funcionalidades principales</h2>
+                        <p className="text-xl text-gray-600">Herramientas diseñadas para optimizar la gestión operativa</p>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-
-                        {/*  Feature 1  */}
-                        <div class="card-hover bg-white border border-slate-200 rounded-2xl p-6 hover:border-purple-200">
-                            <div class="w-12 h-12 gradient-bg rounded-xl flex items-center justify-center mb-4">
-                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                                </svg>
-                            </div>
-                            <h3 class="text-lg font-semibold text-slate-900 mb-2">Gestión completa</h3>
-                            <p class="text-sm text-slate-600">Administra tu inventario de videojuegos con información detallada y actualizada</p>
-                        </div>
-
-                        {/* Feature 2  */}
-                        <div class="card-hover bg-white border border-slate-200 rounded-2xl p-6 hover:border-purple-200">
-                            <div class="w-12 h-12 gradient-bg rounded-xl flex items-center justify-center mb-4">
-                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                            </div>
-                            <h3 class="text-lg font-semibold text-slate-900 mb-2">Ventas y alquileres</h3>
-                            <p class="text-sm text-slate-600">Procesa transacciones de manera rápida y registra información de clientes</p>
-                        </div>
-
-                        {/*  Feature 3  */}
-                        <div class="card-hover bg-white border border-slate-200 rounded-2xl p-6 hover:border-purple-200">
-                            <div class="w-12 h-12 gradient-bg rounded-xl flex items-center justify-center mb-4">
-                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
-                                </svg>
-                            </div>
-                            <h3 class="text-lg font-semibold text-slate-900 mb-2">Control de devoluciones</h3>
-                            <p class="text-sm text-slate-600">Registra y gestiona devoluciones de alquileres de forma organizada</p>
-                        </div>
-
-                        {/*  Feature 4  */}
-                        <div class="card-hover bg-white border border-slate-200 rounded-2xl p-6 hover:border-purple-200">
-                            <div class="w-12 h-12 gradient-bg rounded-xl flex items-center justify-center mb-4">
-                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                                </svg>
-                            </div>
-                            <h3 class="text-lg font-semibold text-slate-900 mb-2">Historial detallado</h3>
-                            <p class="text-sm text-slate-600">Consulta el historial completo de todas tus transacciones realizadas</p>
-                        </div>
-
-                    </div>
-                </div>
-            </section>
-
-            {/* How it Works Section  */}
-            <section class="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-50 to-white">
-                <div class="max-w-6xl mx-auto">
-                    <div class="text-center mb-16">
-                        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
-                            Cómo funciona
-                        </h2>
-                        <p class="text-lg text-slate-600">
-                            Comienza a gestionar tu negocio en tres simples pasos
-                        </p>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-
-                        {/* Step 1  */}
-                        <div class="relative">
-                            <div class="text-center">
-                                <div class="w-16 h-16 gradient-bg rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-purple-500/30">
-                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        {/* <!-- Card 1 --> */}
+                        <div className="group relative bg-white rounded-2xl p-8 border border-gray-200 hover:border-blue-300 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                            <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl"></div>
+                            <div className="relative">
+                                <div className="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center mb-6 group-hover:bg-blue-600 transition-colors duration-300">
+                                    <svg className="w-7 h-7 text-blue-600 group-hover:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                     </svg>
                                 </div>
-                                <div class="absolute top-8 left-1/2 hidden md:block w-full h-0.5 bg-gradient-to-r from-purple-400 to-transparent" style={{ transform: "translateX(50%)" }}></div>
-                                <h3 class="text-xl font-semibold text-slate-900 mb-3">Registra tus videojuegos</h3>
-                                <p class="text-slate-600">Añade tu inventario con toda la información relevante de cada título</p>
+                                <h3 className="text-xl font-bold text-gray-900 mb-3">Gestión de videojuegos</h3>
+                                <p className="text-gray-600 leading-relaxed">Control completo del inventario y catálogo de productos</p>
                             </div>
                         </div>
 
-                        {/* Step 2  */}
-                        <div class="relative">
-                            <div class="text-center">
-                                <div class="w-16 h-16 gradient-bg rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-purple-500/30">
-                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                        {/* <!-- Card 2 --> */}
+                        <div className="group relative bg-white rounded-2xl p-8 border border-gray-200 hover:border-green-300 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                            <div className="absolute inset-0 bg-gradient-to-br from-green-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl"></div>
+                            <div className="relative">
+                                <div className="w-14 h-14 bg-green-100 rounded-xl flex items-center justify-center mb-6 group-hover:bg-green-600 transition-colors duration-300">
+                                    <svg className="w-7 h-7 text-green-600 group-hover:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
                                     </svg>
                                 </div>
-                                <div class="absolute top-8 left-1/2 hidden md:block w-full h-0.5 bg-gradient-to-r from-purple-400 to-transparent" style={{ transform: "translateX(50%)" }}></div>
-                                <h3 class="text-xl font-semibold text-slate-900 mb-3">Gestiona ventas y alquileres</h3>
-                                <p class="text-slate-600">Procesa transacciones y registra información de clientes fácilmente</p>
+                                <h3 className="text-xl font-bold text-gray-900 mb-3">Ventas y alquileres</h3>
+                                <p className="text-gray-600 leading-relaxed">Procesamiento ágil de transacciones comerciales</p>
                             </div>
                         </div>
 
-                        {/*  Step 3  */}
-                        <div class="relative">
-                            <div class="text-center">
-                                <div class="w-16 h-16 gradient-bg rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-purple-500/30">
-                                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        {/* <!-- Card 3 --> */}
+                        <div className="group relative bg-white rounded-2xl p-8 border border-gray-200 hover:border-purple-300 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                            <div className="absolute inset-0 bg-gradient-to-br from-purple-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl"></div>
+                            <div className="relative">
+                                <div className="w-14 h-14 bg-purple-100 rounded-xl flex items-center justify-center mb-6 group-hover:bg-purple-600 transition-colors duration-300">
+                                    <svg className="w-7 h-7 text-purple-600 group-hover:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                                     </svg>
                                 </div>
-                                <h3 class="text-xl font-semibold text-slate-900 mb-3">Consulta historial</h3>
-                                <p class="text-slate-600">Accede a reportes detallados y gestiona devoluciones sin complicaciones</p>
+                                <h3 className="text-xl font-bold text-gray-900 mb-3">Devoluciones</h3>
+                                <p className="text-gray-600 leading-relaxed">Gestión eficiente del proceso de retorno</p>
                             </div>
                         </div>
 
-                    </div>
-                </div>
-            </section>
-
-            {/* CTA Section */}
-            <section class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
-                <div class="max-w-4xl mx-auto">
-                    <div class="gradient-bg rounded-3xl p-12 text-center shadow-2xl shadow-purple-500/30">
-                        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">
-                            ¿Listo para empezar?
-                        </h2>
-                        <p class="text-lg text-purple-100 mb-8 max-w-2xl mx-auto">
-                            Únete a GameHub y lleva la gestión de tu negocio de videojuegos al siguiente nivel
-                        </p>
-                        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                            <button class="px-8 py-4 text-base font-semibold text-purple-600 bg-white rounded-xl hover:bg-slate-50 transition duration-200 shadow-xl">
-                                Crear cuenta gratis
-                            </button>
-                            <button class="px-8 py-4 text-base font-semibold text-white bg-white/20 backdrop-blur-sm border-2 border-white/30 rounded-xl hover:bg-white/30 transition duration-200">
-                                Iniciar sesión
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* Footer  */}
-            <footer class="bg-slate-50 border-t border-slate-200">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                    <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-                        <div class="flex items-center space-x-2">
-                            <div class="w-8 h-8 rounded-lg flex items-center justify-center">
-                                <IoGameControllerOutline className="text-blue-700 text-2xl md:text-4xl" />
-
+                        {/* <!-- Card 4 --> */}
+                        <div className="group relative bg-white rounded-2xl p-8 border border-gray-200 hover:border-orange-300 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                            <div className="absolute inset-0 bg-gradient-to-br from-orange-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl"></div>
+                            <div className="relative">
+                                <div className="w-14 h-14 bg-orange-100 rounded-xl flex items-center justify-center mb-6 group-hover:bg-orange-600 transition-colors duration-300">
+                                    <svg className="w-7 h-7 text-orange-600 group-hover:text-white transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                                    </svg>
+                                </div>
+                                <h3 className="text-xl font-bold text-gray-900 mb-3">Historial de transacciones</h3>
+                                <p className="text-gray-600 leading-relaxed">Consulta y análisis detallado de operaciones</p>
                             </div>
-                            <span class="text-lg font-bold text-slate-800">GameHub</span>
-                        </div>
-
-                        <div class="flex items-center space-x-6">
-                            <a href="#" class="text-sm text-slate-600 hover:text-slate-900 transition duration-200">Iniciar sesión</a>
-                            <a href="#" class="text-sm text-slate-600 hover:text-slate-900 transition duration-200">Crear cuenta</a>
-                        </div>
-
-                        <div class="text-sm text-slate-500">
-                            Creado por <span class="font-semibold text-slate-700">Ilson Diaz Morelo</span>
                         </div>
                     </div>
                 </div>
-            </footer>
-        </div>
+            </section >
+
+            {/* <!-- How it Works Section --> */}
+            < section className="py-24 px-6 bg-gradient-to-b from-gray-50 to-white" >
+                <div className="max-w-6xl mx-auto">
+                    <div className="text-center mb-20">
+                        <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Cómo funciona</h2>
+                        <p className="text-xl text-gray-600">Flujo de trabajo simplificado</p>
+                    </div>
+
+                    <div className="grid md:grid-cols-3 gap-12">
+                        {/* <!-- Step 1 --> */}
+                        <div className="relative group text-center">
+                            <div className="relative inline-block mb-8">
+                                <div className="absolute inset-0 bg-blue-600 rounded-2xl blur-lg opacity-20 group-hover:opacity-40 transition-opacity duration-300"></div>
+                                <div className="relative w-20 h-20 bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl flex items-center justify-center shadow-lg group-hover:-translate-y-1 transition-all duration-300">
+                                    <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <h3 className="text-2xl font-bold text-gray-900 mb-4">Acceso autorizado</h3>
+                            <p className="text-gray-600 leading-relaxed">Ingresa con credenciales administrativas</p>
+                        </div>
+
+                        {/* <!-- Step 2 --> */}
+                        <div className="relative group text-center">
+                            <div className="relative inline-block mb-8">
+                                <div className="absolute inset-0 bg-blue-600 rounded-2xl blur-lg opacity-20 group-hover:opacity-40 transition-opacity duration-300"></div>
+                                <div className="relative w-20 h-20 bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl flex items-center justify-center shadow-lg group-hover:-translate-y-1 transition-all duration-300">
+                                    <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <h3 className="text-2xl font-bold text-gray-900 mb-4">Gestiona operaciones</h3>
+                            <p className="text-gray-600 leading-relaxed">Administra inventario, ventas y alquileres</p>
+                        </div>
+
+                        {/* <!-- Step 3 --> */}
+                        <div className="relative group text-center">
+                            <div className="relative inline-block mb-8">
+                                <div className="absolute inset-0 bg-blue-600 rounded-2xl blur-lg opacity-20 group-hover:opacity-40 transition-opacity duration-300"></div>
+                                <div className="relative w-20 h-20 bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl flex items-center justify-center shadow-lg group-hover:-translate-y-1 transition-all duration-300">
+                                    <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <h3 className="text-2xl font-bold text-gray-900 mb-4">Consulta reportes</h3>
+                            <p className="text-gray-600 leading-relaxed">Accede a historial y análisis completo</p>
+                        </div>
+                    </div>
+                </div>
+            </section >
+
+            {/* <!-- Footer --> */}
+            < footer className="py-16 px-6 bg-gray-50 border-t border-gray-200" >
+                <div className="max-w-7xl mx-auto">
+                    <div className="text-center space-y-3">
+                        <p className="text-sm text-gray-500 tracking-wide">Internal management system</p>
+                        <p className="text-xs text-gray-400">Built by Ilson Díaz Morelo</p>
+                    </div>
+                </div>
+            </footer >
+
+        </div >
     )
 }
 
