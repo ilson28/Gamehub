@@ -1,6 +1,9 @@
+import { useNavigate } from "react-router-dom";
 
 
 const Welcome = () => {
+
+    const navigate = useNavigate();
     return (
         <div className="bg-white text-gray-900 antialiased" >
             {/* <!-- Hero Section --> */}
@@ -31,7 +34,9 @@ const Welcome = () => {
                             </div>
 
                             <div className="flex">
-                                <button className="group relative px-8 py-4 bg-blue-600 text-white rounded-xl font-semibold text-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:shadow-blue-600/20 hover:-translate-y-0.5 cursor-pointer">
+                                <button
+                                    onClick={() => navigate("/login")}
+                                    className="group relative px-8 py-4 bg-blue-600 text-white rounded-xl font-semibold text-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:shadow-blue-600/20 hover:-translate-y-0.5 cursor-pointer">
                                     <span className="relative z-10">Acceder al sistema</span>
                                     <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                                 </button>
