@@ -9,7 +9,7 @@ function SelectForm({ control, name, label, options, error, icon }) {
         <div className="flex flex-col gap-2 min-h-32">
             <div className="flex items-center gap-2">
                 {icon}
-                <label htmlFor={name} className="block text-sm font-medium text-gray-600">{label}</label>
+                <label htmlFor={name} className="text-gray-700 font-medium text-sm">{label}</label>
             </div>
             <Controller
                 name={name}
