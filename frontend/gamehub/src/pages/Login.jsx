@@ -4,6 +4,7 @@ import { TbLockPassword } from "react-icons/tb";
 import ButtonCard from "../components/ButtonCard";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
+import LoginForm from "../components/LoginForm";
 
 
 const Login = () => {
@@ -48,56 +49,7 @@ const Login = () => {
                         </div>
 
                         {/* Inputs de username y password */}
-                        <div className="flex flex-col gap-6">
-
-                            {/* Username */}
-                            <div className="flex flex-col gap-2 grow">
-                                <label
-                                    htmlFor="username"
-                                    className="text-gray-700 font-medium text-sm"
-                                >
-                                    Username
-                                </label>
-                                <div
-                                    className="text-gray-500 relative"
-                                >
-                                    <input
-                                        className="w-full h-full py-4 px-12 rounded-lg border border-gray-300 outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
-                                        type="text"
-                                        id="username"
-                                        placeholder="admin@gamehub.com" />
-                                    <FaRegUser size={16} className="absolute top-1/2 -translate-y-1/2 left-3" />
-                                </div>
-                            </div>
-
-                            {/* Password */}
-                            <div className="flex flex-col gap-2">
-                                <label
-                                    htmlFor="password"
-                                    className="text-gray-700 font-medium text-sm"
-                                >
-                                    Password
-                                </label>
-                                <div
-                                    className="text-gray-500 relative"
-                                >
-                                    <input
-                                        className="w-full h-full py-4 px-12 rounded-lg border border-gray-300 outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
-                                        type="password"
-                                        id="password"
-                                        placeholder="••••••••" />
-                                    <TbLockPassword size={16} className="absolute top-1/2 -translate-y-1/2 left-3" />
-                                </div>
-                            </div>
-
-                            <ButtonCard
-                                type="submit"
-                                color="blue"
-
-                            >
-                                Acceder al Sistema
-                            </ButtonCard>
-                        </div>
+                        <LoginForm />
 
                         {/* Credenciales de demostracion */}
                         <div
@@ -105,7 +57,7 @@ const Login = () => {
                             <p>Credenciales de demostración</p>
                             <div className="flex gap-2">
                                 <p className="text-gray-800">Usuario demo:</p>
-                                <p>admin@gamehub.com</p>
+                                <p>adminGamehub</p>
 
                             </div>
                             <div className="flex gap-2">
