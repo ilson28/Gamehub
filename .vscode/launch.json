@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "JwtKeyGenerator",
+            "request": "launch",
+            "mainClass": "com.gameHub.app.util.JwtKeyGenerator",
+            "projectName": "GameHub"
+        },
+        {
+            "type": "java",
             "name": "Spring Boot-GameHubApplication<GameHub>",
             "request": "launch",
             "cwd": "${workspaceFolder}",
