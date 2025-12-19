@@ -1,5 +1,5 @@
 
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Header from './layout/Header'
 import AddGame from './pages/AddGame'
 import Home from './pages/Home'
@@ -9,31 +9,36 @@ import Returns from './pages/Returns';
 import Welcome from "./pages/Welcome";
 import LayoutWithHeader from "./layout/LayoutWithHeader";
 import LayoutWithoutHeader from "./layout/LayoutWithoutHeader";
+import Login from "./pages/Login";
+import PrivateGuard from "./guards/PrivateGuard";
 
 const AppRouter = () => {
     return (
         <BrowserRouter>
 
             <Routes>
-                {/* Rutas con Navbar */}
-                <Route element={<LayoutWithHeader />}>
-                    <Route path="/home" element={<Home />} />
-                    <Route path="/add-game" element={<AddGame />} />
-                    <Route path="/add-game/:gameId" element={<AddGame />} />
-                    <Route path="/history" element={<History />} />
-                    <Route path="/cart" element={<Cart />} />
-                    <Route path='/returns' element={<Returns />} />
+                {/*  RUTAS PRIVADAS */}
+                <Route element={<PrivateGuard />}>
+                    <Route element={<LayoutWithHeader />}>
+                        <Route path="/" element={<Navigate to={"/home"} />} />
+                        <Route path="/home" element={<Home />} />
+                        <Route path="/add-game" element={<AddGame />} />
+                        <Route path="/add-game/:gameId" element={<AddGame />} />
+                        <Route path="/history" element={<History />} />
+                        <Route path="/cart" element={<Cart />} />
+                        <Route path='/returns' element={<Returns />} />
+                    </Route>
                     <Route path="*" element={<h1 className='my-20 text-3xl text-center font-bold text-gray-900'>404 Not Found</h1>} />
                 </Route>
 
-                {/* Rutas sin Navbar */}
+                {/*  RUTAS PÚBLICAS */}
                 <Route element={<LayoutWithoutHeader />}>
-                    <Route path="/" element={<Welcome />} />
-
+                    <Route path="/welcome" element={<Welcome />} />
+                    <Route path="/login" element={<Login />} />
                 </Route>
             </Routes>
 
-        </BrowserRouter>
+        </BrowserRouter >
     )
 }
 

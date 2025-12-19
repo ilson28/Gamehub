@@ -2,6 +2,7 @@ import './App.css'
 import { ModalProvider } from './contexts/modalContext';
 import { CartContextProvider } from './contexts/CartContext';
 import AppRouter from './AppRouter';
+import { AuthContextProvider } from './contexts/AuthContext';
 
 
 
@@ -12,11 +13,14 @@ function App() {
     <div className='font-roboto bg-gray-50 min-h-screen'>
 
       <ModalProvider>
-        <CartContextProvider>
+        <AuthContextProvider>
 
-          <AppRouter />
+          <CartContextProvider>
 
-        </CartContextProvider>
+            <AppRouter />
+
+          </CartContextProvider>
+        </AuthContextProvider>
       </ModalProvider>
 
     </div>
