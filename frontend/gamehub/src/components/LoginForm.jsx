@@ -6,13 +6,14 @@ import { TbLockPassword } from "react-icons/tb"
 import ButtonCard from "./ButtonCard"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { VscLoading } from "react-icons/vsc"
 
 
 const defaultValuesForm = {
     username: '',
     password: ''
 }
-const LoginForm = forwardRef(({ onSubmit }, ref) => {
+const LoginForm = forwardRef(({ onSubmit, isLoading }, ref) => {
 
     const { control, handleSubmit, formState: { errors }, reset } = useForm({
         resolver: zodResolver(loginSchema),
@@ -34,7 +35,7 @@ const LoginForm = forwardRef(({ onSubmit }, ref) => {
     }));
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="flex flex-col gap-6">
+            <div className="flex flex-col">
                 <InputForm
                     type="text"
                     label="Username"
@@ -56,9 +57,16 @@ const LoginForm = forwardRef(({ onSubmit }, ref) => {
                 <ButtonCard
                     type="submit"
                     color="blue"
+                    disabled={isLoading}
 
                 >
-                    Acceder al Sistema
+                    {
+                        isLoading ? <div className="flex justify-center items-center gap-2">
+                            <VscLoading className="animate-spin text-2xl" /> Cargando...
+                        </div>
+                            : "Acceder al sistema"
+
+                    }
                 </ButtonCard>
 
             </div>
