@@ -1,6 +1,5 @@
 
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import Header from './layout/Header'
 import AddGame from './pages/AddGame'
 import Home from './pages/Home'
 import History from './pages/History';
@@ -11,6 +10,7 @@ import LayoutWithHeader from "./layout/LayoutWithHeader";
 import LayoutWithoutHeader from "./layout/LayoutWithoutHeader";
 import Login from "./pages/Login";
 import PrivateGuard from "./guards/PrivateGuard";
+import NotFound from "./pages/NotFound";
 
 const AppRouter = () => {
     return (
@@ -28,7 +28,7 @@ const AppRouter = () => {
                         <Route path="/cart" element={<Cart />} />
                         <Route path='/returns' element={<Returns />} />
                     </Route>
-                    <Route path="*" element={<h1 className='my-20 text-3xl text-center font-bold text-gray-900'>404 Not Found</h1>} />
+                    <Route path="*" element={<NotFound />} />
                 </Route>
 
                 {/*  RUTAS PÚBLICAS */}
