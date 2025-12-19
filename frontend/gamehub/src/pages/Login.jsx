@@ -1,15 +1,38 @@
-import { FaRegUser } from "react-icons/fa6"
+
 import { IoGameControllerOutline } from "react-icons/io5"
-import { TbLockPassword } from "react-icons/tb";
-import ButtonCard from "../components/ButtonCard";
 import clsx from "clsx";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import LoginForm from "../components/LoginForm";
+import { useMutation } from "@tanstack/react-query";
+import { login } from "../services/authService";
+import useAuthContext from "../hooks/useAuthContext";
+import { useNavigate } from "react-router-dom";
 
 
 const Login = () => {
 
+    const formRef = useRef();
+    const navigate = useNavigate();
     const [hidden, setHidden] = useState(true);
+    const { loginContext } = useAuthContext();
+    const mutate = useMutation({
+        mutationFn: ({ username, password }) => login(username, password),
+        onSuccess: (data) => {
+            // console.log("Login exitoso", data);
+            loginContext(data.jwt);
+            formRef.current.resetForm();
+            navigate("/");
+        },
+        onError: (error) => {
+            console.error("Error en login", error.response);
+        }
+    });
+
+    const handleSubmit = (data) => {
+
+        // console.log("Submitting", data);
+        mutate.mutate(data);
+    }
 
 
     useEffect(() => {
@@ -25,7 +48,7 @@ const Login = () => {
             <div className="flex">
 
                 {/* Contenedor del contenido principal */}
-                <div className={clsx("flex justify-center max-w-3xl grow flex-1/2 px-10 py-5 transition-all duration-700 ease-in-out",
+                <div className={clsx("flex justify-center max-w-3xl grow flex-1/2 px-10 py-3 transition-all duration-700 ease-in-out",
                     hidden ? "opacity-0 translate-y-20" : "opacity-100 translate-y-0",
                 )}>
                     <div className="flex flex-col grow justify-center gap-8 max-w-lg">
@@ -49,7 +72,11 @@ const Login = () => {
                         </div>
 
                         {/* Inputs de username y password */}
-                        <LoginForm />
+                        <LoginForm
+                            onSubmit={handleSubmit}
+                            isLoading={mutate.isPending}
+                            ref={formRef}
+                        />
 
                         {/* Credenciales de demostracion */}
                         <div
@@ -67,7 +94,7 @@ const Login = () => {
                         </div>
 
                         {/* <!-- Footer --> */}
-                        < footer className="px-6 bg-gray-50 border-t border-gray-200" >
+                        < footer className="px-6 bg-gray-50" >
                             <div>
                                 <div className="text-center space-y-2">
                                     <p className="text-sm text-gray-500 tracking-wide">Internal management system</p>
