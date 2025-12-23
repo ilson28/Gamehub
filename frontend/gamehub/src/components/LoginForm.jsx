@@ -7,13 +7,15 @@ import ButtonCard from "./ButtonCard"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { VscLoading } from "react-icons/vsc"
+import { FiAlertTriangle } from "react-icons/fi"
+import clsx from "clsx"
 
 
 const defaultValuesForm = {
     username: '',
     password: ''
 }
-const LoginForm = forwardRef(({ onSubmit, isLoading }, ref) => {
+const LoginForm = forwardRef(({ onSubmit, isLoading, isError }, ref) => {
 
     const { control, handleSubmit, formState: { errors }, reset } = useForm({
         resolver: zodResolver(loginSchema),
@@ -68,6 +70,20 @@ const LoginForm = forwardRef(({ onSubmit, isLoading }, ref) => {
 
                     }
                 </ButtonCard>
+
+                {/* Alerta de credenciales invalidas  */}
+                {isError && <div className={clsx("mt-4  p-4 flex gap-2 rounded-2xl border-l-4 border-red-500 text-red-600 bg-red-50 hover:bg-red-100/80",
+
+                )}>
+
+                    <FiAlertTriangle />
+
+                    <div>
+                        <p className="text-xs font-semibold text-red-800 mb-1">Credenciales inválidas</p>
+                        <p className="text-xs sm:text-base text-red-700">El usuario o la contraseña no son correctos.</p>
+                    </div>
+
+                </div>}
 
             </div>
 

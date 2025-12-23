@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 
 const Login = () => {
 
+    const [authError, setAuthError] = useState(false);
     const formRef = useRef();
     const navigate = useNavigate();
     const [hidden, setHidden] = useState(true);
@@ -25,6 +26,8 @@ const Login = () => {
         },
         onError: (error) => {
             console.error("Error en login", error.response);
+            if (error.response?.status === 401) setAuthError(true);
+
         }
     });
 
@@ -45,10 +48,10 @@ const Login = () => {
 
     return (
         <div className="min-h-screen">
-            <div className="flex">
+            <div className="flex justify-center">
 
                 {/* Contenedor del contenido principal */}
-                <div className={clsx("flex justify-center max-w-3xl grow flex-1/2 px-10 py-3 transition-all duration-700 ease-in-out",
+                <div className={clsx("flex justify-center max-w-3xl grow flex-1/2 px-6 py-3 transition-all duration-700 ease-in-out",
                     hidden ? "opacity-0 translate-y-20" : "opacity-100 translate-y-0",
                 )}>
                     <div className="flex flex-col grow justify-center gap-8 max-w-lg">
@@ -76,6 +79,7 @@ const Login = () => {
                             onSubmit={handleSubmit}
                             isLoading={mutate.isPending}
                             ref={formRef}
+                            isError={authError}
                         />
 
                         {/* Credenciales de demostracion */}
