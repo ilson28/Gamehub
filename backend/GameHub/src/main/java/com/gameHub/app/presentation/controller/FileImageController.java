@@ -27,7 +27,6 @@ public class FileImageController {
         try {
             contentType = Files.probeContentType(recurso.getFile().toPath());
         } catch (IOException e) {
-            // Puedes registrar un log si quieres, o dejar el tipo genérico
             System.out.println("No se pudo determinar el tipo de contenido para el archivo: " + fileName);
         }
 
