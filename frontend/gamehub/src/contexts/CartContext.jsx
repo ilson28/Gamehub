@@ -1,14 +1,22 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 export const CartContext = createContext();
 
 export const CartContextProvider = ({ children }) => {
 
 
-    const [games, setGames] = useState([]);
-    const [transJuegos, setTransJuegos] = useState([]);
-
+    const [games, setGames] = useState(() => JSON.parse(localStorage.getItem("cart_games")) || []);
+    const [transJuegos, setTransJuegos] = useState(() => JSON.parse(localStorage.getItem("cart_transJuegos")) || []);
     const [typeOfTransaction, setTypeOfTransaction] = useState('venta');
+
+
+    useEffect(() => {
+        localStorage.setItem("cart_games", JSON.stringify(games));
+    }, [games]);
+
+    useEffect(() => {
+        localStorage.setItem("cart_transJuegos", JSON.stringify(transJuegos));
+    }, [transJuegos]);
 
     const addGameToCart = (game, cant) => {
 
@@ -61,6 +69,8 @@ export const CartContextProvider = ({ children }) => {
     const resetCart = () => {
         setGames([]);
         setTransJuegos([]);
+        localStorage.removeItem("cart_games");
+        localStorage.removeItem("cart_transJuegos");
     };
 
 
