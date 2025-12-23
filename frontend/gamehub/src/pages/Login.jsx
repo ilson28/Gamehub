@@ -25,7 +25,7 @@ const Login = () => {
             navigate("/");
         },
         onError: (error) => {
-            console.error("Error en login", error.response);
+            // console.error("Error en login", error.response);
             if (error.response?.status === 401) setAuthError(true);
 
         }
