@@ -149,7 +149,7 @@ const GameForm = forwardRef(({ onSubmit, loading, mode }, ref) => {
                             <p>Haz clic para seleccionar una imagen</p>
                             <p className="font-light" >PNG, JPG, GIF hasta 5MB</p>
 
-                            <div className="flex gap-3">
+                            <div className="flex flex-wrap gap-3">
 
                                 <FileInputForm control={control} label="Subir imagen" name="imagen" setFileName={setFileName} />
                                 {fileName && (
