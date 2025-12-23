@@ -3,7 +3,7 @@ import { ModalProvider } from './contexts/modalContext';
 import { CartContextProvider } from './contexts/CartContext';
 import AppRouter from './AppRouter';
 import { AuthContextProvider } from './contexts/AuthContext';
-
+import './services/axiosInterceptor'; // Importa el interceptor de Axios para que se configure al iniciar la aplicación
 
 
 function App() {
