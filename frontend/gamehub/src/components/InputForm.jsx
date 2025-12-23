@@ -24,7 +24,8 @@ const InputForm = ({ name, control, label, type, error, placeholder, className, 
                             className={clsx(
                                 "w-full h-full bg-gray-50 py-4 border border-gray-300 rounded-lg focus:border-blue-500 outline-none",
                                 !iconLogin ? "px-2" : "px-12",
-                                error && "border-red-600"
+                                error && "border-red-600",
+                                type == "number" && "no-spinner"
                             )} />
                         {iconLogin && iconLogin}
                     </div>
