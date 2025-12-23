@@ -72,18 +72,20 @@ const LoginForm = forwardRef(({ onSubmit, isLoading, isError }, ref) => {
                 </ButtonCard>
 
                 {/* Alerta de credenciales invalidas  */}
-                {isError && <div className={clsx("mt-4  p-4 flex gap-2 rounded-2xl border-l-4 border-red-500 text-red-600 bg-red-50 hover:bg-red-100/80",
-
+                <div className={clsx("overflow-hidden transition-all duration-700 ease-in-out",
+                    isError ? "max-h-40 opacity-100" : "max-h-0 opacity-0"
                 )}>
+                    <div className="mt-4 p-4 flex gap-2 rounded-2xl border-l-4 border-red-500 text-red-600 bg-red-50 hover:bg-red-100/80">
 
-                    <FiAlertTriangle />
+                        <FiAlertTriangle />
 
-                    <div>
-                        <p className="text-xs font-semibold text-red-800 mb-1">Credenciales inválidas</p>
-                        <p className="text-xs sm:text-base text-red-700">El usuario o la contraseña no son correctos.</p>
+                        <div>
+                            <p className="text-xs font-semibold text-red-800 mb-1">Credenciales inválidas</p>
+                            <p className="text-xs sm:text-base text-red-700">El usuario o la contraseña no son correctos.</p>
+                        </div>
+
                     </div>
-
-                </div>}
+                </div>
 
             </div>
 
