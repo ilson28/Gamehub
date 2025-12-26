@@ -24,7 +24,7 @@ axios.interceptors.response.use(
       // 401 SOLO fuera del login
       if (status === 401 && currentPath !== "/login") {
         localStorage.removeItem("token");
-        window.location.href = "/login";
+        window.location.href = "/welcome";
       }
       return Promise.reject(error);
     }
