@@ -6,7 +6,7 @@ import { NavLink } from 'react-router-dom';
 import useCartContext from '../hooks/useCartContext';
 import clsx from 'clsx';
 import { RiDeleteBin6Line } from 'react-icons/ri';
-const Videojuego = ({ id, title, genre, platform, sale, rent, img, stock, cart = false }) => {
+const Game = ({ id, title, genre, platform, sale, rent, img, stock, cart = false }) => {
 
     const { addGameToCart, typeOfTransaction, deleteGame } = useCartContext();
 
@@ -146,4 +146,4 @@ const Videojuego = ({ id, title, genre, platform, sale, rent, img, stock, cart =
     );
 };
 
-export default Videojuego;
+export default Game;

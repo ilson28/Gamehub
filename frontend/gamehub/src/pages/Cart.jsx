@@ -2,7 +2,7 @@ import { MdOutlineShoppingCart } from "react-icons/md";
 import ButtonCard from "../components/ButtonCard";
 import ClientForm from "../components/ClientForm";
 import InputRadioCart from "../components/InputRadioCart";
-import Videojuego from "../components/Videojuego";
+import Game from "../components/Game";
 import useCartContext from "../hooks/useCartContext"
 import { useRef, useState } from "react";
 import { createTransaction } from "../services/transaccionService";
@@ -96,7 +96,7 @@ const Cart = () => {
                     {games.length > 0
                         ?
                         (games.map(game => (<div key={game.id} className="border-b border-b-gray-200">
-                            <Videojuego
+                            <Game
                                 id={game.id}
                                 title={game.titulo}
                                 genre={game.genero}

@@ -1,4 +1,4 @@
-import Videojuego from "./Videojuego"
+import Game from "./Game"
 
 // import { getGames } from "../services/videojuegoService";
 
@@ -79,7 +79,7 @@ const Cards = ({ games, isLoading, isError, error }) => {
 
             {
                 games.map((game) =>
-                    <Videojuego
+                    <Game
                         key={game.id}
                         id={game.id}
                         title={game.titulo}
