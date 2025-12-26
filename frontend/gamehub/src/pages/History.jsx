@@ -20,7 +20,7 @@ const History = () => {
     const mutate = useMutation({
         mutationFn: (registroDevolucion) => create(registroDevolucion),
         onSuccess: (response) => {
-            console.log("Registro de devolución creado:", response);
+            // console.log("Registro de devolución creado:", response);
             setTransaction(null);
             queryClient.invalidateQueries(["returns"]);
         }

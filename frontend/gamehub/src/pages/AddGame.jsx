@@ -32,10 +32,10 @@ const AddGame = () => {
             return id ? editGame(id, data, img) : createGame(data, img);
         },
         onSuccess: (response) => {
-            const message = gameId
-                ? `Videojuego editado exitosamente id:${gameId}`
-                : "Videojuego agregado exitosamente";
-            console.log(message, response.data);
+            // const message = gameId
+            //     ? `Videojuego editado exitosamente id:${gameId}`
+            //     : "Videojuego agregado exitosamente";
+            // console.log(message, response.data);
 
             setGame(response.data);
             setState(true);

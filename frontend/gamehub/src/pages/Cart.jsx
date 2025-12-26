@@ -33,7 +33,7 @@ const Cart = () => {
             handleModalNotification();
         },
         onSuccess: (response) => {
-            console.log("Transaccion creada exitosamente", response.data);
+            // console.log("Transaccion creada exitosamente", response.data);
             resetCart();
             formclientRef.current?.resetForm();
             handleModalNotification();
