@@ -1,9 +1,7 @@
 import './App.css'
-import { ModalProvider } from './contexts/modalContext';
-import { CartContextProvider } from './contexts/CartContext';
 import AppRouter from './AppRouter';
-import { AuthContextProvider } from './contexts/AuthContext';
 import './services/axiosInterceptor'; // Importa el interceptor de Axios para que se configure al iniciar la aplicación
+import GlobalProviders from './providers/GlobalProviders';
 
 
 function App() {
@@ -12,17 +10,9 @@ function App() {
   return (
     <div className='font-roboto bg-gray-50 min-h-screen'>
 
-      <ModalProvider>
-        <AuthContextProvider>
-
-          <CartContextProvider>
-
-            <AppRouter />
-
-          </CartContextProvider>
-        </AuthContextProvider>
-      </ModalProvider>
-
+      <GlobalProviders>
+        <AppRouter />
+      </GlobalProviders>
     </div>
   )
 }
