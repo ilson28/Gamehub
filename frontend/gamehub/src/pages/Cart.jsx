@@ -1,7 +1,7 @@
 import { MdOutlineShoppingCart } from "react-icons/md";
 import ButtonCard from "../components/ui/ButtonCard";
 import ClientForm from "../components/ClientForm";
-import Game from "../components/Game";
+import Game from "../components/games/Game";
 import useCartContext from "../hooks/useCartContext"
 import { useRef, useState } from "react";
 import { createTransaction } from "../services/transaccionService";

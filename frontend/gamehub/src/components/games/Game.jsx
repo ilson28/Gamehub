@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import ButtonCard from './ui/ButtonCard';
+import ButtonCard from '../ui/ButtonCard';
 import { MdAddShoppingCart } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
 import { NavLink } from 'react-router-dom';
-import useCartContext from '../hooks/useCartContext';
+import useCartContext from '../../hooks/useCartContext';
 import clsx from 'clsx';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 const Game = ({ id, title, genre, platform, sale, rent, img, stock, cart = false }) => {

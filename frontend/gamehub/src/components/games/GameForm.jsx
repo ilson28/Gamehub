@@ -8,19 +8,16 @@ import { FaDollarSign } from "react-icons/fa6";
 import { FaInfoCircle } from "react-icons/fa";
 import { AiOutlineNumber } from "react-icons/ai";
 import { VscLoading } from "react-icons/vsc";
-
-
 import { useState, forwardRef, useImperativeHandle, useEffect } from "react";
 import { twMerge } from "tailwind-merge";
-
-
-import SelectForm from "./ui/SelectForm";
-import schema from "../models/form-game.model";
-import ButtonCard from "../components/ui/ButtonCard";
 import { clsx } from "clsx";
-import FileInputForm from "./FileInputForm";
-import { useParams } from "react-router-dom";
-import InputForm from "./ui/InputForm";
+
+
+import SelectForm from "../ui/SelectForm";
+import schema from "../../models/form-game.model";
+import FileInputForm from "../games/FileInputForm";
+import InputForm from "../ui/InputForm";
+import ButtonCard from "../ui/ButtonCard";
 
 const PLATFORMS = [
     { value: "", label: "Escoja la plataforma" },

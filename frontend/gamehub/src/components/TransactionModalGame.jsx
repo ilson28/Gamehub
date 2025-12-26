@@ -1,7 +1,7 @@
-import ButtonsModalTransaction from "./ButtonsModalTransaction";
-import TransactionInfo from "./TransactionInfo"
 import { IoIosInformationCircleOutline } from "react-icons/io";
 import { FaRegCheckCircle } from "react-icons/fa";
+import TransactionInfo from "./transactions/TransactionInfo";
+import ButtonsModalTransaction from "./transactions/ButtonsModalTransaction";
 const TransactionModalGame = ({
     transaction,
     onClick,

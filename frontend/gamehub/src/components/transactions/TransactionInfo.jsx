@@ -2,7 +2,7 @@ import { MdPersonOutline } from "react-icons/md"
 import { IoCartOutline } from "react-icons/io5"
 import { CgGames } from "react-icons/cg";
 import { AiFillDollarCircle } from "react-icons/ai";
-import Modal from "./modal/Modal";
+import Modal from "../modal/Modal";
 
 
 const TransactionInfo = ({

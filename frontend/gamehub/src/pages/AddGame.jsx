@@ -1,9 +1,9 @@
 import { createGame, editGame, getGameById } from "../services/videojuegoService";
-import GameForm from "../components/GameForm";
+import GameForm from "../components/games/GameForm";
 import { useParams, useNavigate } from "react-router-dom";
 // import gta from "../assets/img/gta.jpg";
 import { useEffect, useRef, useState } from "react";
-import GameModal from "../components/GameModal";
+import GameModal from "../components/games/GameModal";
 import ErrorModal from "../components/ErrorModal";
 import Modal from "../components/modal/Modal";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";

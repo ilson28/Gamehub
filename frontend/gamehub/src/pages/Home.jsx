@@ -4,7 +4,7 @@ import { SlReload } from "react-icons/sl";
 import { RiHistoryFill } from "react-icons/ri";
 import { CiSearch } from "react-icons/ci";
 
-import Cards from "../components/Card";
+
 import { getGames, getTotalGames, getTotalStock } from "../services/videojuegoService";
 import { getTotalActiveTransaccions, getTotalSalesToday } from "../services/transaccionService";
 
@@ -12,6 +12,7 @@ import { getTotalActiveTransaccions, getTotalSalesToday } from "../services/tran
 import { useQuery } from "@tanstack/react-query";
 import ItemCard from "../components/ui/ItemCard";
 import { useState } from "react";
+import Cards from "../components/games/Card";
 
 const Home = () => {
 

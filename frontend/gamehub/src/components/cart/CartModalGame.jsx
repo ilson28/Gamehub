@@ -1,8 +1,8 @@
 
 import { IoWarningSharp } from "react-icons/io5"
 import useCartContext from "../../hooks/useCartContext";
-import TransactionInfo from "../TransactionInfo";
-import ButtonsModalTransaction from "../ButtonsModalTransaction";
+import TransactionInfo from "../transactions/TransactionInfo";
+import ButtonsModalTransaction from "../transactions/ButtonsModalTransaction";
 
 const CartModalGame = ({ cliente, onClick, loading }) => {
 

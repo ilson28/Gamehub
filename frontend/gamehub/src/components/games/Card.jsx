@@ -1,4 +1,4 @@
-import Game from "./Game"
+import Game from "./Game";
 
 // import { getGames } from "../services/videojuegoService";
 

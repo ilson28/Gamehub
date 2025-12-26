@@ -1,6 +1,6 @@
 import { VscLoading } from "react-icons/vsc";
-import useModalContext from "../hooks/useModalContext";
-import ButtonCard from "./ui/ButtonCard";
+import useModalContext from "../../hooks/useModalContext";
+import ButtonCard from "../ui/ButtonCard";
 
 
 const ButtonsModalTransaction = ({
