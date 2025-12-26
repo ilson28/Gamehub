@@ -13,13 +13,14 @@ import { VscLoading } from "react-icons/vsc";
 import { useState, forwardRef, useImperativeHandle, useEffect } from "react";
 import { twMerge } from "tailwind-merge";
 
-import InputForm from "../components/InputForm";
-import SelectForm from "../components/SelectForm";
+
+import SelectForm from "./ui/SelectForm";
 import schema from "../models/form-game.model";
-import ButtonCard from "../components/ButtonCard";
+import ButtonCard from "../components/ui/ButtonCard";
 import { clsx } from "clsx";
 import FileInputForm from "./FileInputForm";
 import { useParams } from "react-router-dom";
+import InputForm from "./ui/InputForm";
 
 const PLATFORMS = [
     { value: "", label: "Escoja la plataforma" },

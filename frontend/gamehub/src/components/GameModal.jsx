@@ -1,6 +1,6 @@
 import { FaCircleCheck } from "react-icons/fa6";
 
-import ButtonCard from "../components/ButtonCard";
+import ButtonCard from "../components/ui/ButtonCard";
 import { useEffect } from "react";
 
 

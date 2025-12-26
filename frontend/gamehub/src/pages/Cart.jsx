@@ -1,7 +1,6 @@
 import { MdOutlineShoppingCart } from "react-icons/md";
-import ButtonCard from "../components/ButtonCard";
+import ButtonCard from "../components/ui/ButtonCard";
 import ClientForm from "../components/ClientForm";
-import InputRadioCart from "../components/InputRadioCart";
 import Game from "../components/Game";
 import useCartContext from "../hooks/useCartContext"
 import { useRef, useState } from "react";
@@ -11,6 +10,7 @@ import { VscLoading } from "react-icons/vsc";
 import CartModalGame from "../components/cart/CartModalGame";
 import useModalContext from "../hooks/useModalContext";
 import ModalNotification from "../components/modal/ModalNotification";
+import InputRadioCart from "../components/ui/InputRadioCart";
 
 
 

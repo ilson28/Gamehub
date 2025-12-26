@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import ButtonCard from './ButtonCard';
+import ButtonCard from './ui/ButtonCard';
 import { MdAddShoppingCart } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
 import { NavLink } from 'react-router-dom';

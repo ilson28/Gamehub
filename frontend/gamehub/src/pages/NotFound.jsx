@@ -1,6 +1,6 @@
 import { HiOutlineEmojiSad } from "react-icons/hi";
 import { GoHome } from "react-icons/go";
-import ButtonCard from "../components/ButtonCard";
+import ButtonCard from "../components/ui/ButtonCard";
 import { useNavigate } from "react-router-dom";
 const NotFound = () => {
 

@@ -10,7 +10,7 @@ import { getTotalActiveTransaccions, getTotalSalesToday } from "../services/tran
 
 
 import { useQuery } from "@tanstack/react-query";
-import ItemCard from "../components/ItemCard";
+import ItemCard from "../components/ui/ItemCard";
 import { useState } from "react";
 
 const Home = () => {
