@@ -19,7 +19,7 @@ const getAll = async (cedula, fromDate, toDate, page = 0) => {
             cedula,
             fromDate,
             toDate,
-            size: 2,
+            size: 10,
             page
         }
     });
