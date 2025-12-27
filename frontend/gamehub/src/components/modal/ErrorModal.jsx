@@ -1,7 +1,7 @@
 import { clsx } from "clsx";
 import { useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
-import Modal from "./modal/Modal";
+import Modal from "./Modal";
 
 
 const ErrorModal = ({ onClose }) => {

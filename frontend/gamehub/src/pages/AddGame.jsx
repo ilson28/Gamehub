@@ -4,7 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 // import gta from "../assets/img/gta.jpg";
 import { useEffect, useRef, useState } from "react";
 import GameModal from "../components/games/GameModal";
-import ErrorModal from "../components/ErrorModal";
+import ErrorModal from "../components/modal/ErrorModal";
 import Modal from "../components/modal/Modal";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import useModalContext from "../hooks/useModalContext";

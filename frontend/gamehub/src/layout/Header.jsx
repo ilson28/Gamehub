@@ -6,7 +6,7 @@ import { SlReload } from "react-icons/sl";
 import { RiHistoryFill } from "react-icons/ri";
 import { IoClose } from "react-icons/io5";
 
-import NavItem from "../components/NavItem";
+import NavItem from "../components/layout/NavItem";
 import { useState } from "react";
 import { clsx } from "clsx";
 

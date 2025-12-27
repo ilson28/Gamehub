@@ -2,7 +2,7 @@
 import { IoGameControllerOutline } from "react-icons/io5"
 import clsx from "clsx";
 import { useEffect, useRef, useState } from "react";
-import LoginForm from "../components/LoginForm";
+import LoginForm from "../components/auth/LoginForm";
 import { useMutation } from "@tanstack/react-query";
 import { login } from "../services/authService";
 import useAuthContext from "../hooks/useAuthContext";

@@ -1,6 +1,6 @@
 import { clsx } from "clsx";
 import { NavLink } from "react-router-dom";
-import useCartContext from "../hooks/useCartContext";
+import useCartContext from "../../hooks/useCartContext";
 
 
 const NavItem = ({ children, to, onClick }) => {

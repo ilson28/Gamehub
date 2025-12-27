@@ -7,7 +7,7 @@ import { IoCart, IoEyeSharp, IoTimeSharp } from "react-icons/io5";
 import { getRentalTransactions, getTransactionsForType } from "../services/transaccionService"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import useModalContext from "../hooks/useModalContext";
-import TransactionModalGame from "../components/TransactionModalGame";
+import TransactionModalGame from "../components/transactions/TransactionModalGame";
 import ModalHistoryNotification from "../components/modal/ModalHistoryNotification";
 import { create } from "../services/registroDevolucionService";
 

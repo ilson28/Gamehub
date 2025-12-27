@@ -10,7 +10,7 @@ import ButtonCard from "../components/ui/ButtonCard";
 import { useEffect, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import useModalContext from "../hooks/useModalContext";
-import TransactionModalGame from "../components/TransactionModalGame";
+import TransactionModalGame from "../components/transactions/TransactionModalGame";
 import { getAll } from "../services/registroDevolucionService";
 import { getReturnsOfMonth, getReturnsOfToday, getTotalReturns } from "../services/registroDevolucionService";
 import { MdOutlineCleaningServices } from "react-icons/md";
