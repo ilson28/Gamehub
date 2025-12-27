@@ -1,7 +1,7 @@
 import { forwardRef, useImperativeHandle } from "react"
 import { useForm } from "react-hook-form";
-import clientSchema from "../models/form-client.model";
-import InputForm from "./ui/InputForm";
+import clientSchema from "../../models/form-client.model";
+import InputForm from "../ui/InputForm";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 const defaultValuesForm = {
