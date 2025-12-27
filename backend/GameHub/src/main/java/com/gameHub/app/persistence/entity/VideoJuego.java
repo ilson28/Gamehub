@@ -13,6 +13,7 @@ import com.gameHub.app.util.enums.Plataforma;
 @Setter
 @Getter
 @Entity
+@Table(name = "video_juego")
 @Builder
 @Validated
 @NoArgsConstructor
