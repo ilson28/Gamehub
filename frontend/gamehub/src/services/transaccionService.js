@@ -43,3 +43,8 @@ export const getRentalTransactions = async (estado, date) => {
     return response.data;
 
 }
+
+export const deleteTransaction = async (id) => {
+    const response = await axios.delete(`${API_URL}/${id}`);
+    return response.data;
+}

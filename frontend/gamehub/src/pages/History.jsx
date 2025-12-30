@@ -3,8 +3,9 @@ import { twMerge } from 'tailwind-merge'
 import { useState } from "react";
 import { FaCartShopping } from "react-icons/fa6"
 import { IoCart, IoEyeSharp, IoTimeSharp } from "react-icons/io5";
+import { TiDelete } from "react-icons/ti";
 
-import { getRentalTransactions, getTransactionsForType } from "../services/transaccionService"
+import { deleteTransaction, getRentalTransactions, getTransactionsForType } from "../services/transaccionService"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import useModalContext from "../hooks/useModalContext";
 import TransactionModalGame from "../components/transactions/TransactionModalGame";
@@ -17,14 +18,6 @@ const History = () => {
 
 
     const queryClient = useQueryClient();
-    const mutate = useMutation({
-        mutationFn: (registroDevolucion) => create(registroDevolucion),
-        onSuccess: (response) => {
-            // console.log("Registro de devolución creado:", response);
-            setTransaction(null);
-            queryClient.invalidateQueries(["returns"]);
-        }
-    })
     const [date, setDate] = useState("");
     const [tabActive, setTabActive] = useState("venta");
     const [rentalFilter, setRentalFilter] = useState("todos");
@@ -43,6 +36,22 @@ const History = () => {
 
     })
 
+    const createReturnMutation = useMutation({
+        mutationFn: (registroDevolucion) => create(registroDevolucion),
+        onSuccess: (response) => {
+            // console.log("Registro de devolución creado:", response);
+            setTransaction(null);
+            queryClient.invalidateQueries(["returns"]);
+        }
+    })
+
+    const deleteTransactionMutation = useMutation({
+        mutationFn: (id) => deleteTransaction(id),
+        onSuccess: () => {
+            queryClient.invalidateQueries(['transactions']);
+        }
+    })
+
     const handleTab = tab => {
         tab === "venta" ? setTabActive("venta") : setTabActive("alquiler");
         setDate("");
@@ -52,7 +61,7 @@ const History = () => {
         const registroDevolucion = {
             idTransaccion: transaction.id,
         }
-        mutate.mutate(registroDevolucion);
+        createReturnMutation.mutate(registroDevolucion);
 
     }
 
@@ -139,7 +148,7 @@ const History = () => {
                 </div>
 
                 <div className="overflow-x-auto">
-                    <table className="w-full text-left">
+                    <table className="w-full min-w-xl text-left">
 
                         <thead className="bg-gray-100 text-gray-500">
                             <tr>
@@ -196,13 +205,23 @@ const History = () => {
                                                         {transaction.estado}
                                                     </div>
                                                 </td>}
-                                            <td className="cursor-pointer">
-                                                <IoEyeSharp
-                                                    onClick={e => {
-                                                        setTransaction(transaction);
-                                                        setState(true);
-                                                    }}
-                                                    className="text-blue-600 text-2xl text-center" />
+                                            <td>
+                                                <div className="flex items-center gap-3">
+
+                                                    <IoEyeSharp
+                                                        title="Ver detalles"
+                                                        className="text-blue-600 text-2xl cursor-pointer"
+                                                        onClick={() => {
+                                                            setTransaction(transaction);
+                                                            setState(true);
+                                                        }}
+                                                    />
+                                                    <TiDelete
+                                                        title="Eliminar registro"
+                                                        className="text-red-600 text-2xl cursor-pointer"
+                                                        onClick={() => deleteTransactionMutation.mutate(transaction.id)}
+                                                    />
+                                                </div>
                                             </td>
                                         </tr>)
                                 }
