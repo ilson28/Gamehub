@@ -226,94 +226,96 @@ const Returns = () => {
             </div>
 
             {/* Contenedor de la Tabla */}
-            {!isLoading && data?.totalPages > 0 && <div className="my-8 bg-white rounded-xl overflow-hidden border border-gray-200">
-                <div className="overflow-x-auto">
+            {!isLoading && data?.totalPages > 0 &&
+                <div className="my-8 bg-white rounded-xl overflow-hidden border border-gray-200">
+                    <div className="overflow-x-auto">
 
-                    {/* Tabla */}
-                    <table className="w-full min-w-xl text-left">
-                        <thead>
-                            <tr className="bg-gray-100 text-gray-500 uppercase text-sm leading-normal">
-                                <th className="pl-6">Cédula</th>
-                                <th>Cliente</th>
-                                <th>Alquiler</th>
-                                <th>Devolucion</th>
-                                <th className="text-center">Acciones</th>
-                            </tr>
-                        </thead>
+                        {/* Tabla */}
+                        <table className="w-full min-w-xl text-left">
+                            <thead>
+                                <tr className="bg-gray-100 text-gray-500 uppercase text-sm leading-normal">
+                                    <th className="pl-6">Cédula</th>
+                                    <th>Cliente</th>
+                                    <th>Alquiler</th>
+                                    <th>Devolucion</th>
+                                    <th className="text-center">Acciones</th>
+                                </tr>
+                            </thead>
 
-                        <tbody>
-
-                            {
-                                data.content.map(dev => (
-                                    <tr key={dev.id}>
-                                        <td className="pl-6">{dev.transaccion.cliente.cedula}</td>
-                                        <td>{`${dev.transaccion.cliente.nombre} ${dev.transaccion.cliente.apellido}`}</td>
-                                        <td>{dev.transaccion.fechaTrans}</td>
-                                        <td>{dev.fecha}</td>
-                                        <td
-                                            onClick={() => {
-                                                setTransaccion(dev.transaccion);
-                                                setState('returnDetailsModal', true)
-                                            }}
-                                            className="cursor-pointer flex justify-center">
-                                            <IoEyeSharp className="text-blue-600 text-2xl" />
-                                        </td>
-                                    </tr>
-                                ))
-                            }
-
-                        </tbody>
-
-
-
-                    </table>
-
-                    {/* Paginacion */}
-                    <div className="flex items-center justify-between text-gray-500 py-3 px-6">
-                        <div>
-                            <p>Mostrando 1-10 de {data.totalElements} resultados</p>
-                        </div>
-                        <div className="flex gap-1 ">
-                            <button
-                                disabled={!canScrollLeft}
-                                onClick={scrollLeft}
-                                className="flex items-center justify-center w-11 py-1 rounded-lg border border-gray-300 cursor-pointer 
-                                disabled:opacity-50  disabled:cursor-not-allowed">
-                                <IoIosArrowBack size={16} />
-                            </button>
-                            <div
-                                ref={scrollRef}
-                                onScroll={handleScroll}
-                                className="flex gap-1 scroll-smooth overflow-x-hidden w-27">
+                            <tbody>
 
                                 {
-                                    pages.map(num => (
-                                        <button
-                                            key={num}
-                                            onClick={() => handleSelectPage(num)}
-                                            className={clsx("flex items-center justify-center min-w-8 py-1 border rounded-lg border-gray-300",
-                                                actualPage === num && "bg-blue-500 text-white font-bold"
-                                            )}>
-                                            {num + 1}
-                                        </button>
+                                    data.content.map(dev => (
+                                        <tr key={dev.id}>
+                                            <td className="pl-6">{dev.transaccion.cliente.cedula}</td>
+                                            <td>{`${dev.transaccion.cliente.nombre} ${dev.transaccion.cliente.apellido}`}</td>
+                                            <td>{dev.transaccion.fechaTrans}</td>
+                                            <td>{dev.fecha}</td>
+                                            <td
+                                                onClick={() => {
+                                                    setTransaccion(dev.transaccion);
+                                                    setState('returnDetailsModal', true)
+                                                }}
+                                                className="cursor-pointer flex justify-center">
+                                                <IoEyeSharp className="text-blue-600 text-2xl" />
+                                            </td>
+                                        </tr>
                                     ))
                                 }
 
+                            </tbody>
+
+
+
+                        </table>
+
+                        {/* Paginacion */}
+                        <div className="flex items-center justify-between text-gray-500 py-3 px-6">
+                            <div>
+                                <p>Mostrando 1-10 de {data.totalElements} resultados</p>
                             </div>
-                            <button
-                                disabled={!canScrollRight}
-                                onClick={scrollRight}
-                                className="flex items-center justify-center w-11 py-1 rounded-lg border border-gray-300 cursor-pointer 
+                            <div className="flex gap-1 ">
+                                <button
+                                    disabled={!canScrollLeft}
+                                    onClick={scrollLeft}
+                                    className="flex items-center justify-center w-11 py-1 rounded-lg border border-gray-300 cursor-pointer 
                                 disabled:opacity-50  disabled:cursor-not-allowed">
-                                <IoIosArrowForward size={16} />
-                            </button>
+                                    <IoIosArrowBack size={16} />
+                                </button>
+                                <div
+                                    ref={scrollRef}
+                                    onScroll={handleScroll}
+                                    className="flex gap-1 scroll-smooth overflow-x-hidden w-27">
+
+                                    {
+                                        pages.map(num => (
+                                            <button
+                                                key={num}
+                                                onClick={() => handleSelectPage(num)}
+                                                className={clsx("flex items-center justify-center min-w-8 py-1 border rounded-lg border-gray-300",
+                                                    actualPage === num && "bg-blue-500 text-white font-bold"
+                                                )}>
+                                                {num + 1}
+                                            </button>
+                                        ))
+                                    }
+
+                                </div>
+                                <button
+                                    disabled={!canScrollRight}
+                                    onClick={scrollRight}
+                                    className="flex items-center justify-center w-11 py-1 rounded-lg border border-gray-300 cursor-pointer 
+                                disabled:opacity-50  disabled:cursor-not-allowed">
+                                    <IoIosArrowForward size={16} />
+                                </button>
+                            </div>
+
                         </div>
 
                     </div>
 
                 </div>
-
-            </div>}
+            }
             {
                 // Loading State
                 isLoading &&
