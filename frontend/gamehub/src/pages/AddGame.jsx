@@ -8,6 +8,7 @@ import ErrorModal from "../components/modal/ErrorModal";
 import Modal from "../components/modal/Modal";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import useModalContext from "../hooks/useModalContext";
+import useCartContext from "../hooks/useCartContext";
 
 const AddGame = () => {
     const formRef = useRef();
@@ -16,6 +17,7 @@ const AddGame = () => {
     const { gameId } = useParams();
     const { setState } = useModalContext();
     const queryClient = useQueryClient();
+    const { games, setGames } = useCartContext();
 
     // Obtener videojuego si estamos en modo edición
     const { data: gameData, isLoading: loadingGame } = useQuery({
@@ -40,6 +42,10 @@ const AddGame = () => {
             setGame(response.data);
             setState(true);
             queryClient.invalidateQueries(["games", "totalStock", "totalGames"]);
+            if (gameId && games?.length > 0) {
+                const updatedGames = games.map(g => g.id === response.data.id ? response.data : g);
+                setGames(updatedGames);
+            }
         }
     });
 
