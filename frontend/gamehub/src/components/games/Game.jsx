@@ -89,10 +89,10 @@ const Game = ({ id, title, genre, platform, sale, rent, img, stock, cart = false
                         {cart ?
 
 
-                            <div
-                                onClick={() => deleteGame(id)}
-                                className={clsx("self-end mt-3 flex flex-col gap-3 text-xl cursor-pointer")}>
-                                <RiDeleteBin6Line className='text-red-600 sm:absolute sm:absolute:content[""] ml-auto sm:top-4.5' />
+                            <div className={clsx("self-end mt-3 flex flex-col gap-3 text-xl")}>
+                                <RiDeleteBin6Line
+                                    onClick={() => deleteGame(id)}
+                                    className='text-red-600 cursor-pointer sm:absolute sm:absolute:content[""] ml-auto sm:top-4.5' />
                                 <p className='font-bold sm:absolute sm:absolute:content[""] sm:bottom-3 sm:right-0'>
                                     ${typeOfTransaction === 'venta' ? sale : rent}
                                 </p>
