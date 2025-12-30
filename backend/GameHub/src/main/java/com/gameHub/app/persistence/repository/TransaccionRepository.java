@@ -14,6 +14,10 @@ import java.util.List;
 @Repository
 public interface TransaccionRepository extends JpaRepository<Transaccion, Integer> {
 
+        @Override
+        @Query("SELECT t FROM Transaccion t WHERE t.activo = 1")
+        List<Transaccion> findAll();
+
         @Query("SELECT t FROM Transaccion t WHERE t.cliente.cedula = :cedula ")
         List<Transaccion> findByIdCliente(@Param("cedula") Integer cedula);
 

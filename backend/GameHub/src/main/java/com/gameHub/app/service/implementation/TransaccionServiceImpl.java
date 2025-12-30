@@ -113,8 +113,13 @@ public class TransaccionServiceImpl implements TransaccionService {
     @Transactional
     @Override
     public void delete(Integer id) {
-        Transaccion transaccion = transaccionRepository.findById(id).get();
-        transaccionRepository.delete(transaccion);
+
+        this.findById(id).ifPresent(tr -> {
+
+            Transaccion transaccion = TransaccionMapper.INSTANCE.toTransaccion(tr);
+            transaccion.setActivo(0);
+            transaccionRepository.save(transaccion);
+        });
 
     }
 

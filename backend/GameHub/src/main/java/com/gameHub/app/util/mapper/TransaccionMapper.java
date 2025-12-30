@@ -25,4 +25,6 @@ public interface TransaccionMapper {
     // Trans_juegoDto toTransjuegoDto(Trans_juego transjuego);
 
     Transaccion toTransaccion(TransaccionRequestDto transaccion);
+    
+    Transaccion toTransaccion(TransaccionResponseDto transaccionResponseDto);
 }
