@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Objects;
+import java.util.UUID;
 
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -26,7 +27,19 @@ public class ImagesUtil {
     public static String storeFile(MultipartFile file) {
 
         // Limpiar el nombre del archivo original
-        String fileName = Paths.get(Objects.requireNonNull(file.getOriginalFilename())).getFileName().toString();
+        // String fileName =
+        // Paths.get(Objects.requireNonNull(file.getOriginalFilename())).getFileName().toString();
+        String originalFileName = Objects.requireNonNull(file.getOriginalFilename());
+
+        // extraer extensión
+        String extension = "";
+        int dotIndex = originalFileName.lastIndexOf(".");
+        if (dotIndex != -1) {
+            extension = originalFileName.substring(dotIndex);
+        }
+
+        // nombre único para el almacenamiento
+        String fileName = UUID.randomUUID() + extension;
 
         try {
             // Crear la carpeta si no existe
