@@ -17,7 +17,7 @@ const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
 
     const navItems = [
-        { to: "/", icon: <IoGameControllerOutline size={18} />, label: "Inicio" },
+        { to: "/home", icon: <IoGameControllerOutline size={18} />, label: "Inicio" },
         { to: "/add-game", icon: <FaPlus />, label: "Agregar Juego" },
         { to: "/returns", icon: <SlReload />, label: "Devoluciones" },
         { to: "/history", icon: <RiHistoryFill />, label: "Historial" },
