@@ -150,7 +150,7 @@ const GameForm = forwardRef(({ onSubmit, loading, mode }, ref) => {
                             <div className="flex flex-wrap gap-3">
 
                                 <FileInputForm control={control} label="Subir imagen" name="imagen" setFileName={setFileName} />
-                                {fileName && (
+                                {fileName && mode == "create" && (
                                     <p className="self-center rounded-sm text-sm px-4 text-white bg-gray-400 font-light truncate">{fileName}</p>
                                 )}
                             </div>
