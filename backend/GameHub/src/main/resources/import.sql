@@ -1,1 +1,1 @@
-INSERT INTO cliente (username, password, role) VALUES ("adminGamehub","$2a$10$KBZ5AAdnKReyrWhVGgbqDuZG42AODZ1Cm8naEErBPaMNFzIzWgAa2","ADMIN")
+INSERT INTO usuarios (username, password, role) VALUES ('adminGamehub','$2a$10$KBZ5AAdnKReyrWhVGgbqDuZG42AODZ1Cm8naEErBPaMNFzIzWgAa2','ADMIN');
