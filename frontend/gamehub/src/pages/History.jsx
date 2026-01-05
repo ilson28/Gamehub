@@ -264,6 +264,7 @@ const History = () => {
             {
                 transaction &&
                 <TransactionModalGame
+                    loading={createReturnMutation.isPending}
                     transaction={transaction}
                     onClick={handleSubmit}
                 />
