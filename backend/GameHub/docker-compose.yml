@@ -1,0 +1,30 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-gamehub
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: Ilsondavid12345
+      MYSQL_DATABASE: game_hub
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  backend:
+    build: .
+    container_name: gamehub-backend
+    restart: always
+    depends_on:
+      - mysql
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      MYSQL_DB: game_hub
+      MYSQL_USER: root
+      MYSQL_PASSWORD: Ilsondavid12345
+      JWT_SECRET: J6spt2Lw6qth3Y8+aMIBv9UXWeG8LseBCiwS4yFa+q8=
+
+volumes:
+  mysql_data:
