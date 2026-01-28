@@ -1,5 +1,5 @@
-import axios from 'axios';
-const API_URL = 'http://localhost:8080/api/registro-devoluciones';
+import api from "./api";
+const BASE_PATH = '/api/registro-devoluciones';
 
 // const getAll = async (cliente, fromDate, toDate) => {
 //     const params = new URLSearchParams();
@@ -8,13 +8,13 @@ const API_URL = 'http://localhost:8080/api/registro-devoluciones';
 //     if (fromDate) params.append("fromDate", fromDate);
 //     if (toDate) params.append("toDate", toDate);
 
-//     const response = await axios.get(`${API_URL}?${params.toString()}`);
+//     const response = await api.get(`${API_URL}?${params.toString()}`);
 //     return response.data;
 // };
 const getAll = async (cedula, fromDate, toDate, page = 0) => {
 
 
-    const response = await axios.get(API_URL, {
+    const response = await api.get(BASE_PATH, {
         params: {
             cedula,
             fromDate,
@@ -29,19 +29,19 @@ const getAll = async (cedula, fromDate, toDate, page = 0) => {
 
 const getTotalReturns = async () => {
 
-    const response = await axios.get(`${API_URL}/total-devoluciones`);
+    const response = await api.get(`${BASE_PATH}/total-devoluciones`);
     return response.data;
 }
 const getReturnsOfToday = async () => {
 
-    const response = await axios.get(`${API_URL}/devoluciones-dia`);
+    const response = await api.get(`${BASE_PATH}/devoluciones-dia`);
     return response.data;
 }
 
 
 const getReturnsOfMonth = async () => {
 
-    const response = await axios.get(`${API_URL}/devoluciones-mes`);
+    const response = await api.get(`${BASE_PATH}/devoluciones-mes`);
     return response.data;
 
 }
@@ -49,7 +49,7 @@ const getReturnsOfMonth = async () => {
 
 
 const create = async (registroDevolucion) => {
-    const response = await axios.post(API_URL, registroDevolucion);
+    const response = await api.post(BASE_PATH, registroDevolucion);
     return response.data;
 }
 

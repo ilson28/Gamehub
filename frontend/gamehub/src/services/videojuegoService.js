@@ -1,5 +1,5 @@
-import axios from 'axios';
-const API_URL = 'http://localhost:8080/api/videojuegos';
+import api from "./api";
+const BASE_PATH = '/api/videojuegos';
 
 export const createGame = async (game, imagen) => {
 
@@ -7,7 +7,7 @@ export const createGame = async (game, imagen) => {
     formData.append('videoJuegoDto', new Blob([JSON.stringify(game)], { type: 'application/json' }));
     formData.append('imagen', imagen);
 
-    const response = await axios.post(API_URL, formData, {
+    const response = await api.post(BASE_PATH, formData, {
         headers: {
             'Content-Type': 'multipart/form-data',
         },
@@ -18,9 +18,9 @@ export const createGame = async (game, imagen) => {
 
 export const getGames = async (titulo) => {
 
-    const response = await axios.get(API_URL,{
-        params:{
-            titulo: titulo && titulo.trim() !== '' ? titulo : null 
+    const response = await api.get(BASE_PATH, {
+        params: {
+            titulo: titulo && titulo.trim() !== '' ? titulo : null
         }
     });
     return response.data;
@@ -29,7 +29,7 @@ export const getGames = async (titulo) => {
 
 export const getGameById = async (id) => {
 
-    const response = await axios.get(`${API_URL}/${id}`);
+    const response = await api.get(`${BASE_PATH}/${id}`);
     return response.data;
 
 }
@@ -40,7 +40,7 @@ export const editGame = async (id, game, imagen = null) => {
     formData.append('videoJuegoDto', new Blob([JSON.stringify(game)], { type: 'application/json' }));
     formData.append('imagen', imagen);
 
-    const response = await axios.put(`${API_URL}/${id}`, formData, {
+    const response = await api.put(`${BASE_PATH}/${id}`, formData, {
         headers: {
             'Content-Type': 'multipart/form-data',
         },
@@ -50,11 +50,11 @@ export const editGame = async (id, game, imagen = null) => {
 }
 
 export const getTotalGames = async () => {
-    const response = await axios.get(`${API_URL}/total-videojuegos`);
+    const response = await api.get(`${BASE_PATH}/total-videojuegos`);
     return response.data;
 }
 
 export const getTotalStock = async () => {
-    const response = await axios.get(`${API_URL}/total-stock`);
+    const response = await api.get(`${BASE_PATH}/total-stock`);
     return response.data;
 }

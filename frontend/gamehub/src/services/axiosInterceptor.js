@@ -1,6 +1,6 @@
-import axios from "axios";
+import api from "./api"
 
-axios.interceptors.request.use(
+api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
 
@@ -15,18 +15,18 @@ axios.interceptors.request.use(
 
 
 
-axios.interceptors.response.use(
-    (response) => response,
-    (error) => {
-      const status = error.response?.status;
-      const currentPath = window.location.pathname;
-  
-      // 401 SOLO fuera del login
-      if (status === 401 && currentPath !== "/login") {
-        localStorage.removeItem("token");
-        window.location.href = "/welcome";
-      }
-      return Promise.reject(error);
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    const status = error.response?.status;
+    const currentPath = window.location.pathname;
+
+    // 401 SOLO fuera del login
+    if (status === 401 && currentPath !== "/login") {
+      localStorage.removeItem("token");
+      window.location.href = "/welcome";
     }
-  );
-  
+    return Promise.reject(error);
+  }
+);
+

@@ -1,50 +1,51 @@
-import axios from 'axios';
-const API_URL = 'http://localhost:8080/api/transacciones';
+import api from "./api";
+
+const BASE_PATH = '/api/transacciones';
 
 export const createTransaction = async (transaction) => {
 
-    const response = await axios.post(API_URL, transaction);
+    const response = await api.post(BASE_PATH, transaction);
     return response.data;
 }
 
 export const getTransactions = async () => {
 
-    const response = await axios.get(API_URL);
+    const response = await api.get(BASE_PATH);
     return response.data;
 }
 
 export const getTotalActiveTransaccions = async () => {
 
-    const response = await axios.get(`${API_URL}/total-active-transaccions`);
+    const response = await api.get(`${BASE_PATH}/total-active-transaccions`);
     return response.data;
 }
 
 export const getTotalSalesToday = async () => {
-    const response = await axios.get(`${API_URL}/total-sales-today`);
+    const response = await api.get(`${BASE_PATH}/total-sales-today`);
     return response.data;
 }
 
 export const getTransactionsForType = async (type, date) => {
 
     const url = date
-        ? `${API_URL}/type/${type}?fecha=${date}`
-        : `${API_URL}/type/${type}`;
+        ? `${BASE_PATH}/type/${type}?fecha=${date}`
+        : `${BASE_PATH}/type/${type}`;
 
-    const response = await axios.get(url);
+    const response = await api.get(url);
     return response.data;
 
 }
 
 export const getRentalTransactions = async (estado, date) => {
 
-    const url = !date ? `${API_URL}/alquiler/${estado}` : `${API_URL}/alquiler/${estado}?fecha=${date}`;
+    const url = !date ? `${BASE_PATH}/alquiler/${estado}` : `${BASE_PATH}/alquiler/${estado}?fecha=${date}`;
 
-    const response = await axios.get(url);
+    const response = await api.get(url);
     return response.data;
 
 }
 
 export const deleteTransaction = async (id) => {
-    const response = await axios.delete(`${API_URL}/${id}`);
+    const response = await api.delete(`${BASE_PATH}/${id}`);
     return response.data;
 }
