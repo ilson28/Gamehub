@@ -55,7 +55,12 @@ public class AppConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:5173"));
+        config.setAllowedOrigins(List.of(
+                "http://localhost:5173",
+                "gamehub-six-beta.vercel.app",
+                "gamehub-qto7wks1n-ilsondiazmorelo28-7842s-projects.vercel.app"
+
+        ));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true); // Necesario si envías JWT en headers
