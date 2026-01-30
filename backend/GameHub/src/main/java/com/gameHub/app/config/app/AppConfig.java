@@ -57,8 +57,7 @@ public class AppConfig {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOrigins(List.of(
                 "http://localhost:5173",
-                "gamehub-six-beta.vercel.app",
-                "gamehub-qto7wks1n-ilsondiazmorelo28-7842s-projects.vercel.app"
+                "https://gamehub-six-beta.vercel.app"
 
         ));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
