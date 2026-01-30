@@ -43,7 +43,7 @@ public class VideoJuegoDto {
     public String getImagenUrl() {
         if (imagen == null || imagen.isBlank())
             return null;
-        return "http://localhost:8080/api/images/" + imagen;
+        return "https://gamehub-yqz0.onrender.com/api/images/" + imagen;
     }
 
 }
