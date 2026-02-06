@@ -96,16 +96,6 @@ const Login = () => {
                                 <p>admin123</p>
                             </div>
                         </div>
-
-                        {/* <!-- Footer --> */}
-                        < footer className="px-6 bg-gray-50" >
-                            <div>
-                                <div className="text-center space-y-2">
-                                    <p className="text-sm text-gray-500 tracking-wide">Internal management system</p>
-                                    <p className="text-xs text-gray-400">Built by Ilson Díaz Morelo</p>
-                                </div>
-                            </div>
-                        </footer >
                     </div>
 
                 </div>
