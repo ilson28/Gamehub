@@ -136,15 +136,12 @@ const Returns = () => {
 
 
     return (
-        <div className="container">
+        <div className="container min-h-screen">
             {/* Encabezado de la pagina */}
-            <div className="flex justify-between flex-wrap bg-white p-6 rounded-xl border border-gray-200">
-                <div className="flex items-center gap-2">
-                    <div className="text-2xl p-2 rounded-lg bg-blue-100 text-blue-600">
-                        <BsArrow90DegLeft />
-                    </div>
-                    <h1 className="font-bold text-gray-800 text-2xl md:text-3xl" >Devoluciones</h1>
-                </div>
+            <div className="flex justify-between flex-wrap bg-white p-6 rounded-lg border-b-2 border-gray-200">
+
+                <h1 className="font-bold text-gray-800 text-2xl md:text-3xl" >Devoluciones</h1>
+
                 <div className="flex items-center gap-1 text-gray-600">
                     <CiCalendarDate size={25} />
                     <p className="text-md md:text-xl">
