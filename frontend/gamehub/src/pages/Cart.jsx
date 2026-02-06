@@ -81,8 +81,8 @@ const Cart = () => {
 
     return (
 
-        <div className="container">
-            <div className="flex flex-col gap-2 my-4">
+        <div className="container min-h-screen">
+            <div className="flex flex-col gap-2 my-4 bg-white rounded-lg p-3 border-b-2 border-gray-200">
                 <h1 className="text-gray-900 font-bold text-3xl">Carrito de Compras</h1>
                 <span className="text-gray-500">Revisa tus videojuegos y completa tu transacción</span>
             </div>
