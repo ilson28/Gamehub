@@ -75,9 +75,9 @@ const History = () => {
                 <span className="text-gray-600">Consulta el historial completo de ventas y alquileres</span>
             </div>
 
-            <div className="p-6 flex flex-col gap-5 rounded-lg bg-white">
+            <div className="p-2 sm:p-6 lg:p-8 flex flex-col gap-5 rounded-lg bg-white">
 
-                <div className="flex gap-10  border-b border-gray-200">
+                <div className="flex gap-10 border-b border-gray-200">
 
                     <div
                         onClick={e => handleTab("venta")}
@@ -106,7 +106,7 @@ const History = () => {
 
                 </div>
 
-                <div className="flex">
+                <div className="flex flex-col items-start sm:flex-row sm:items-center sm:justify-between gap-3">
 
                     {tabActive === "venta" ?
 
@@ -124,7 +124,7 @@ const History = () => {
 
                     }
 
-                    <div className="ml-auto flex gap-3">
+                    <div className="flex gap-3">
 
                         {
                             tabActive === "alquiler" &&
@@ -133,7 +133,7 @@ const History = () => {
                                 defaultValue={"todos"}
                                 onChange={e => setRentalFilter(e.target.value)}
                                 name="rentFilter"
-                                className="p-2 outline-none focus:border-blue-800 rounded-md focus:border-2 border border-gray-300">
+                                className="text-sm sm:text-base p-2 outline-none focus:border-blue-800 rounded-md focus:border-2 border border-gray-300">
                                 <option value="todos">Todos los alquileres</option>
                                 <option value="alquilado">Alquileres Activos</option>
                                 <option value="devuelto">Alquileres devueltos</option>
@@ -143,7 +143,7 @@ const History = () => {
                             type="date"
                             value={date}
                             onChange={e => setDate(e.target.value)}
-                            className="p-2 outline-none focus:border-blue-800 rounded-md focus:border-2 border border-gray-300" />
+                            className="text-sm sm:text-base p-2 outline-none focus:border-blue-800 rounded-md focus:border-2 border border-gray-300" />
                     </div>
                 </div>
 
@@ -152,17 +152,17 @@ const History = () => {
 
                         <thead className="bg-gray-100 text-gray-500">
                             <tr>
-                                <th className="pl-8">Fecha y Hora</th>
-                                <th>Cédula Cliente</th>
-                                <th>Tipo</th>
-                                <th>Total</th>
+                                <th className="pl-8 pr-2">Fecha y Hora</th>
+                                <th className="px-2">Cédula Cliente</th>
+                                <th className="px-2">Tipo</th>
+                                <th className="px-2">Total</th>
                                 {tabActive === "alquiler" &&
-                                    <th>Fecha Devolución</th>}
+                                    <th className="px-2">Fecha Devolución</th>}
 
                                 {tabActive === "alquiler" &&
-                                    <th>Estado</th>
+                                    <th className="px-2">Estado</th>
                                 }
-                                <th>Acciones</th>
+                                <th className="px-2">Acciones</th>
                             </tr>
                         </thead>
 
