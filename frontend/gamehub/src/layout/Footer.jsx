@@ -31,7 +31,7 @@ const Footer = () => {
                         <FaLinkedin size={20} />
                     </a>
                     <a
-                        href="https://tu-portafolio.com"
+                        href="https://portfolio-nine-sand-48.vercel.app"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="hover:text-cyan-400 transition-colors"
