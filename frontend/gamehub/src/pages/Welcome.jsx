@@ -8,7 +8,7 @@ export default function Welcome() {
             {/* ======================================================
           HERO / ZONA PRINCIPAL
           ====================================================== */}
-            <section className="flex flex-1 items-center px-10 py-16 max-w-7xl mx-auto w-full">
+            <section className="flex flex-1 items-center px-6 sm:8 lg:10 py-16 max-w-7xl mx-auto w-full">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 w-full">
 
                     {/* ---------- TEXTO PRINCIPAL ---------- */}
@@ -39,7 +39,7 @@ export default function Welcome() {
                     </div>
 
                     {/* ---------- METÁFORA VISUAL: PANEL ---------- */}
-                    <div className="bg-white rounded-xl shadow-xl border border-slate-200 p-6">
+                    <div className="bg-white rounded-xl shadow-xl border border-slate-200 p-3 sm:p-6 lg:p-8">
                         {/* Header del panel */}
                         <div className="flex items-center justify-between mb-6">
                             <h2 className="font-semibold text-slate-800">
@@ -64,7 +64,7 @@ export default function Welcome() {
                             />
                             <StatusCard
                                 title="Ventas del día"
-                                value="$2.450"
+                                value="$1.450"
                                 status="danger"
                             />
                         </div>
@@ -129,7 +129,7 @@ function StatusCard({ title, value, status }) {
     return (
         <div className={`rounded-lg p-4 ${statusStyles[status]}`}>
             <p className="text-xs font-semibold mb-1">{title}</p>
-            <p className="text-2xl font-bold">{value}</p>
+            <p className="font-bold sm:text-2xl">{value}</p>
         </div>
     );
 }
