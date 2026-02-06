@@ -73,7 +73,7 @@ const AddGame = () => {
     };
 
     return (
-        <div className="container w-3/4">
+        <div className="container w-3/4 min-h-screen">
             <div className="flex flex-col gap-3 p-4 shadow-lg bg-white rounded-lg mt-5">
                 <h2 className='text-3xl font-bold text-gray-900'>
                     {gameId ? "Editar" : "Agregar nuevo"} Videojuego
