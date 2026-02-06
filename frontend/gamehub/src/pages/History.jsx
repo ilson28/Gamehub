@@ -68,9 +68,9 @@ const History = () => {
 
 
     return (
-        <div className="container overflow-x-auto">
+        <div className="container overflow-x-auto min-h-screen">
 
-            <div className="my-6 flex flex-col gap-3">
+            <div className="my-6 flex flex-col gap-3 bg-white rounded-lg p-3 border-b-2 border-gray-200">
                 <h2 className="text-3xl font-bold">Historial de Transacciones</h2>
                 <span className="text-gray-600">Consulta el historial completo de ventas y alquileres</span>
             </div>
