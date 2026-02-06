@@ -96,10 +96,10 @@ const Home = () => {
     // }, []);
 
     return (
-        <div className='container'>
+        <div className='container min-h-screen'>
 
             {/* Encabezado */}
-            <div className='flex flex-col gap-3 my-4'>
+            <div className='flex flex-col gap-3 my-4 bg-white rounded-lg p-3 border-b-2 border-gray-200'>
                 <h2 className='text-3xl font-bold text-gray-900'>Gestión de Videojuegos</h2>
                 <p className='text-gray-600'>Administra tu inventario de videojuegos, ventas y alquileres</p>
             </div>
