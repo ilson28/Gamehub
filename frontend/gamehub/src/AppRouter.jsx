@@ -11,6 +11,7 @@ import LayoutWithoutHeader from "./layout/LayoutWithoutHeader";
 import Login from "./pages/Login";
 import PrivateGuard from "./guards/PrivateGuard";
 import NotFound from "./pages/NotFound";
+import Footer from "./layout/Footer";
 
 const AppRouter = () => {
     return (
@@ -37,6 +38,7 @@ const AppRouter = () => {
                     <Route path="/login" element={<Login />} />
                 </Route>
             </Routes>
+            <Footer />
 
         </BrowserRouter >
     )
