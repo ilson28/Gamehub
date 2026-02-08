@@ -37,6 +37,8 @@ public class VideoJuego {
     @Column(name = "p_venta")
     private double precioVenta;
 
-    private String imagen;
+    @OneToOne(targetEntity = Imagen.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_imagen", referencedColumnName = "id")
+    private Imagen imagen;
 
 }
