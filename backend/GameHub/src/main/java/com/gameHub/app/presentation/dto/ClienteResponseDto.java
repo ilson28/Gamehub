@@ -1,6 +1,5 @@
 package com.gameHub.app.presentation.dto;
 
-import com.gameHub.app.util.enums.Role;
 import lombok.*;
 
 @AllArgsConstructor
