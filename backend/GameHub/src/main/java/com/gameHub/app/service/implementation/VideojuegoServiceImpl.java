@@ -1,11 +1,12 @@
 package com.gameHub.app.service.implementation;
 
+import com.gameHub.app.persistence.entity.Imagen;
 import com.gameHub.app.persistence.entity.VideoJuego;
 import com.gameHub.app.persistence.repository.VideoJuegoRepository;
 import com.gameHub.app.presentation.dto.VideoJuegoDto;
 import com.gameHub.app.service.exception.ResourceNotFoundException;
+import com.gameHub.app.service.interfaces.ImagenService;
 import com.gameHub.app.service.interfaces.VideoJuegoService;
-import com.gameHub.app.util.ImagesUtil;
 import com.gameHub.app.util.mapper.VideoJuegoMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -23,8 +25,9 @@ import java.util.stream.Collectors;
 public class VideojuegoServiceImpl implements VideoJuegoService {
 
     private final VideoJuegoRepository videoJuegoRepository;
-
     private final VideoJuegoMapper videoJuegoMapper;
+
+    private final ImagenService imagenService;
 
     @Transactional(readOnly = true)
     @Override
@@ -48,30 +51,37 @@ public class VideojuegoServiceImpl implements VideoJuegoService {
 
     @Transactional
     @Override
-    public Optional<VideoJuegoDto> save(VideoJuegoDto videoJuego, MultipartFile imagen) {
+    public Optional<VideoJuegoDto> save(VideoJuegoDto videoJuegoDto, MultipartFile MultipartFile) {
 
-        String fileName = null;
+        if (MultipartFile == null || MultipartFile.isEmpty()) {
 
-        if (imagen != null && !imagen.isEmpty()) {
+            throw new IllegalArgumentException("La imagen es obligatoria");
 
-            // 1. Guardar imagen en disco
-            fileName = ImagesUtil.storeFile(imagen);
+        }
+        VideoJuego game = this.videoJuegoMapper.toEntity(videoJuegoDto);
+
+        if (videoJuegoDto.getId() != null && videoJuegoDto.getId() != 0) {
+            try {
+                this.imagenService.delete(game.getImagen());
+            } catch (IOException e) {
+                throw new RuntimeException("Error al eliminar la imagen anterior: " + e.getMessage());
+            }
         }
 
-        // 2. Mapear el DTO a la entidad
-        VideoJuego juego = videoJuegoMapper.toEntity(videoJuego);
+        Imagen img;
+        try {
+            img = this.imagenService.uploadImage(MultipartFile);
+        } catch (IOException e) {
+            throw new RuntimeException("Error al subir la imagen: " + e.getMessage());
+        }
 
-        // 3. Asignar el nombre del archivo de imagen
-        juego.setImagen(fileName);
-        juego.setActivo(1); // Asignar activo por defecto
+        game.setImagen(img);
+        game.setActivo(1);
 
-        // 4. Guardar el videojuego en la base de datos
-        VideoJuego guardado = videoJuegoRepository.save(juego);
+        VideoJuego savedGame = this.videoJuegoRepository.save(game);
 
-        // 5. Mapear de vuelta a DTO
-        VideoJuegoDto resultado = videoJuegoMapper.toDto(guardado);
+        return Optional.ofNullable(this.videoJuegoMapper.toDto(savedGame));
 
-        return Optional.ofNullable(resultado);
     }
 
     @Transactional
