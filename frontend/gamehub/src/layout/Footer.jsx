@@ -3,7 +3,7 @@ import { FaGithub, FaLinkedin } from "react-icons/fa";
 
 const Footer = () => {
     return (
-        <footer className="bg-gray-800 text-gray-50 py-4 sticky bottom-0 w-full animate-fade-in-up">
+        <footer className="bg-gray-800 text-gray-50 sticky bottom-0 w-full">
             <div className="container mx-auto flex flex-col md:flex-row items-center justify-between px-4">
                 {/* Texto */}
                 <p className="text-sm mb-4 md:mb-0 text-balance text-center">
