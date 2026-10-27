@@ -35,6 +35,7 @@ const Game = ({ id, title, genre, platform, sale, rent, img, stock, cart = false
                 cart && "p-4"
             )}
             data-stock={`Stock: ${stock}`}
+            data-testid="game-card"
         >
             <div className={clsx({
                 "flex flex-col sm:flex-row": cart,
@@ -91,6 +92,8 @@ const Game = ({ id, title, genre, platform, sale, rent, img, stock, cart = false
 
                             <div className={clsx("self-end mt-3 flex flex-col gap-3 text-xl")}>
                                 <RiDeleteBin6Line
+                                    role="button"
+                                    aria-label={`Eliminar ${title} del carrito`}
                                     onClick={() => deleteGame(id)}
                                     className='text-red-600 cursor-pointer sm:absolute sm:absolute:content[""] ml-auto sm:top-4.5' />
                                 <p className='font-bold sm:absolute sm:absolute:content[""] sm:bottom-3 sm:right-0'>
@@ -124,6 +127,7 @@ const Game = ({ id, title, genre, platform, sale, rent, img, stock, cart = false
                         <div className='py-4 flex gap-2'>
                             <ButtonCard
                                 disabled={stock == 0}
+                                ariaLabel={`Agregar ${title} al carrito`}
                                 color={"blue"}
                                 className="grow flex justify-center"
                                 onClick={handleAddGame} >
@@ -132,7 +136,7 @@ const Game = ({ id, title, genre, platform, sale, rent, img, stock, cart = false
 
                             </ButtonCard>
                             <ButtonCard color="orange" className="grow relative" >
-                                <NavLink to={`/add-game/${id}`} className="absolute inset-0 w-full h-full flex items-center justify-center" >
+                                <NavLink to={`/add-game/${id}`} aria-label={`Editar ${title}`} className="absolute inset-0 w-full h-full flex items-center justify-center" >
                                     <FaEdit size={25} />
                                 </NavLink>
                             </ButtonCard>

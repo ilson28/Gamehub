@@ -72,9 +72,12 @@ const LoginForm = forwardRef(({ onSubmit, isLoading, isError }, ref) => {
                 </ButtonCard>
 
                 {/* Alerta de credenciales invalidas  */}
-                <div className={clsx("overflow-hidden transition-all duration-700 ease-in-out",
-                    isError ? "max-h-40 opacity-100" : "max-h-0 opacity-0"
-                )}>
+                <div
+                    role="alert"
+                    aria-hidden={!isError}
+                    className={clsx("overflow-hidden transition-all duration-700 ease-in-out",
+                        isError ? "max-h-40 opacity-100" : "max-h-0 opacity-0"
+                    )}>
                     <div className="mt-4 p-4 flex gap-2 rounded-2xl border-l-4 border-red-500 text-red-600 bg-red-50 hover:bg-red-100/80">
 
                         <FiAlertTriangle />

@@ -9,11 +9,12 @@ const colors = {
 }
 
 
-const ButtonCard = ({ children, color, onClick, className, type, form, disabled }) => {
+const ButtonCard = ({ children, color, onClick, className, type, form, disabled, ariaLabel }) => {
 
     return (
 
         <button
+            aria-label={ariaLabel}
             disabled={disabled}
             form={form}
             type={type}
