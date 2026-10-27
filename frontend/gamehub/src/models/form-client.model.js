@@ -5,7 +5,8 @@ const clientSchema = z.object({
     nombre: z.string().trim().min(1,"El nombre es obligatorio"),
     apellido: z.string().trim().min(1,"El apellido es obligatorio"),
     cedula: z.union([
-        z.string().min(1,"La cedula es obligatoria"),
+        z.string().min(1,"La cedula es obligatoria")
+            .regex(/^\d+$/, "Cedula invalida: solo se permiten digitos"),
         z.number()
     ]).transform((val) => Number(val))
     .refine((val) => val.toString().length >= 7, "Debe tener minimo 7 digitos"),
