@@ -1,6 +1,7 @@
 package com.gameHub.app.config.app;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -24,6 +25,9 @@ public class AppConfig {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Value("${app.cors.allowed-origins:http://localhost:5173,https://gamehub-six-beta.vercel.app}")
+    private List<String> allowedOrigins;
 
     @Bean
     public UserDetailsService userDetailsService() {
@@ -55,11 +59,7 @@ public class AppConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of(
-                "http://localhost:5173",
-                "https://gamehub-six-beta.vercel.app"
-
-        ));
+        config.setAllowedOrigins(allowedOrigins);
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true); // Necesario si envías JWT en headers
