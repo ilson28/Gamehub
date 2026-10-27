@@ -9,6 +9,37 @@ export type Videojuego = {
   precioAlquiler: number;
 };
 
+export type Cliente = {
+  cedula: string;
+  nombre: string;
+  apellido: string;
+  direccion: string;
+  telefono: string;
+};
+
+export type Transaccion = {
+  id: number;
+  tipo: string;
+  estado: string;
+  total: number;
+  fechaTrans?: string;
+  fechaDev?: string | null;
+  cliente?: Cliente;
+};
+
+export type Devolucion = {
+  id: number;
+  fecha: string;
+  transaccion: Transaccion;
+};
+
+/** Fecha ISO (YYYY-MM-DD) a N dias vista: fechaDev se valida con @Future en el backend. */
+export function fechaFutura(dias = 7): string {
+  const d = new Date();
+  d.setDate(d.getDate() + dias);
+  return d.toISOString().slice(0, 10);
+}
+
 /** Acceso directo a la API para leer estado y preparar precondiciones sin pasar por la UI. */
 export class GameHubApi {
   constructor(private readonly request: APIRequestContext) {}
@@ -24,6 +55,66 @@ export class GameHubApi {
 
   async getStock(titulo: string): Promise<number> {
     return (await this.getVideojuego(titulo)).stock;
+  }
+
+  /** Transacciones por tipo ("venta" | "alquiler"); es de los pocos endpoints que trae las lineas transJuegos. */
+  async getTransaccionesPorTipo(tipo: 'venta' | 'alquiler', fecha?: string): Promise<Transaccion[]> {
+    const response = await this.request.get(`/api/transacciones/type/${tipo}`, { params: fecha ? { fecha } : {} });
+    expect(response.ok(), `GET /api/transacciones/type/${tipo} devolvio ${response.status()}`).toBeTruthy();
+    return (await response.json()).data as Transaccion[];
+  }
+
+  /** Alquileres filtrados por estado ("alquilado" | "devuelto"), como hace el filtro del Historial. */
+  async getAlquileresPorEstado(estado: 'alquilado' | 'devuelto'): Promise<Transaccion[]> {
+    const response = await this.request.get(`/api/transacciones/alquiler/${estado}`);
+    expect(response.ok(), `GET /api/transacciones/alquiler/${estado} devolvio ${response.status()}`).toBeTruthy();
+    return (await response.json()).data as Transaccion[];
+  }
+
+  /**
+   * Crea una transaccion por API para usarla como precondicion sin pasar por el carrito.
+   * Descuenta stock igual que la UI. Devuelve la transaccion creada (con su id).
+   */
+  async crearTransaccion(opciones: {
+    titulo: string;
+    cliente: Cliente;
+    tipo?: 'venta' | 'alquiler';
+    cant?: number;
+    fechaDev?: string;
+  }): Promise<Transaccion> {
+    const { titulo, cliente, tipo = 'alquiler', cant = 1, fechaDev } = opciones;
+    const juego = await this.getVideojuego(titulo);
+    const response = await this.request.post('/api/transacciones', {
+      data: {
+        tipo,
+        fechaDev: tipo === 'alquiler' ? (fechaDev ?? fechaFutura()) : null,
+        cliente,
+        transJuegos: [{ gameId: juego.id, cant }],
+      },
+    });
+    expect(response.ok(), `POST /api/transacciones devolvio ${response.status()}`).toBeTruthy();
+    return (await response.json()).data as Transaccion;
+  }
+
+  /** Atajo: alquila `cant` unidades de `titulo` para `cliente`. */
+  async crearAlquiler(titulo: string, cliente: Cliente, cant = 1, fechaDev?: string): Promise<Transaccion> {
+    return this.crearTransaccion({ titulo, cliente, tipo: 'alquiler', cant, fechaDev });
+  }
+
+  /** Registros de devolucion; el endpoint devuelve un Page plano (sin el sobre ApiResponse). */
+  async getDevoluciones(cedula?: number | string): Promise<Devolucion[]> {
+    const response = await this.request.get('/api/registro-devoluciones', {
+      params: cedula ? { cedula: String(cedula) } : {},
+    });
+    expect(response.ok(), `GET /api/registro-devoluciones devolvio ${response.status()}`).toBeTruthy();
+    return (await response.json()).content as Devolucion[];
+  }
+
+  /** Total de devoluciones; este endpoint responde un numero desnudo, sin sobre. */
+  async getTotalDevoluciones(): Promise<number> {
+    const response = await this.request.get('/api/registro-devoluciones/total-devoluciones');
+    expect(response.ok()).toBeTruthy();
+    return Number(await response.text());
   }
 
   async getTransaccionesDeCliente(cedula: number | string) {
