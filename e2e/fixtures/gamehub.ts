@@ -101,6 +101,17 @@ export class GameHubApi {
     return this.crearTransaccion({ titulo, cliente, tipo: 'alquiler', cant, fechaDev });
   }
 
+  /**
+   * Registra la devolucion de una transaccion por API, como hace el boton "Realizar Devolucion" del Historial.
+   * Util como precondicion cuando la devolucion no es el objeto de la prueba: evita la cuenta atras de 5 s de la UI.
+   * Ojo: no restaura el stock (RN-02 no implementado).
+   */
+  async registrarDevolucion(idTransaccion: number): Promise<Devolucion> {
+    const response = await this.request.post('/api/registro-devoluciones', { data: { idTransaccion } });
+    expect(response.ok(), `POST /api/registro-devoluciones devolvio ${response.status()}`).toBeTruthy();
+    return (await response.json()) as Devolucion;
+  }
+
   /** Registros de devolucion; el endpoint devuelve un Page plano (sin el sobre ApiResponse). */
   async getDevoluciones(cedula?: number | string): Promise<Devolucion[]> {
     const response = await this.request.get('/api/registro-devoluciones', {

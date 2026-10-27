@@ -36,10 +36,21 @@ Si los servidores ya están corriendo en :8090/:5174, Playwright los reutiliza. 
 
 - `fixtures/gamehub.ts`: `test`/`expect` del proyecto. **Importa siempre desde aquí.**
   - **Sesión:** login por API una vez por worker. El JWT se inyecta en `localStorage["token"]`, así que cada página arranca autenticada. Para empezar sin sesión: `test.use({ storageState: { cookies: [], origins: [] } })`.
-  - `api`: lee el estado del backend (`getStock`, `getVideojuego`, `getTransaccionesDeCliente`) para las aserciones y las precondiciones.
-  - `clienteUnico()`: datos de cliente con una cédula única por ejecución.
+  - `api`: lee el estado del backend y **prepara precondiciones sin pasar por la UI**. Lectura: `getVideojuego`, `getStock`, `getTransaccionesDeCliente`, `getTransaccionesPorTipo`, `getAlquileresPorEstado`, `getDevoluciones`, `getTotalDevoluciones`. Escritura: `crearTransaccion`, `crearAlquiler`, `registrarDevolucion`.
+  - `clienteUnico()`: datos de cliente con una cédula única por ejecución. `fechaFutura(dias)`: fecha ISO para `fechaDev` (el backend la valida con `@Future`).
 - `tests/seed.spec.ts`: el punto de partida de los agentes (catálogo autenticado).
-- `specs/`: requisitos y planes en Markdown. Hoy contiene `requisitos-venta.md`, la matriz de requisitos y los criterios de aceptación del flujo de venta.
+- `specs/`: requisitos y planes en Markdown. Un par `requisitos-<flujo>.md` (matriz de requisitos y criterios de aceptación, escrito a mano) + `<flujo>.md` (el plan que genera el planner) por cada flujo: `venta`, `alquiler` y `devoluciones`.
+
+## Suites
+
+| Suite | Videojuego propio | Pruebas | Consumo de stock por corrida |
+|---|---|---|---|
+| `tests/login.spec.ts` | — | 3 | — |
+| `tests/venta/` | `E2E Venta`, `E2E Validaciones`, `E2E Agotado` | 20 | 5 de 100 |
+| `tests/alquiler/` | `E2E Alquiler` | 9 | 5 de 100 |
+| `tests/devoluciones/` | `E2E Devolucion` | 10 | 12 de 100 |
+
+Cada suite usa **su propio videojuego**: las pruebas corren en paralelo y no deben competir por el stock. Las que descuentan stock van en un `describe` con `mode: 'serial'`. Ninguna devolución restituye stock (RN-02 no está implementado), así que conviene reiniciar el backend E2E cada pocas corridas.
 
 ## Flujo con los agentes
 
