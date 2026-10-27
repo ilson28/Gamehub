@@ -77,9 +77,11 @@ const History = () => {
 
             <div className="p-2 sm:p-6 lg:p-8 flex flex-col gap-5 rounded-lg bg-white">
 
-                <div className="flex gap-10 border-b border-gray-200">
+                <div role="tablist" className="flex gap-10 border-b border-gray-200">
 
                     <div
+                        role="tab"
+                        aria-selected={tabActive === "venta"}
                         onClick={e => handleTab("venta")}
                         className={twMerge(clsx(
                             "flex items-center gap-2 pb-2 text-gray-600 cursor-pointer",
@@ -92,6 +94,8 @@ const History = () => {
                         <span>Ventas</span>
                     </div>
                     <div
+                        role="tab"
+                        aria-selected={tabActive === "alquiler"}
                         onClick={e => handleTab("alquiler")}
                         className={twMerge(clsx(
                             "flex items-center gap-2 pb-2 text-gray-600 cursor-pointer",
@@ -133,6 +137,7 @@ const History = () => {
                                 defaultValue={"todos"}
                                 onChange={e => setRentalFilter(e.target.value)}
                                 name="rentFilter"
+                                aria-label="Filtrar alquileres por estado"
                                 className="text-sm sm:text-base p-2 outline-none focus:border-blue-800 rounded-md focus:border-2 border border-gray-300">
                                 <option value="todos">Todos los alquileres</option>
                                 <option value="alquilado">Alquileres Activos</option>
@@ -141,6 +146,7 @@ const History = () => {
                         }
                         <input
                             type="date"
+                            aria-label="Filtrar por fecha"
                             value={date}
                             onChange={e => setDate(e.target.value)}
                             className="text-sm sm:text-base p-2 outline-none focus:border-blue-800 rounded-md focus:border-2 border border-gray-300" />

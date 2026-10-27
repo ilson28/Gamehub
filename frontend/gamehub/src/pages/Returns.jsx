@@ -179,8 +179,9 @@ const Returns = () => {
 
                 <div className="flex flex-col gap-1 md:flex-1">
                     <label htmlFor="cedula">Buscar cliente</label>
-                    <div id="cedula" className="relative text-gray-500">
+                    <div className="relative text-gray-500">
                         <input
+                            id="cedula"
                             value={cliente}
                             onChange={(e) => setCliente(e.target.value)}
                             className="w-full h-full py-3 px-9 rounded-md border border-gray-300 outline-none focus:ring-2 focus:ring-blue-500 transition duration-200"
@@ -249,6 +250,8 @@ const Returns = () => {
                                             <td>{dev.transaccion.fechaTrans}</td>
                                             <td>{dev.fecha}</td>
                                             <td
+                                                role="button"
+                                                aria-label={`Ver detalles de la devolucion de ${dev.transaccion.cliente.cedula}`}
                                                 onClick={() => {
                                                     setTransaccion(dev.transaccion);
                                                     setState('returnDetailsModal', true)
@@ -274,6 +277,7 @@ const Returns = () => {
                             <div className="flex gap-1 ">
                                 <button
                                     disabled={!canScrollLeft}
+                                    aria-label="Pagina anterior"
                                     onClick={scrollLeft}
                                     className="flex items-center justify-center w-11 py-1 rounded-lg border border-gray-300 cursor-pointer 
                                 disabled:opacity-50  disabled:cursor-not-allowed">
@@ -288,6 +292,8 @@ const Returns = () => {
                                         pages.map(num => (
                                             <button
                                                 key={num}
+                                                aria-label={`Ir a la pagina ${num + 1}`}
+                                                aria-current={actualPage === num}
                                                 onClick={() => handleSelectPage(num)}
                                                 className={clsx("flex items-center justify-center min-w-8 py-1 border rounded-lg border-gray-300",
                                                     actualPage === num && "bg-blue-500 text-white font-bold"
@@ -300,6 +306,7 @@ const Returns = () => {
                                 </div>
                                 <button
                                     disabled={!canScrollRight}
+                                    aria-label="Pagina siguiente"
                                     onClick={scrollRight}
                                     className="flex items-center justify-center w-11 py-1 rounded-lg border border-gray-300 cursor-pointer 
                                 disabled:opacity-50  disabled:cursor-not-allowed">
