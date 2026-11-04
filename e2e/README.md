@@ -46,11 +46,11 @@ Si los servidores ya están corriendo en :8090/:5174, Playwright los reutiliza. 
 | Suite | Videojuego propio | Pruebas | Consumo de stock por corrida |
 |---|---|---|---|
 | `tests/login.spec.ts` | — | 3 | — |
-| `tests/venta/` | `E2E Venta`, `E2E Validaciones`, `E2E Agotado` | 20 | 5 de 100 |
+| `tests/venta/` | `E2E Venta`, `E2E Validaciones`, `E2E Agotado` | 19 | 5 de 100 |
 | `tests/alquiler/` | `E2E Alquiler` | 9 | 5 de 100 |
 | `tests/devoluciones/` | `E2E Devolucion` | 10 | 12 de 100 |
 
-Cada suite usa **su propio videojuego**: las pruebas corren en paralelo y no deben competir por el stock. Las que descuentan stock van en un `describe` con `mode: 'serial'`. Ninguna devolución restituye stock (RN-02 no está implementado), así que conviene reiniciar el backend E2E cada pocas corridas.
+Cada suite usa **su propio videojuego**: las pruebas corren en paralelo y no deben competir por el stock. Las que descuentan stock van en un `describe` con `mode: 'serial'`. Las devoluciones restituyen el stock (RN-02), pero las ventas y los alquileres lo consumen, así que conviene reiniciar el backend E2E cada pocas corridas.
 
 ## Flujo con los agentes
 

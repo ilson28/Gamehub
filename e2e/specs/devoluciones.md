@@ -41,7 +41,7 @@ Seed de referencia: `tests/seed.spec.ts` (importa `test`/`expect` de `fixtures/g
 
 | # | Observación | Donde se prueba |
 |---|---|---|
-| D1 | **RN-02 NO implementado (POSIBLE BUG, el README promete lo contrario).** Se alquilaron 2 unidades (stock 100 -> 98), se devolvió el alquiler por la UI y el stock siguió en 98 (verificado por `GET /api/videojuegos`). `RegistroDevolucionServiceImpl.save` solo marca la transacción como `devuelto` y guarda el registro. | 1.4 (`test.fixme`) |
+| D1 | **RESUELTO: RN-02 ya está implementado (`RegistroDevolucionServiceImpl.save` restablece el stock) y la prueba 1.4 ya no es `test.fixme`.** Hallazgo original: RN-02 no estaba implementado (el README prometía lo contrario). Se alquilaron 2 unidades (stock 100 -> 98), se devolvió el alquiler por la UI y el stock siguió en 98 (verificado por `GET /api/videojuegos`). `RegistroDevolucionServiceImpl.save` solo marca la transacción como `devuelto` y guarda el registro. | 1.4 (`test.fixme`) |
 | D2 | `Returns.jsx` muestra siempre **"Mostrando 1-10 de N resultados"**: con 1 resultado filtrado se vio literalmente "Mostrando 1-10 de 1 resultados". El rango es fijo. **POSIBLE BUG.** | 1.6 |
 | D3 | En `/returns` la columna **"Alquiler" muestra `fechaTrans`** (el día en que se hizo el alquiler), no la fecha de devolución programada (`fechaDev`, p. ej. 2026-11-02); "Devolucion" es la fecha real en que se registró (hoy). La fecha programada solo se ve en el detalle del Historial: ni la tabla ni el detalle de `/returns` la muestran. **COMPORTAMIENTO OBSERVADO** (puede inducir a creer que el alquiler no tiene fecha límite). | 1.1, 1.5 |
 | D4 | El estado vacío al filtrar con una cédula inexistente dice **"El registro de devoluciones esta vacio!"** aunque existan devoluciones (solo no hay coincidencias). Además las tarjetas **no** reaccionan al filtro (siguen mostrando los totales globales: se vio 2/2/2 con el filtro sin resultados). **POSIBLE BUG de usabilidad.** | 1.9, 2.1 |
@@ -61,7 +61,7 @@ Seed de referencia: `tests/seed.spec.ts` (importa `test`/`expect` de `fixtures/g
 | RN-11 (queda registrada y se consulta en `/returns`) | 1.1, 1.5, 1.6, 1.9 |
 | RN-12 (solo alquileres no devueltos ofrecen devolución) | 1.2, 1.3, 1.5 |
 | RN-13 (filtros por cédula, fechas y "Clean") | 1.6, 2.1 |
-| RN-02 (el stock se restablece al devolver) | 1.4 (`test.fixme`) |
+| RN-02 (el stock se restablece al devolver) | 1.4 |
 | Criterio Gherkin 1 (devolución exitosa) | 1.1 |
 | Criterio Gherkin 2 (alquiler devuelto no se puede devolver) | 1.2 |
 | Criterio Gherkin 3 (venta no ofrece devolución) | 1.3 |
@@ -138,7 +138,7 @@ Seed de referencia: `tests/seed.spec.ts` (importa `test`/`expect` de `fixtures/g
   4. OPCIONAL (POSIBLE BUG D6, no pasa por la UI; hacerlo al final para no contaminar los pasos anteriores): con `page.request` (cabecera `Authorization: Bearer <localStorage.token>`) enviar `POST ${API_URL}/api/registro-devoluciones` con `{ idTransaccion: venta.id, fecha: <hoy> }`.
     - expect: COMPORTAMIENTO OBSERVADO: el backend responde **201** y la venta pasa a `estado: 'devuelto'` (`api.getTransaccionesDeCliente(cedula)`), aunque RN-12 dice que solo los alquileres se devuelven. Anotar con `test.info().annotations` (tipo 'bug'); si el producto corrige la validación (400/409), actualizar el escenario.
 
-#### 1.4. 1.4 El stock se restablece al devolver (RN-02) [test.fixme]
+#### 1.4. 1.4 El stock se restablece al devolver (RN-02) (antes `test.fixme`, resuelto)
 
 **File:** `tests/devoluciones/devolucion-historial.spec.ts`
 

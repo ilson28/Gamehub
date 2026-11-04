@@ -14,7 +14,7 @@ Ya automatizados: **venta** (`tests/venta/`, 23 pruebas) y **alquiler** (`tests/
 | RN-11 | La devolución queda registrada y se consulta en `/returns` | `Returns.jsx` | ✅ Implementado |
 | RN-12 | Solo los alquileres no devueltos ofrecen "Realizar Devolucion" | `ButtonsModalTransaction.jsx:23` | ✅ La condición es `tipo == "alquiler" && estado !== "devuelto"` |
 | RN-13 | `/returns` permite filtrar por cédula y por rango de fechas | `Returns.jsx` | ✅ Filtros + botón "Clean" |
-| **RN-02** | **Al devolver un alquiler el stock se restablece** | README | ❌ **NO implementado**: `RegistroDevolucionServiceImpl` no referencia `VideoJuegoRepository` ni `updateStock`. **Debe quedar como `test.fixme`, conservando la aserción correcta** |
+| **RN-02** | **Al devolver un alquiler el stock se restablece** | README | ✅ **Implementado** (antes no lo estaba): `RegistroDevolucionServiceImpl.save` suma al stock la cantidad de cada línea con `VideoJuegoRepository.addStock`. La prueba 1.4 ya no es `test.fixme` |
 
 ## 2. Datos de prueba (`backend/GameHub/src/main/resources/e2e-seed.sql`)
 

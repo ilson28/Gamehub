@@ -222,16 +222,8 @@ test.describe('Devolucion desde el Historial', () => {
     expect(transacciones[0]).toMatchObject({ id: venta.id, tipo: 'venta', estado: 'devuelto' });
   });
 
-  // RN-02 no está implementado (D1): devolver un alquiler no restablece el stock, pero la aserción conserva su forma correcta.
-  test.fixme(
+  test(
     'El stock se restablece al devolver (RN-02)',
-    {
-      annotation: {
-        type: 'bug',
-        description:
-          'D1 / RN-02: devolver un alquiler no restablece el stock (README lo promete); RegistroDevolucionServiceImpl.save no toca VideoJuegoRepository.',
-      },
-    },
     async ({ page, api }) => {
       // 1. Referencias y estado inicial: RN-02 (Gherkin 4). Videojuego `E2E Devolucion`; consume 2 unidades.
       const cliente = clienteUnico();
@@ -257,7 +249,7 @@ test.describe('Devolucion desde el Historial', () => {
       expect(devoluciones).toHaveLength(1);
       expect(devoluciones[0].transaccion.estado).toBe('devuelto');
 
-      // 4. Verificar el stock por API (ESTE PASO FALLA HOY: se queda en stockInicial - 2) y en la tarjeta del catálogo.
+      // 4. Verificar el stock por API y en la tarjeta del catálogo.
       await expect.poll(() => api.getStock('E2E Devolucion')).toBe(stockInicial);
       await page.goto('/home');
       const tarjeta = page
