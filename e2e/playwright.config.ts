@@ -10,7 +10,7 @@ export default defineConfig({
   fullyParallel: true,
   // Cada worker abre un Chromium (~250 MB) además del backend, Vite y MySQL: con pocos GB libres el cierre del
   // contexto (que guarda la traza) se vuelve lento y supera el timeout, sobre todo en --ui.
-  workers: 2,
+  workers: 4,
   timeout: 60_000,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
