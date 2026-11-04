@@ -1,8 +1,10 @@
 package com.gameHub.app.service.implementation;
 
 import com.gameHub.app.persistence.entity.RegistroDevolucion;
+import com.gameHub.app.persistence.entity.Transaccion;
 import com.gameHub.app.persistence.repository.RegistroDevolucionRepository;
 import com.gameHub.app.persistence.repository.TransaccionRepository;
+import com.gameHub.app.persistence.repository.VideoJuegoRepository;
 import com.gameHub.app.presentation.dto.RegistroDevolucionDto;
 import com.gameHub.app.presentation.dto.TransaccionResponseDto;
 import com.gameHub.app.service.exception.ResourceNotFoundException;
@@ -28,6 +30,7 @@ public class RegistroDevolucionServiceImpl implements RegistroDevolucionService 
 
     private final RegistroDevolucionRepository registroDevolucionRepository;
     private final TransaccionRepository transaccionRepository;
+    private final VideoJuegoRepository videoJuegoRepository;
 
     @Override
     @Transactional(readOnly = true)
@@ -55,15 +58,20 @@ public class RegistroDevolucionServiceImpl implements RegistroDevolucionService 
     public RegistroDevolucionDto save(RegistroDevolucionDto devolucion) {
         ModelMapper mapper = new ModelMapper();
 
+        Transaccion transaccionEntity = this.transaccionRepository
+                .findById(devolucion.getIdTransaccion())
+                .orElseThrow(() -> new ResourceNotFoundException("Transaccion", "Id",
+                        devolucion.getTransaccion().getId()));
+
         TransaccionResponseDto transaccion = TransaccionMapper.INSTANCE
-                .toTransaccionDtoConJuegos(this.transaccionRepository
-                        .findById(devolucion.getIdTransaccion())
-                        .orElseThrow(() -> new ResourceNotFoundException("Transaccion", "Id",
-                                devolucion.getTransaccion().getId())));
+                .toTransaccionDtoConJuegos(transaccionEntity);
 
         devolucion.setTransaccion(transaccion);
 
         this.transaccionRepository.updateEstadoToDevuelto(devolucion.getTransaccion().getId());
+
+        transaccionEntity.getTransJuegos().forEach(
+                t -> this.videoJuegoRepository.addStock(t.getVideoJuego().getId(), t.getCant()));
 
         RegistroDevolucion devolucion1 = mapper.map(devolucion, RegistroDevolucion.class);
 

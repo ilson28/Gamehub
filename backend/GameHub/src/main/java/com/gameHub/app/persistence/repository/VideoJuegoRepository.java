@@ -24,4 +24,8 @@ public interface VideoJuegoRepository extends JpaRepository<VideoJuego, Integer>
     @Query("UPDATE VideoJuego v SET v.stock = :newStock WHERE v.id = :id")
     int updateStock(int id, int newStock);
 
+    @Modifying
+    @Query("UPDATE VideoJuego v SET v.stock = v.stock + :cantidad WHERE v.id = :id")
+    int addStock(int id, int cantidad);
+
 }
