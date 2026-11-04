@@ -40,6 +40,13 @@ export function fechaFutura(dias = 7): string {
   return d.toISOString().slice(0, 10);
 }
 
+/** Fecha local (la del navegador) dentro de `dias` días, en formato YYYY-MM-DD. `fechaFutura` usa la fecha UTC. */
+export function fechaLocal(dias = 0): string {
+  const d = new Date();
+  d.setDate(d.getDate() + dias);
+  return d.toLocaleDateString('en-CA');
+}
+
 /** Acceso directo a la API para leer estado y preparar precondiciones sin pasar por la UI. */
 export class GameHubApi {
   constructor(private readonly request: APIRequestContext) {}

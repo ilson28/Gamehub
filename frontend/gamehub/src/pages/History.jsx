@@ -55,6 +55,7 @@ const History = () => {
     const handleTab = tab => {
         tab === "venta" ? setTabActive("venta") : setTabActive("alquiler");
         setDate("");
+        setRentalFilter("todos");
     };
 
     const handleSubmit = () => {
@@ -134,7 +135,7 @@ const History = () => {
                             tabActive === "alquiler" &&
                             <select
 
-                                defaultValue={"todos"}
+                                value={rentalFilter}
                                 onChange={e => setRentalFilter(e.target.value)}
                                 name="rentFilter"
                                 aria-label="Filtrar alquileres por estado"

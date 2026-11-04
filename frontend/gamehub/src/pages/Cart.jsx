@@ -14,10 +14,19 @@ import InputRadioCart from "../components/ui/InputRadioCart";
 
 
 
+// El backend exige una fecha de devolucion estrictamente futura (@Future): la minima es manana.
+const getMinReturnDate = () => {
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    return tomorrow.toLocaleDateString("en-CA");
+};
+
 const Cart = () => {
 
     const queryClient = useQueryClient();
     const [date, setDate] = useState(null);
+    const minReturnDate = getMinReturnDate();
+    const isPastReturnDate = Boolean(date) && date < minReturnDate;
     const [showModalResponse, setShowModalResponse] = useState(false);
     const [client, setClient] = useState(null);
     const { setState } = useModalContext();
@@ -44,7 +53,7 @@ const Cart = () => {
     // manejar el submit del formulario de cliente, abrir modal de confirmacion
     const handleSubmit = (data) => {
 
-        if (typeOfTransaction === 'alquiler' && !date) return;
+        if (typeOfTransaction === 'alquiler' && (!date || isPastReturnDate)) return;
         setClient(data);
         setState(true);
 
@@ -149,8 +158,12 @@ const Cart = () => {
                                         onChange={(e) => setDate(e.target.value)}
                                         className="border border-gray-300 rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
                                         type="date"
+                                        min={minReturnDate}
                                         name="fechaDev"
                                         id="fechaDev" />
+                                    {isPastReturnDate &&
+                                        <p role="alert" className="text-red-600 text-sm">La fecha de devolución debe ser posterior a hoy</p>
+                                    }
 
                                 </div>
                             }

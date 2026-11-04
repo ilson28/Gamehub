@@ -1,6 +1,6 @@
 // spec: specs/alquiler.md
 // seed: tests/seed.spec.ts
-import { test, expect, clienteUnico, fechaFutura } from '../../fixtures/gamehub';
+import { test, expect, clienteUnico, fechaFutura, fechaLocal } from '../../fixtures/gamehub';
 
 test.describe('Carrito de alquiler', () => {
   test('El tipo de transaccion determina el precio: Alquiler usa 40000 y Venta 150000', async ({ page }) => {
@@ -49,13 +49,8 @@ test.describe('Carrito de alquiler', () => {
     await expect(campoFecha).toBeVisible();
     await expect(campoFecha).toHaveAttribute('type', 'date');
     await expect(campoFecha).toHaveValue('');
-    // COMPORTAMIENTO OBSERVADO (A1): el campo de fecha no tiene `min`.
-    test.info().annotations.push({
-      type: 'bug',
-      description:
-        'A1 (POSIBLE BUG): el input de fecha de devolución no tiene atributo min (ni max/required): la UI permite elegir fechas pasadas.',
-    });
-    await expect(campoFecha).not.toHaveAttribute('min', /.*/);
+    // A1 corregido: el campo exige una fecha estrictamente futura (mínimo: mañana).
+    await expect(campoFecha).toHaveAttribute('min', fechaLocal(1));
     await expect(resumenVideojuegos).toHaveText(/^Videojuegos\s*1$/);
 
     // 4. Volver a seleccionar el radio `Venta`.

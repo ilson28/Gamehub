@@ -1,6 +1,6 @@
 // spec: specs/alquiler.md
 // seed: tests/seed.spec.ts
-import { test, expect, clienteUnico, fechaFutura } from '../../fixtures/gamehub';
+import { test, expect, clienteUnico, fechaFutura, fechaLocal } from '../../fixtures/gamehub';
 
 test.describe('Alquiler exitoso', () => {
   // Todos estos escenarios leen o mutan el stock de E2E Alquiler: van en serie (Supuesto 2 del plan).
@@ -263,12 +263,11 @@ test.describe('Alquiler exitoso', () => {
   });
 
 
-  test('Una fecha de devolucion pasada es rechazada por el backend', async ({ page, api }) => {
-    // 1. Referencias y estado inicial: RN-08 (A1, A2). Videojuego `E2E Alquiler`; consume 0 unidades (el envío se rechaza).
+  test('Una fecha de devolucion pasada se rechaza en el formulario y no se envia nada', async ({ page, api }) => {
+    // 1. Referencias y estado inicial: RN-08 (A1). Videojuego `E2E Alquiler`; consume 0 unidades (el envío se bloquea en el formulario).
     const cliente = clienteUnico();
     const inicial = await api.getStock('E2E Alquiler');
-    const fechaPasada = fechaFutura(-3);
-    // Registra los intentos de crear una transacción.
+    const fechaPasada = fechaLocal(-3);
     const peticionesTransaccion: string[] = [];
     page.on('request', (peticion) => {
       if (peticion.method() === 'POST' && peticion.url().includes('/api/transacciones')) {
@@ -276,90 +275,59 @@ test.describe('Alquiler exitoso', () => {
       }
     });
 
-    // 2. En `/home` agregar `E2E Alquiler` (cantidad 1) y abrir `Carrito`. Seleccionar `Alquiler`, escribir la fecha pasada y llenar el formulario.
+    // 2. En `/home` agregar `E2E Alquiler` (cantidad 1), abrir `Carrito`, seleccionar `Alquiler`, escribir la fecha y llenar el formulario.
     await page.goto('/home');
     await expect(page.getByRole('heading', { name: 'Gestión de Videojuegos' })).toBeVisible();
     await page.getByRole('button', { name: 'Agregar E2E Alquiler al carrito' }).click();
     await page.getByRole('link', { name: 'Carrito' }).click();
     await expect(page).toHaveURL(/\/cart$/);
     await expect(page.getByRole('heading', { name: 'E2E Alquiler' })).toBeVisible();
-    const resumenTipo = page.locator('p', { hasText: /^Tipo$/ }).locator('..');
     const resumenTotal = page.locator('p', { hasText: /^Total$/ }).locator('..');
     await page.getByRole('radio', { name: 'Alquiler' }).click();
     const campoFecha = page.getByLabel('Fecha de devolución');
     await expect(campoFecha).toBeVisible();
+    // A1 corregido: el campo exige fecha futura (min = mañana) y avisa cuando no se cumple.
+    await expect(campoFecha).toHaveAttribute('min', fechaLocal(1));
     await campoFecha.fill(fechaPasada);
-    // COMPORTAMIENTO OBSERVADO (A1): el campo acepta la fecha pasada; no tiene `min` ni muestra mensaje de validación.
-    test.info().annotations.push({
-      type: 'bug',
-      description:
-        'A1 (POSIBLE BUG): el input de fecha de devolución no tiene min/max/required: la UI permite elegir una fecha pasada; la validación @Future solo existe en el backend.',
-    });
     await expect(campoFecha).toHaveValue(fechaPasada);
-    await expect(campoFecha).toHaveJSProperty('min', '');
-    await expect(campoFecha).not.toHaveAttribute('min', /.*/);
+    const aviso = page.getByRole('alert').filter({ hasText: 'La fecha de devolución debe ser posterior a hoy' });
+    await expect(aviso).toBeVisible();
     await page.getByLabel('Cedula').fill(cliente.cedula);
     await page.getByLabel('Nombre').fill(cliente.nombre);
     await page.getByLabel('Apellidos').fill(cliente.apellido);
     await page.getByLabel('Direccion').fill(cliente.direccion);
     await page.getByLabel('Telefono').fill(cliente.telefono);
-    await expect(page.getByText(/obligatori[oa]|Debe tener|futur/)).toHaveCount(0);
     await expect(resumenTotal).toHaveText(/^Total\s*\$40000$/);
 
-    // 3. Pulsar `Finalizar Transaccion` (el modal se abre) y `Confirmar transaccion` esperando la respuesta del POST.
+    // 3. Pulsar `Finalizar Transaccion`: el modal de confirmación no se abre.
     await page.getByRole('button', { name: 'Finalizar Transaccion' }).click();
-    const confirmar = page.getByRole('button', { name: 'Confirmar transaccion' });
-    await expect(page.getByRole('heading', { name: 'Confirmar Transacción' })).toBeVisible();
-    await expect(page.getByText('cantidad: 1 x 40000', { exact: true })).toBeVisible();
-    const respuestaPost = page.waitForResponse(
-      (r) => r.request().method() === 'POST' && r.url().includes('/api/transacciones'),
-    );
-    await confirmar.click();
-    const respuesta = await respuestaPost;
-    expect(respuesta.status()).toBe(400);
-    const cuerpo = await respuesta.json();
-    expect(cuerpo.message).toBe('Errores de validación');
-    expect(cuerpo.data.fechaDev).toBe('must be a future date');
-
-    // La notificación está siempre en el DOM con opacity-0: se verifica la opacidad del contenedor `fixed`.
-    const notificacion = page
-      .getByRole('heading', { name: 'Error en la transacción' })
-      .locator('xpath=ancestor::div[contains(@class, "fixed")]');
-    await expect(notificacion).toHaveCSS('opacity', '1');
-    await expect(
-      notificacion.getByText('No se pudo procesar la transacción. Por favor verifica los datos e intenta nuevamente.'),
-    ).toBeVisible();
-    // COMPORTAMIENTO OBSERVADO (A2): el mensaje es genérico y no menciona la fecha de devolución aunque el backend lo informa por campo.
-    test.info().annotations.push({
-      type: 'bug',
-      description:
-        'A2 (POSIBLE BUG de usabilidad): ante el 400 la UI solo muestra el mensaje genérico "No se pudo procesar la transacción..."; no indica que la fecha de devolución es el problema.',
-    });
-    await expect(notificacion).not.toContainText(/fecha/i);
-
-    // 4. Verificar el estado tras el error: modal cerrado, stock sin cambios, carrito y formulario conservados, sin alquiler.
-    await expect(confirmar).toBeHidden();
     await expect(page.getByRole('heading', { name: 'Confirmar Transacción' })).toBeHidden();
-    expect(peticionesTransaccion).toHaveLength(1);
+
+    // 4. Verificar el estado: no se envió nada, el stock no cambió y el carrito y el formulario se conservan.
+    expect(peticionesTransaccion).toHaveLength(0);
     await expect.poll(() => api.getStock('E2E Alquiler')).toBe(inicial);
     await expect(page.getByRole('button', { name: 'Eliminar E2E Alquiler del carrito' })).toBeVisible();
-    await expect(resumenTotal).toHaveText(/^Total\s*\$40000$/);
-    await expect(resumenTipo).toHaveText(/^Tipo\s*alquiler$/);
     await expect(page.getByRole('radio', { name: 'Alquiler' })).toBeChecked();
     await expect(campoFecha).toHaveValue(fechaPasada);
     await expect(page.getByLabel('Cedula')).toHaveValue(cliente.cedula);
+    await expect(page.getByLabel('Nombre')).toHaveValue(cliente.nombre);
     const activos = await api.getAlquileresPorEstado('alquilado');
     expect(activos.map((a) => Number(a.cliente?.cedula))).not.toContain(Number(cliente.cedula));
-    await expect(notificacion).toHaveCSS('opacity', '0', { timeout: 10_000 });
+
+    // 5. Corregir la fecha: el aviso desaparece y el modal se abre (NO se confirma, para no consumir stock).
+    await campoFecha.fill(fechaLocal(1));
+    await expect(aviso).toBeHidden();
+    await page.getByRole('button', { name: 'Finalizar Transaccion' }).click();
+    await expect(page.getByRole('heading', { name: 'Confirmar Transacción' })).toBeVisible();
+    expect(peticionesTransaccion).toHaveLength(0);
   });
 
 
-  test('La fecha de devolucion de hoy tambien es rechazada', async ({ page, api }) => {
-    // 1. Referencias y estado inicial: RN-08 (A3). Videojuego `E2E Alquiler`; consume 0 unidades.
-    // Riesgo (Supuesto 5): `fechaFutura(0)` es la fecha UTC; cerca de la medianoche UTC puede diferir de la fecha del servidor.
+  test('La fecha de devolucion de hoy tambien se rechaza en el formulario', async ({ page, api }) => {
+    // 1. Referencias y estado inicial: RN-08 (A3). Videojuego `E2E Alquiler`; consume 0 unidades (el envío se bloquea en el formulario).
     const cliente = clienteUnico();
     const inicial = await api.getStock('E2E Alquiler');
-    const hoy = fechaFutura(0);
+    const hoy = fechaLocal(0);
     const peticionesTransaccion: string[] = [];
     page.on('request', (peticion) => {
       if (peticion.method() === 'POST' && peticion.url().includes('/api/transacciones')) {
@@ -367,7 +335,7 @@ test.describe('Alquiler exitoso', () => {
       }
     });
 
-    // 2. En `/home` agregar `E2E Alquiler` (cantidad 1), abrir `Carrito`, seleccionar `Alquiler`, escribir la fecha de hoy y llenar el formulario. Pulsar `Finalizar Transaccion` y `Confirmar transaccion`.
+    // 2. En `/home` agregar `E2E Alquiler` (cantidad 1), abrir `Carrito`, seleccionar `Alquiler`, escribir la fecha y llenar el formulario.
     await page.goto('/home');
     await expect(page.getByRole('heading', { name: 'Gestión de Videojuegos' })).toBeVisible();
     await page.getByRole('button', { name: 'Agregar E2E Alquiler al carrito' }).click();
@@ -378,54 +346,40 @@ test.describe('Alquiler exitoso', () => {
     await page.getByRole('radio', { name: 'Alquiler' }).click();
     const campoFecha = page.getByLabel('Fecha de devolución');
     await expect(campoFecha).toBeVisible();
+    // A3 corregido: el campo exige fecha futura (min = mañana) y avisa cuando no se cumple.
+    await expect(campoFecha).toHaveAttribute('min', fechaLocal(1));
     await campoFecha.fill(hoy);
     await expect(campoFecha).toHaveValue(hoy);
+    const aviso = page.getByRole('alert').filter({ hasText: 'La fecha de devolución debe ser posterior a hoy' });
+    await expect(aviso).toBeVisible();
     await page.getByLabel('Cedula').fill(cliente.cedula);
     await page.getByLabel('Nombre').fill(cliente.nombre);
     await page.getByLabel('Apellidos').fill(cliente.apellido);
     await page.getByLabel('Direccion').fill(cliente.direccion);
     await page.getByLabel('Telefono').fill(cliente.telefono);
-    await page.getByRole('button', { name: 'Finalizar Transaccion' }).click();
-    // La UI no valida la fecha: el modal se abre.
-    const confirmar = page.getByRole('button', { name: 'Confirmar transaccion' });
-    await expect(page.getByRole('heading', { name: 'Confirmar Transacción' })).toBeVisible();
-    await expect(page.getByText('cantidad: 1 x 40000', { exact: true })).toBeVisible();
-    const respuestaPost = page.waitForResponse(
-      (r) => r.request().method() === 'POST' && r.url().includes('/api/transacciones'),
-    );
-    await confirmar.click();
-    const respuesta = await respuestaPost;
-    expect(respuesta.status()).toBe(400);
-    const cuerpo = await respuesta.json();
-    expect(cuerpo.data.fechaDev).toBe('must be a future date');
-
-    // La notificación está siempre en el DOM con opacity-0: se verifica la opacidad del contenedor `fixed`.
-    const notificacion = page
-      .getByRole('heading', { name: 'Error en la transacción' })
-      .locator('xpath=ancestor::div[contains(@class, "fixed")]');
-    await expect(notificacion).toHaveCSS('opacity', '1');
-    await expect(confirmar).toBeHidden();
-    // COMPORTAMIENTO OBSERVADO (A3): la fecha de hoy se rechaza (@Future es estricto) y la UI no lo advierte.
-    test.info().annotations.push({
-      type: 'bug',
-      description:
-        'A3: un alquiler con devolución el mismo día no es posible (el backend exige fecha estrictamente futura) y la UI no lo avisa.',
-    });
-
-    // 3. Corregir la fecha sin recargar (NO se vuelve a confirmar, para no consumir stock).
-    await campoFecha.fill(fechaFutura(1));
-    await expect(campoFecha).toHaveValue(fechaFutura(1));
-    await expect.poll(() => api.getStock('E2E Alquiler')).toBe(inicial);
-    // El carrito y el formulario se conservan: el usuario podría reintentar sin reescribir sus datos.
-    await expect(page.getByRole('button', { name: 'Eliminar E2E Alquiler del carrito' })).toBeVisible();
     await expect(resumenTotal).toHaveText(/^Total\s*\$40000$/);
+
+    // 3. Pulsar `Finalizar Transaccion`: el modal de confirmación no se abre.
+    await page.getByRole('button', { name: 'Finalizar Transaccion' }).click();
+    await expect(page.getByRole('heading', { name: 'Confirmar Transacción' })).toBeHidden();
+
+    // 4. Verificar el estado: no se envió nada, el stock no cambió y el carrito y el formulario se conservan.
+    expect(peticionesTransaccion).toHaveLength(0);
+    await expect.poll(() => api.getStock('E2E Alquiler')).toBe(inicial);
+    await expect(page.getByRole('button', { name: 'Eliminar E2E Alquiler del carrito' })).toBeVisible();
     await expect(page.getByRole('radio', { name: 'Alquiler' })).toBeChecked();
+    await expect(campoFecha).toHaveValue(hoy);
     await expect(page.getByLabel('Cedula')).toHaveValue(cliente.cedula);
     await expect(page.getByLabel('Nombre')).toHaveValue(cliente.nombre);
-    expect(peticionesTransaccion).toHaveLength(1);
     const activos = await api.getAlquileresPorEstado('alquilado');
     expect(activos.map((a) => Number(a.cliente?.cedula))).not.toContain(Number(cliente.cedula));
-    await expect(notificacion).toHaveCSS('opacity', '0', { timeout: 10_000 });
+
+    // 5. Corregir la fecha: el aviso desaparece y el modal se abre (NO se confirma, para no consumir stock).
+    await campoFecha.fill(fechaLocal(1));
+    await expect(aviso).toBeHidden();
+    await page.getByRole('button', { name: 'Finalizar Transaccion' }).click();
+    await expect(page.getByRole('heading', { name: 'Confirmar Transacción' })).toBeVisible();
+    expect(peticionesTransaccion).toHaveLength(0);
   });
 
 
@@ -544,20 +498,13 @@ test.describe('Alquiler exitoso', () => {
     await expect(page.getByRole('tab', { name: 'Ventas' })).toHaveAttribute('aria-selected', 'true');
     await expect(page.getByLabel('Filtrar alquileres por estado')).toHaveCount(0);
     await page.getByRole('tab', { name: 'Alquileres' }).click();
-    // POSIBLE BUG (A12): el <select> se remonta con defaultValue="todos", pero handleTab (History.jsx) solo
-    // reinicia la fecha, no rentalFilter. El filtro dice "Todos los alquileres" mientras la consulta sigue
-    // usando "devuelto", asi que la fila del cliente no se lista. Lo esperado seria volver a verla.
-    test.info().annotations.push({
-      type: 'bug',
-      description:
-        'A12: al volver a la pestana Alquileres el filtro muestra "Todos los alquileres" pero los datos siguen filtrados por el estado anterior ("devuelto"), porque handleTab no reinicia rentalFilter y el <select> es no controlado (defaultValue). Esperado: la lista deberia mostrar de nuevo todos los alquileres.',
-    });
+    // A12 corregido: handleTab reinicia rentalFilter y el <select> es controlado, así que el filtro visible
+    // ("Todos los alquileres") coincide con la consulta y la fila del cliente vuelve a listarse.
     const filtroTrasVolver = page.getByLabel('Filtrar alquileres por estado');
     await expect(filtroTrasVolver).toHaveValue('todos');
-    // Comportamiento actual: el filtro visible y el aplicado no coinciden.
-    await expect(fila).toHaveCount(0);
+    await expect(fila).toHaveCount(1);
 
-    // Al reelegir explicitamente "Alquileres Activos" la fila vuelve: el estado de React se sincroniza.
+    // Reelegir "Alquileres Activos" sigue funcionando.
     await filtroTrasVolver.selectOption({ label: 'Alquileres Activos' });
     await expect(fila).toHaveCount(1);
 
