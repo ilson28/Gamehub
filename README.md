@@ -9,6 +9,7 @@
 ![JWT](https://img.shields.io/badge/Auth-JWT-red)
 ![Vercel](https://img.shields.io/badge/Frontend-Vercel-black)
 ![Render](https://img.shields.io/badge/Backend-Render-purple)
+![E2E](https://github.com/ilson28/Gamehub/actions/workflows/e2e.yml/badge.svg)
 
 ---
 

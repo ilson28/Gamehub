@@ -52,6 +52,10 @@ Si los servidores ya están corriendo en :8090/:5174, Playwright los reutiliza. 
 
 Cada suite usa **su propio videojuego**: las pruebas corren en paralelo y no deben competir por el stock. Las que descuentan stock van en un `describe` con `mode: 'serial'`. Las devoluciones restituyen el stock (RN-02), pero las ventas y los alquileres lo consumen, así que conviene reiniciar el backend E2E cada pocas corridas.
 
+## Integración continua
+
+`.github/workflows/e2e.yml` corre toda la suite en GitHub Actions en cada push a `main` o `ci-e2e` y en cada PR hacia `main` (≈3 min). Usa un MySQL 8 como servicio, con credenciales y `JWT_SECRET` desechables definidos en el propio workflow, e instala Chromium. El reporte HTML se sube siempre como artefacto `playwright-report`; las trazas y capturas, como `test-results` solo si algo falla. Localmente nada cambia: `npm test` sigue igual.
+
 ## Flujo con los agentes
 
 Abre Claude Code **desde la carpeta `e2e/`**, para que cargue `.claude/agents/` y el servidor MCP de `.mcp.json`. La primera vez, aprueba el servidor `playwright-test`.
