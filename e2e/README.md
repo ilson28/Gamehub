@@ -54,7 +54,7 @@ Cada suite usa **su propio videojuego**: las pruebas corren en paralelo y no deb
 
 ## Integración continua
 
-`.github/workflows/e2e.yml` corre toda la suite en GitHub Actions en cada push a `main` o `ci-e2e` y en cada PR hacia `main` (≈3 min). Usa un MySQL 8 como servicio, con credenciales y `JWT_SECRET` desechables definidos en el propio workflow, e instala Chromium. El reporte HTML se sube siempre como artefacto `playwright-report`; las trazas y capturas, como `test-results` solo si algo falla. Localmente nada cambia: `npm test` sigue igual.
+`.github/workflows/e2e.yml` corre toda la suite en GitHub Actions en cada push a `main` y en cada PR hacia `main` (≈3 min). Usa un MySQL 8 como servicio, con credenciales y `JWT_SECRET` desechables definidos en el propio workflow, e instala Chromium. El reporte HTML se sube siempre como artefacto `playwright-report`; las trazas y capturas, como `test-results` solo si algo falla. Localmente nada cambia: `npm test` sigue igual.
 
 ## Flujo con los agentes
 
