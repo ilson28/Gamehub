@@ -9,7 +9,8 @@ const clientSchema = z.object({
             .regex(/^\d+$/, "Cedula invalida: solo se permiten digitos"),
         z.number()
     ]).transform((val) => Number(val))
-    .refine((val) => val.toString().length >= 7, "Debe tener minimo 7 digitos"),
+    .refine((val) => val.toString().length >= 7, "Debe tener minimo 7 digitos")
+    .refine((val) => val <= 2147483647, "Cedula invalida: el maximo es 2147483647"),
     telefono: z.string().trim().min(1,"El telefono es obligatorio")
     .transform((val) => Number(val))
       .refine((val) => val.toString().length === 10, "Debe tener 10 digitos"),
