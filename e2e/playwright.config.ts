@@ -38,7 +38,8 @@ export default defineConfig({
       },
       timeout: 240_000,
       reuseExistingServer: !process.env.CI,
-      stdout: 'ignore',
+      // En CI se muestra la salida del backend para poder diagnosticar un arranque fallido.
+      stdout: process.env.CI ? 'pipe' : 'ignore',
       stderr: 'pipe',
     },
     {
@@ -46,6 +47,8 @@ export default defineConfig({
       cwd: path.resolve(__dirname, '../frontend/gamehub'),
       url: FRONTEND_URL,
       env: { VITE_API_URL: API_URL },
+      stdout: process.env.CI ? 'pipe' : 'ignore',
+      stderr: 'pipe',
       timeout: 60_000,
       reuseExistingServer: !process.env.CI,
     },
